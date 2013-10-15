@@ -24,7 +24,7 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new ArgumentException("用户名或密码有误！");    
             }
 
-            user.SaveLoginStatus(HttpContext);
+            user.SetLoginStatus(HttpContext);
 
             return Redirect(returnUrl);
         }
