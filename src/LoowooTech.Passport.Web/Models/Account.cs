@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LoowooTech.Passport.Web.Models
 {
-    public class User
+    public class Account
     {
         public string ID { get; set; }
 
@@ -13,9 +13,9 @@ namespace LoowooTech.Passport.Web.Models
 
         public string Password { get; set; }
 
-        public UserGroup Group { get; set; }
+        public Group Group { get; set; }
 
-        public UserRole Role { get; set; }
+        public Role Role { get; set; }
 
         public DateTime CreateTime { get; set; }
 
