@@ -3,21 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LoowooTech.Passport.Web.Models;
 
 namespace LoowooTech.Passport.Web.Controllers
 {
-    [UserAuthorize]
-    public class OAuth2Controller : Controller
+
+    public class OAuth2Controller : ControllerBase
     {
-        public ActionResult Authroize(string client_id, string redirect_url)
+        [UserAuthorize]
+        public ActionResult Authroize([ClientBinder]Client client, string redirect_url)
         {
-            throw new NotImplementedException();
+
+            var uri = new Uri(redirect_url);
+            if (!client.Hosts.Contains(uri.Host))
+            {
+                throw new HttpException(403, "redirect_uri_mismatch");
+            }
+
+            var account = LoginHelper.GetLoginStatus(HttpContext);
+
+            var code = Core.AuthManager.GenerateCode(client, account);
+
+            return Redirect(redirect_url);
+
         }
 
-
-        public ActionResult AccessToken(string client_id, string client_secret, string code)
+        [ActionName("access_token")]
+        public ActionResult AccessToken(string code)
         {
-            throw new NotImplementedException();
+            var authCode = Core.AuthManager.GetClientIdByCode(code);
+            if (authCode == null)
+            {
+                throw new HttpException(401, "access_denied");
+            }
+
+            var accessToken = Core.AuthManager.GetAccessToken(authCode);
+
+            return Json(new
+            {
+                uid = authCode.AccountId,
+                access_token = accessToken,
+            }, JsonRequestBehavior.AllowGet);
         }
 
 

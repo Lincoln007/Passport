@@ -112,6 +112,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientBinder.cs" />
+    <Compile Include="Common\EncryptExtensions.cs" />
     <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -121,10 +123,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\AuthManager.cs" />
+    <Compile Include="Managers\ClientManager.cs" />
     <Compile Include="Managers\Core.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\AuthCode.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Exceptions\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>

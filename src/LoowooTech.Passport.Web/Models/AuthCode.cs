@@ -5,15 +5,12 @@ using System.Web;
 
 namespace LoowooTech.Passport.Web.Models
 {
-    public class Client
+    public class AuthCode
     {
-        public int ID { get; set; }
-
         public string ClientId { get; set; }
 
-        public string ClientSecret { get; set; }
+        public int AccountId { get; set; }
 
-        public string Hosts { get; set; }
-
+        public DateTime CreateTime { get; set; }
     }
 }
