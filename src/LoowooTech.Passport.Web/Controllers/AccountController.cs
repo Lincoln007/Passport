@@ -16,15 +16,15 @@ namespace LoowooTech.Passport.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password, string returnUrl = "/admin")
+        public ActionResult Login(string username, string password, string agentUsername, string returnUrl = "/admin")
         {
-            var user = Core.AccountManager.Get(username, password);
+            var user = Core.AccountManager.GetAccount(username, password, agentUsername);
             if (user == null)
             {
-                throw new ArgumentException("用户名或密码有误！");    
+                throw new ArgumentException("用户名或密码有误！");
             }
 
-            user.SetLoginStatus(HttpContext);
+            user.SaveLogin(HttpContext);
 
             return Redirect(returnUrl);
         }

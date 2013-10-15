@@ -40,6 +40,7 @@ namespace LoowooTech.Passport.Web.Managers
 
         public string GetAccessToken(AuthCode authCode)
         {
+            //get access token from db
             throw new NotImplementedException();
         }
     }

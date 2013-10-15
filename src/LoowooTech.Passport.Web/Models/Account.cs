@@ -13,9 +13,9 @@ namespace LoowooTech.Passport.Web.Models
 
         public string Password { get; set; }
 
-        public Group Group { get; set; }
+        public Account Agent { get; set; }
 
-        public Role Role { get; set; }
+        public IEnumerable<Group> Groups { get; set; }
 
         public DateTime CreateTime { get; set; }
 

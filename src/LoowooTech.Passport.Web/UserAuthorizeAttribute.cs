@@ -9,7 +9,7 @@ namespace LoowooTech.Passport.Web
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var account = LoginHelper.GetLoginStatus(httpContext);
+            var account = LoginHelper.GetCurrentUser(httpContext);
 
             return account != null && account.ID > 0;
         }

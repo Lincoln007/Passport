@@ -8,7 +8,12 @@ namespace LoowooTech.Passport.Web.Managers
 {
     public class AccountManager
     {
-        public Account Get(string username, string password)
+        public Account GetAccount(string username, string password, string agentUsername)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Account GetAgentAccount(string username, string angentUsername)
         {
             throw new NotImplementedException();
         }

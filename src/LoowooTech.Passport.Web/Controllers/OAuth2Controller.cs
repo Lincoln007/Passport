@@ -20,7 +20,7 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new HttpException(403, "redirect_uri_mismatch");
             }
 
-            var account = LoginHelper.GetLoginStatus(HttpContext);
+            var account = LoginHelper.GetCurrentUser(HttpContext);
 
             var code = Core.AuthManager.GenerateCode(client, account);
 
