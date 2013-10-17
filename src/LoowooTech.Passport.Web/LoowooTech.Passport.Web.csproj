@@ -118,8 +118,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserPrincipal.cs" />
-    <Compile Include="IdentityUser.cs" />
+    <Compile Include="AuthenticateModule.cs" />
+    <Compile Include="Common\CurrentUser.cs" />
+    <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Mvc\ClientBinder.cs" />
     <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mvc\UserRoleAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mvc\UserAuthorizeAttribute.cs" />
   </ItemGroup>

@@ -7,14 +7,17 @@ using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web.Controllers
 {
+    [UserRole]
     public class AccountController : ControllerBase
     {
+        [UserRole(Role = Role.Everyone)]
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
+        [UserRole(Role = Role.Everyone)]
         [HttpPost]
         public ActionResult Login(string username, string password, string agentUsername, string returnUrl = "/admin")
         {
@@ -30,6 +33,17 @@ namespace LoowooTech.Passport.Web.Controllers
         }
 
         public ActionResult Logout()
+        {
+            return View();
+        }
+
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+
+        [UserRole(Role = Role.Administrator)]
+        public ActionResult ResetPassword()
         {
             return View();
         }

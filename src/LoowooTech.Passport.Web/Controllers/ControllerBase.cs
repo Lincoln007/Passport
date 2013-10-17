@@ -11,11 +11,11 @@ namespace LoowooTech.Passport.Web.Controllers
     {
         protected static Core Core = new Core();
 
-        protected Account CurrentUser
+        protected CurrentUser CurrentUser
         {
             get
             {
-                return (Account)HttpContext.User;
+                return (CurrentUser)HttpContext.User;
             }
         }
     }

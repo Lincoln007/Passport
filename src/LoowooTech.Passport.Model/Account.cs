@@ -7,6 +7,15 @@ namespace LoowooTech.Passport.Model
 {
     public class Account
     {
+        public Account()
+        {
+            Agent = new Account();
+            Groups = new List<Group>();
+            CreateTime = DateTime.Now;
+            LastLoginTime = CreateTime;
+            Role = Model.Role.Everyone;
+        }
+
         public int ID { get; set; }
 
         public string Username { get; set; }
@@ -26,6 +35,8 @@ namespace LoowooTech.Passport.Model
         public string TrueName { get; set; }
 
         public string ContactNo { get; set; }
+
+        public Role Role { get; set; }
 
         public bool IsAuthenticated
         {

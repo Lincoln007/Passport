@@ -13,13 +13,13 @@ namespace LoowooTech.Passport.Manager
     {
         private static ConcurrentDictionary<string, AuthCode> _codes = new ConcurrentDictionary<string, AuthCode>();
 
-        public string GenerateCode(Client client, Account account)
+        public string GenerateCode(Client client, int accountId)
         {
             var code = Guid.NewGuid().ToString().MD5();
             _codes.TryAdd(code, new AuthCode
             {
                 ClientId = client.ClientId,
-                AccountId = account.ID,
+                AccountId = accountId,
                 CreateTime = DateTime.Now
             });
             return code;

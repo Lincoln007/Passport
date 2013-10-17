@@ -8,7 +8,12 @@ namespace LoowooTech.Passport.Manager
 {
     public class AccountManager
     {
-        public Account GetAccount(string username, string password, string agentUsername)
+        public Account GetAccount(string username, string password, string agentUsername = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Account GetAccount(int accountId)
         {
             throw new NotImplementedException();
         }
@@ -22,5 +27,6 @@ namespace LoowooTech.Passport.Manager
         {
             throw new NotImplementedException();
         }
+
     }
 }

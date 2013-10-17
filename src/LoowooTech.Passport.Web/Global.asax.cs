@@ -16,6 +16,8 @@ namespace LoowooTech.Passport.Web
         {
             AreaRegistration.RegisterAllAreas();
 
+            //Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(AuthenticateModule));
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
