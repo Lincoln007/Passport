@@ -33,10 +33,5 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         {
             return View();
         }
-
-        public ActionResult AccountAgent(int accountId)
-        {
-            return View();
-        }
     }
 }

@@ -12,14 +12,15 @@ namespace LoowooTech.Passport.Web.Controllers
     {
         [UserRole(Role = Role.Everyone)]
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = "/")
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [UserRole(Role = Role.Everyone)]
         [HttpPost]
-        public ActionResult Login(string username, string password, string agentUsername, string returnUrl = "/admin")
+        public ActionResult Login(string username, string password, string agentUsername, string returnUrl = "/")
         {
             var user = Core.AccountManager.GetAccount(username, password, agentUsername);
             if (user == null)
@@ -28,6 +29,11 @@ namespace LoowooTech.Passport.Web.Controllers
             }
 
             HttpContext.UserLogin(user);
+
+            if (user.Role == Role.Administrator && returnUrl == "/")
+            {
+                returnUrl = "/admin";
+            }
 
             return Redirect(returnUrl);
         }
