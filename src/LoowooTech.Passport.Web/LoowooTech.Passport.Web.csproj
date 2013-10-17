@@ -39,10 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -112,8 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientBinder.cs" />
-    <Compile Include="Common\EncryptExtensions.cs" />
+    <Compile Include="Mvc\ClientBinder.cs" />
     <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -123,16 +128,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Managers\AuthManager.cs" />
-    <Compile Include="Managers\ClientManager.cs" />
-    <Compile Include="Managers\Core.cs" />
-    <Compile Include="Managers\AccountManager.cs" />
-    <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\AuthCode.cs" />
-    <Compile Include="Models\Group.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserAuthorizeAttribute.cs" />
+    <Compile Include="Mvc\UserAuthorizeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -150,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Exceptions\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +157,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj">
+      <Project>{9824deb3-7bf9-41ed-b254-78ec4814a068}</Project>
+      <Name>LoowooTech.Passport.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.Passport.Manager\LoowooTech.Passport.Manager.csproj">
+      <Project>{f17ac330-9cd3-48a6-a67c-fe62ba06263b}</Project>
+      <Name>LoowooTech.Passport.Manager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.Passport.Model\LoowooTech.Passport.Model.csproj">
+      <Project>{ffad1617-3c7d-4694-8855-0a99f8abdb73}</Project>
+      <Name>LoowooTech.Passport.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

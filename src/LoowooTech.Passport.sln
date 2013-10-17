@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Web", "LoowooTech.Passport.Web\LoowooTech.Passport.Web.csproj", "{03853CE0-D31E-4B26-940A-C056B229E957}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Dao", "LoowooTech.Passport.Dao\LoowooTech.Passport.Dao.csproj", "{4E896DCD-CC94-40ED-B6DD-143C8367FA5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Model", "LoowooTech.Passport.Model\LoowooTech.Passport.Model.csproj", "{FFAD1617-3C7D-4694-8855-0A99F8ABDB73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Manager", "LoowooTech.Passport.Manager\LoowooTech.Passport.Manager.csproj", "{F17AC330-9CD3-48A6-A67C-FE62BA06263B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Common", "LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj", "{9824DEB3-7BF9-41ED-B254-78EC4814A068}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +21,22 @@ Global
 		{03853CE0-D31E-4B26-940A-C056B229E957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03853CE0-D31E-4B26-940A-C056B229E957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03853CE0-D31E-4B26-940A-C056B229E957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E896DCD-CC94-40ED-B6DD-143C8367FA5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E896DCD-CC94-40ED-B6DD-143C8367FA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E896DCD-CC94-40ED-B6DD-143C8367FA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E896DCD-CC94-40ED-B6DD-143C8367FA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFAD1617-3C7D-4694-8855-0A99F8ABDB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFAD1617-3C7D-4694-8855-0A99F8ABDB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFAD1617-3C7D-4694-8855-0A99F8ABDB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFAD1617-3C7D-4694-8855-0A99F8ABDB73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

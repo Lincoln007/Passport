@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using LoowooTech.Passport.Web.Models;
+using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web.Controllers
 {
@@ -31,7 +31,7 @@ namespace LoowooTech.Passport.Web.Controllers
         [ActionName("access_token")]
         public ActionResult AccessToken(string code)
         {
-            var authCode = Core.AuthManager.GetClientIdByCode(code);
+            var authCode = Core.AuthManager.GetAuthCode(code);
             if (authCode == null)
             {
                 throw new HttpException(401, "access_denied");

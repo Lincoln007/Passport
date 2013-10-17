@@ -3,10 +3,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using LoowooTech.Passport.Web.Models;
+using LoowooTech.Passport.Model;
+using LoowooTech.Passport.Common;
 
 
-namespace LoowooTech.Passport.Web.Managers
+namespace LoowooTech.Passport.Manager
 {
     public class AuthManager
     {
@@ -24,7 +25,7 @@ namespace LoowooTech.Passport.Web.Managers
             return code;
         }
 
-        public AuthCode GetClientIdByCode(string code)
+        public AuthCode GetAuthCode(string code)
         {
             if (!_codes.ContainsKey(code)) return null;
 

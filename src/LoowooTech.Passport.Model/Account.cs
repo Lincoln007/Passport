@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LoowooTech.Passport.Web.Models
+namespace LoowooTech.Passport.Model
 {
     public class Account
     {

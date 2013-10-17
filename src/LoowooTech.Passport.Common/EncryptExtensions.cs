@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Security.Cryptography;
 
-namespace LoowooTech.Passport.Web
+namespace LoowooTech.Passport.Common
 {
     public static class EncryptExtensions
     {
