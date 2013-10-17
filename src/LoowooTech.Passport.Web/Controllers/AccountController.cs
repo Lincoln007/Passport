@@ -27,23 +27,25 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new ArgumentException("用户名或密码有误！");
             }
 
-            user.SaveLogin(HttpContext);
+            HttpContext.UserLogin(user);
 
             return Redirect(returnUrl);
         }
 
-        public ActionResult Logout()
+        public ActionResult Logout(string returnUrl = "/")
         {
-            return View();
+            HttpContext.UserLogout();
+            return Redirect(returnUrl);
         }
 
+        [HttpGet]
         public ActionResult EditPassword()
         {
             return View();
         }
 
-        [UserRole(Role = Role.Administrator)]
-        public ActionResult ResetPassword()
+        [HttpPost]
+        public ActionResult EditPassword(string oldPassword,string newPassword,string rePassword)
         {
             return View();
         }

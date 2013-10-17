@@ -18,5 +18,10 @@ namespace LoowooTech.Passport.Web.Controllers
                 return (CurrentUser)HttpContext.User;
             }
         }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+        }
     }
 }

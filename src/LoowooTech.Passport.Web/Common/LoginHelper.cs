@@ -11,7 +11,7 @@ namespace LoowooTech.Passport.Web
     {
         private static string KEY = "lwt_user";
 
-        public static void SaveLogin(this Account account, HttpContextBase context)
+        public static void UserLogin(this HttpContextBase context, Account account)
         {
             var ticketName = account.ID + "|" + (int)account.Role + "|" + account.Agent.ID + "|" + account.Username;
 
@@ -19,6 +19,14 @@ namespace LoowooTech.Passport.Web
 
             context.Response.Cookies.Set(new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)));
 
+        }
+
+        public static void UserLogout(this HttpContextBase context)
+        {
+            var cookie = context.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+            cookie.Value = null;
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            context.Response.SetCookie(cookie);
         }
 
         public static CurrentUser GetCurrentUser(this HttpContextBase context)

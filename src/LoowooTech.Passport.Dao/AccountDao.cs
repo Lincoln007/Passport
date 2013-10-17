@@ -13,5 +13,26 @@ namespace LoowooTech.Passport.Dao
             throw new NotImplementedException();
         }
 
+        public Account GetAccount(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Account Create(Account account)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Account account)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
