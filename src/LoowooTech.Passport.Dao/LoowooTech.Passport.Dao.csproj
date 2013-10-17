@@ -49,14 +49,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SQL\app_client.sql" />
-    <Content Include="SQL\auth_token.sql" />
-    <Content Include="SQL\user_group_right.sql" />
-    <Content Include="SQL\user_group.sql" />
-    <Content Include="SQL\user_account_group.sql" />
-    <Content Include="SQL\user_account_agent.sql" />
-    <Content Include="SQL\user_account.sql" />
-    <Content Include="SQL\operate_log.sql" />
+    <Content Include="scripts\app_client.sql" />
+    <Content Include="scripts\auth_token.sql" />
+    <Content Include="scripts\user_group_right.sql" />
+    <Content Include="scripts\user_group.sql" />
+    <Content Include="scripts\user_account_group.sql" />
+    <Content Include="scripts\user_account_agent.sql" />
+    <Content Include="scripts\user_account.sql" />
+    <Content Include="scripts\operate_log.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

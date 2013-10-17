@@ -12,5 +12,6 @@ namespace LoowooTech.Passport.Dao
         {
             throw new NotImplementedException();
         }
+
     }
 }

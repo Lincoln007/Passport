@@ -118,6 +118,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserPrincipal.cs" />
+    <Compile Include="IdentityUser.cs" />
     <Compile Include="Mvc\ClientBinder.cs" />
     <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -147,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

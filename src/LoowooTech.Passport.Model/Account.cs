@@ -26,5 +26,10 @@ namespace LoowooTech.Passport.Model
         public string TrueName { get; set; }
 
         public string ContactNo { get; set; }
+
+        public bool IsAuthenticated
+        {
+            get { return ID > 0; }
+        }
     }
 }

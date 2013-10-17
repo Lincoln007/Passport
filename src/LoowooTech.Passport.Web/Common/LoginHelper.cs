@@ -19,7 +19,7 @@ namespace LoowooTech.Passport.Web
         public static Account GetCurrentUser(this HttpContextBase context)
         {
             var obj = context.Session[SESSION_KEY];
-            return obj == null ? null : (Account)obj;
+            return obj == null ? new Account() : (Account)obj;
         }
     }
 }
