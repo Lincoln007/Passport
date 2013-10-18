@@ -19,19 +19,28 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Edit(int accountId)
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Edit(Account account)
         {
             return View();
         }
 
-        public ActionResult Delete(int accountId)
+        public JsonResult Delete(int accountId)
         {
-            return View();
+            Core.AccountManager.Delete(accountId);
+            return Success(null, "账号已被删除！");
         }
 
-        public ActionResult ResetPassword(int accountId)
+        public JsonResult ResetPassword(int accountId)
         {
-            return View();
+            var newPassword = Core.AccountManager.ResetPassword(accountId);
+            return Success(new { password = newPassword });
         }
     }
 }

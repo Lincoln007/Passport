@@ -7,7 +7,7 @@ using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 {
-    public class GroupController : Controller
+    public class GroupController : AdminControllerBase
     {
         public ActionResult List()
         {

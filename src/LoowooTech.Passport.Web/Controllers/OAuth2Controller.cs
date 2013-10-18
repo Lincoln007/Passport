@@ -39,7 +39,7 @@ namespace LoowooTech.Passport.Web.Controllers
 
             return Json(new
             {
-                uid = authCode.AccountId,
+                user = Core.AccountManager.GetAccount(authCode.AccountId),
                 access_token = accessToken,
             }, JsonRequestBehavior.AllowGet);
         }

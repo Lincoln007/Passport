@@ -10,5 +10,10 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
     [UserRole(Role = Role.Administrator)]
     public class AdminControllerBase : LoowooTech.Passport.Web.Controllers.ControllerBase
     {
+        protected JsonResult Success(dynamic data = null, string message = null)
+        {
+            return Json(new { result = true, data, message }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

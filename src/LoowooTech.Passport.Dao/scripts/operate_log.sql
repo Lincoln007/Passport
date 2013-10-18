@@ -3,7 +3,7 @@ create table OPERATE_LOG
 (
   id          NUMBER not null,
   account_id  NUMBER not null,
-  action      VARCHAR2(128) not null,
+  action      VARCHAR2(256) not null,
   create_time DATE not null
 )
 tablespace USERS

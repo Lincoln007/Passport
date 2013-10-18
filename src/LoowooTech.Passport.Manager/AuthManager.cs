@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using LoowooTech.Passport.Model;
 using LoowooTech.Passport.Common;
+using LoowooTech.Passport.Dao;
 
 
 namespace LoowooTech.Passport.Manager
@@ -12,6 +13,7 @@ namespace LoowooTech.Passport.Manager
     public class AuthManager
     {
         private static ConcurrentDictionary<string, AuthCode> _codes = new ConcurrentDictionary<string, AuthCode>();
+        private static ConcurrentDictionary<string, AuthCode> _tokens = new ConcurrentDictionary<string, AuthCode>();
 
         public string GenerateCode(Client client, int accountId)
         {
@@ -20,7 +22,7 @@ namespace LoowooTech.Passport.Manager
             {
                 ClientId = client.ClientId,
                 AccountId = accountId,
-                CreateTime = DateTime.Now
+                CreateTime = DateTime.Now,
             });
             return code;
         }
@@ -41,8 +43,31 @@ namespace LoowooTech.Passport.Manager
 
         public string GetAccessToken(AuthCode authCode)
         {
-            //get access token from db
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(authCode.AccessToken))
+            {
+                return authCode.AccessToken;
+            }
+
+            var dao = new AuthDao();
+            var token = dao.GetAccessToken(authCode.ClientId, authCode.AccountId);
+            authCode.AccessToken = token;
+
+            if (!_tokens.ContainsKey(token))
+            {
+                _tokens.TryAdd(token, authCode);
+            }
+
+            return token;
+        }
+
+        public int GetAccountId(string accessToken)
+        {
+            var code= _tokens[accessToken];
+            if (code == null)
+            {
+                return new AuthDao().GetAccountId(accessToken);
+            }
+            return code.AccountId;
         }
     }
 }

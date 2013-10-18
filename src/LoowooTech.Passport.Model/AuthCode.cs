@@ -11,6 +11,8 @@ namespace LoowooTech.Passport.Model
 
         public int AccountId { get; set; }
 
+        public string AccessToken { get; set; }
+
         public DateTime CreateTime { get; set; }
     }
 }

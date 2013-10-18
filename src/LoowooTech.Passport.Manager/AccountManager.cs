@@ -28,5 +28,15 @@ namespace LoowooTech.Passport.Manager
             throw new NotImplementedException();
         }
 
+
+        public void Delete(int accountId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ResetPassword(int accountId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
