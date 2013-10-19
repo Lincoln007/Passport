@@ -31,7 +31,7 @@ namespace LoowooTech.Passport.Web
 
         public static CurrentUser GetCurrentUser(this HttpContextBase context)
         {
-            var user = new CurrentUser();
+            var user = new CurrentUser(); 
             var cookie = context.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
             if (cookie == null) return user;
 
