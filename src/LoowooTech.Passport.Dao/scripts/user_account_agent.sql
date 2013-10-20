@@ -1,9 +1,9 @@
 ﻿-- Create table
 create table USER_ACCOUNT_AGENT
 (
-  id          NUMBER not null,
-  account_id  NUMBER not null,
-  agent_id    NUMBER not null,
+  id          NUMBER(10) not null,
+  account_id  NUMBER(10) not null,
+  agent_id    NUMBER(10) not null,
   create_time DATE default sysdate not null,
   deleted     NUMBER(1) not null
 )

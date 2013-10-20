@@ -1,9 +1,10 @@
 ﻿-- Create table
 create table USER_ACCOUNT_GROUP
 (
-  id         NUMBER not null,
-  account_id NUMBER,
-  group_id   NUMBER
+  id         NUMBER(10) not null,
+  account_id NUMBER(10) not null,
+  group_id   NUMBER(10) not null,
+  deleted    NUMBER(1) not null
 )
 tablespace USERS
   pctfree 10

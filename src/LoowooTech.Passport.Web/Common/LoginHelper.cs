@@ -9,11 +9,9 @@ namespace LoowooTech.Passport.Web
 {
     public static class LoginHelper
     {
-        private static string KEY = "lwt_user";
-
         public static void UserLogin(this HttpContextBase context, Account account)
         {
-            var ticketName = account.ID + "|" + (int)account.Role + "|" + account.Agent.ID + "|" + account.Username;
+            var ticketName = account.ID + "|" + (int)account.Role + "|" + account.AgentID + "|" + account.Username;
 
             var ticket = new FormsAuthenticationTicket(account.ID.ToString(), false, 30);
 

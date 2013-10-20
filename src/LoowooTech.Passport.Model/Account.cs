@@ -9,8 +9,6 @@ namespace LoowooTech.Passport.Model
     {
         public Account()
         {
-            Agent = new Account();
-            Groups = new List<Group>();
             CreateTime = DateTime.Now;
             LastLoginTime = CreateTime;
             Role = Model.Role.Everyone;
@@ -22,9 +20,7 @@ namespace LoowooTech.Passport.Model
 
         public string Password { get; set; }
 
-        public Account Agent { get; set; }
-
-        public IEnumerable<Group> Groups { get; set; }
+        public int AgentID { get; set; }
 
         public DateTime CreateTime { get; set; }
 
@@ -33,8 +29,6 @@ namespace LoowooTech.Passport.Model
         public string LastLoginIP { get; set; }
 
         public string TrueName { get; set; }
-
-        public string ContactNo { get; set; }
 
         public Role Role { get; set; }
 

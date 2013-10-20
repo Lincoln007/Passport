@@ -1,13 +1,15 @@
 ﻿-- Create table
 create table USER_ACCOUNT
 (
-  id              NUMBER not null,
-  username        VARCHAR2(128) not null,
-  password        VARCHAR2(32) not null,
+  id              NUMBER(10) not null,
+  username        VARCHAR2(128 CHAR) not null,
+  password        VARCHAR2(32 CHAR) not null,
   create_time     DATE default sysdate not null,
   last_login_time DATE not null,
-  last_loing_ip   VARCHAR2(20) not null,
-  deleted         NUMBER(1) default 0 not null
+  last_login_ip   VARCHAR2(20 CHAR) not null,
+  deleted         NUMBER(1) default 0 not null,
+  role            NUMBER(5) not null,
+  truename        VARCHAR2(32 CHAR)
 )
 tablespace USERS
   pctfree 10

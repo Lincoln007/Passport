@@ -1,11 +1,11 @@
 ﻿-- Create table
 create table AUTH_TOKEN
 (
-  id          NUMBER not null,
-  token       VARCHAR2(64) not null,
-  account_id  NUMBER not null,
+  id          NUMBER(10) not null,
+  token       VARCHAR2(64 CHAR) not null,
+  account_id  NUMBER(10) not null,
   create_time DATE default sysdate not null,
-  client_id   VARCHAR2(32) not null
+  client_id   VARCHAR2(32 CHAR) not null
 )
 tablespace USERS
   pctfree 10

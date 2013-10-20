@@ -1,9 +1,9 @@
 ﻿-- Create table
 create table USER_GROUP_RIGHT
 (
-  id       NUMBER not null,
-  group_id NUMBER not null,
-  name     VARCHAR2(128) not null
+  id       NUMBER(10) not null,
+  group_id NUMBER(10) not null,
+  name     VARCHAR2(128 CHAR) not null
 )
 tablespace USERS
   pctfree 10

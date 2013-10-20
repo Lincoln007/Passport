@@ -1,11 +1,12 @@
 ﻿-- Create table
 create table APP_CLIENT
 (
-  id            NUMBER not null,
-  client_id     VARCHAR2(32) not null,
-  client_secret VARCHAR2(32) not null,
+  id            NUMBER(10) not null,
+  client_id     VARCHAR2(32 CHAR) not null,
+  client_secret VARCHAR2(32 CHAR) not null,
   create_time   DATE not null,
-  hosts         VARCHAR2(256) not null
+  hosts         VARCHAR2(256 CHAR) not null,
+  deleted       NUMBER(1) not null
 )
 tablespace USERS
   pctfree 10

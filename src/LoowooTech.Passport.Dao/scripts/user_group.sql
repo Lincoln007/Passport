@@ -1,8 +1,8 @@
 ﻿-- Create table
 create table USER_GROUP
 (
-  id      NUMBER not null,
-  name    VARCHAR2(64) not null,
+  id      NUMBER(10) not null,
+  name    VARCHAR2(64 CHAR) not null,
   deleted NUMBER(1) not null
 )
 tablespace USERS
