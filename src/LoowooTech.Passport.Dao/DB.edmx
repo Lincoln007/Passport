@@ -23,7 +23,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="CLIENT_ID" Type="varchar2" Nullable="false" MaxLength="32" />
           <Property Name="CLIENT_SECRET" Type="varchar2" Nullable="false" MaxLength="32" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -34,7 +34,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="TOKEN" Type="varchar2" Nullable="false" MaxLength="64" />
           <Property Name="ACCOUNT_ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -44,8 +44,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ACCOUNT_ID" Type="number" Nullable="false" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ACCOUNT_ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="ACTION" Type="varchar2" Nullable="false" MaxLength="256" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
         </EntityType>
@@ -53,7 +53,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="USERNAME" Type="varchar2" Nullable="false" MaxLength="128" />
           <Property Name="PASSWORD" Type="varchar2" Nullable="false" MaxLength="32" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -86,7 +86,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="64" />
           <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
         </EntityType>
@@ -94,7 +94,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="GROUP_ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="128" />
         </EntityType>
@@ -132,86 +132,86 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CLIENT_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
-          <Property Name="CLIENT_SECRET" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
-          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
-          <Property Name="HOSTS" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
-          <Property Name="DELETED" Type="Int16" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="CLIENT_ID" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CLIENT_SECRET" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
+          <Property Type="String" Name="HOSTS" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
         </EntityType>
         <EntityType Name="AUTH_TOKEN">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TOKEN" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
-          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
-          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
-          <Property Name="CLIENT_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TOKEN" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ACCOUNT_ID" Nullable="false" />
+          <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
+          <Property Type="String" Name="CLIENT_ID" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="OPERATE_LOG">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ACCOUNT_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="ACTION" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
-          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ACCOUNT_ID" Nullable="false" />
+          <Property Type="String" Name="ACTION" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
         </EntityType>
         <EntityType Name="USER_ACCOUNT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
-          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
-          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
-          <Property Name="LAST_LOGIN_TIME" Type="DateTime" Nullable="false" />
-          <Property Name="LAST_LOGIN_IP" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="DELETED" Type="Int16" Nullable="false" />
-          <Property Name="ROLE" Type="Int16" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="USERNAME" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PASSWORD" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
+          <Property Type="DateTime" Name="LAST_LOGIN_TIME" Nullable="false" />
+          <Property Type="String" Name="LAST_LOGIN_IP" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="Int16" Name="ROLE" Nullable="false" />
           <Property Type="String" Name="TRUENAME" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="USER_ACCOUNT_AGENT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
-          <Property Name="AGENT_ID" Type="Int32" Nullable="false" />
-          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
-          <Property Name="DELETED" Type="Int16" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ACCOUNT_ID" Nullable="false" />
+          <Property Type="Int32" Name="AGENT_ID" Nullable="false" />
+          <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
         </EntityType>
         <EntityType Name="USER_ACCOUNT_GROUP">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
-          <Property Name="GROUP_ID" Type="Int32" Nullable="false" />
-          <Property Name="DELETED" Type="Int16" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ACCOUNT_ID" Nullable="false" />
+          <Property Type="Int32" Name="GROUP_ID" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
         </EntityType>
         <EntityType Name="USER_GROUP">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
-          <Property Name="DELETED" Type="Int16" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
           <NavigationProperty Name="USER_GROUP_RIGHT" Relationship="Model.FK_RIGHT_GROUP_ID" FromRole="USER_GROUP" ToRole="USER_GROUP_RIGHT" />
         </EntityType>
         <EntityType Name="USER_GROUP_RIGHT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GROUP_ID" Type="Int32" Nullable="false" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="GROUP_ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="USER_GROUP" Relationship="Model.FK_RIGHT_GROUP_ID" FromRole="USER_GROUP_RIGHT" ToRole="USER_GROUP" />
         </EntityType>
         <Association Name="FK_RIGHT_GROUP_ID">
-          <End Role="USER_GROUP" Type="Model.USER_GROUP" Multiplicity="1" />
-          <End Role="USER_GROUP_RIGHT" Type="Model.USER_GROUP_RIGHT" Multiplicity="*" />
+          <End Type="Model.USER_GROUP" Role="USER_GROUP" Multiplicity="1" />
+          <End Type="Model.USER_GROUP_RIGHT" Role="USER_GROUP_RIGHT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER_GROUP">
               <PropertyRef Name="ID" />
@@ -230,33 +230,33 @@
           <EntitySetMapping Name="APP_CLIENT">
             <EntityTypeMapping TypeName="Model.APP_CLIENT">
               <MappingFragment StoreEntitySet="APP_CLIENT">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
-                <ScalarProperty Name="CLIENT_SECRET" ColumnName="CLIENT_SECRET" />
-                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
-                <ScalarProperty Name="HOSTS" ColumnName="HOSTS" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="HOSTS" ColumnName="HOSTS" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CLIENT_SECRET" ColumnName="CLIENT_SECRET" />
+                <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AUTH_TOKEN">
             <EntityTypeMapping TypeName="Model.AUTH_TOKEN">
               <MappingFragment StoreEntitySet="AUTH_TOKEN">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TOKEN" ColumnName="TOKEN" />
-                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
-                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
                 <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="TOKEN" ColumnName="TOKEN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OPERATE_LOG">
             <EntityTypeMapping TypeName="Model.OPERATE_LOG">
               <MappingFragment StoreEntitySet="OPERATE_LOG">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
-                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
                 <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -264,53 +264,53 @@
             <EntityTypeMapping TypeName="Model.USER_ACCOUNT">
               <MappingFragment StoreEntitySet="USER_ACCOUNT">
                 <ScalarProperty Name="TRUENAME" ColumnName="TRUENAME" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
-                <ScalarProperty Name="LAST_LOGIN_TIME" ColumnName="LAST_LOGIN_TIME" />
-                <ScalarProperty Name="LAST_LOGIN_IP" ColumnName="LAST_LOGIN_IP" />
-                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
                 <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="LAST_LOGIN_IP" ColumnName="LAST_LOGIN_IP" />
+                <ScalarProperty Name="LAST_LOGIN_TIME" ColumnName="LAST_LOGIN_TIME" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USER_ACCOUNT_AGENT">
             <EntityTypeMapping TypeName="Model.USER_ACCOUNT_AGENT">
               <MappingFragment StoreEntitySet="USER_ACCOUNT_AGENT">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
-                <ScalarProperty Name="AGENT_ID" ColumnName="AGENT_ID" />
-                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="AGENT_ID" ColumnName="AGENT_ID" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USER_ACCOUNT_GROUP">
             <EntityTypeMapping TypeName="Model.USER_ACCOUNT_GROUP">
               <MappingFragment StoreEntitySet="USER_ACCOUNT_GROUP">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
-                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USER_GROUP">
             <EntityTypeMapping TypeName="Model.USER_GROUP">
               <MappingFragment StoreEntitySet="USER_GROUP">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USER_GROUP_RIGHT">
             <EntityTypeMapping TypeName="Model.USER_GROUP_RIGHT">
               <MappingFragment StoreEntitySet="USER_GROUP_RIGHT">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

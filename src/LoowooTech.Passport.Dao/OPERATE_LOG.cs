@@ -14,8 +14,8 @@ namespace LoowooTech.Passport.Dao
     
     public partial class OPERATE_LOG
     {
-        public decimal ID { get; set; }
-        public decimal ACCOUNT_ID { get; set; }
+        public int ID { get; set; }
+        public int ACCOUNT_ID { get; set; }
         public string ACTION { get; set; }
         public System.DateTime CREATE_TIME { get; set; }
     }

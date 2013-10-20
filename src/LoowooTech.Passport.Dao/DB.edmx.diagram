@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d9840b0a76ae435bb1b8d89cf4a45a79" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.APP_CLIENT" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AUTH_TOKEN" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.OPERATE_LOG" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USER_ACCOUNT" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USER_ACCOUNT_AGENT" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USER_ACCOUNT_GROUP" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USER_GROUP" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USER_GROUP_RIGHT" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK_RIGHT_GROUP_ID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.APP_CLIENT" Width="1.5" PointX="6.5758739945366393" PointY="22.7220099525163" />
+        <EntityTypeShape EntityType="Model.AUTH_TOKEN" Width="1.5" PointX="8.6599497798178113" PointY="21.708948816037246" />
+        <EntityTypeShape EntityType="Model.OPERATE_LOG" Width="1.5" PointX="4.9522816859894814" PointY="14.757044024186696" />
+        <EntityTypeShape EntityType="Model.USER_ACCOUNT" Width="1.5" PointX="7.7677286471089948" PointY="20.9980312832622" />
+        <EntityTypeShape EntityType="Model.USER_ACCOUNT_AGENT" Width="1.5" PointX="5.0644225147852779" PointY="13.134060567772975" />
+        <EntityTypeShape EntityType="Model.USER_ACCOUNT_GROUP" Width="1.5" PointX="11.063954198297092" PointY="30.886459722596435" />
+        <EntityTypeShape EntityType="Model.USER_GROUP" Width="1.5" PointX="5.0578560536065407" PointY="26.322622564771503" />
+        <EntityTypeShape EntityType="Model.USER_GROUP_RIGHT" Width="1.5" PointX="5.0068483506361252" PointY="23.833220060837093" />
+        <AssociationConnector Association="Model.FK_RIGHT_GROUP_ID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
