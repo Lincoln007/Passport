@@ -14,7 +14,7 @@ namespace LoowooTech.Passport.Model
             Role = Model.Role.Everyone;
         }
 
-        public int ID { get; set; }
+        public int AccountID { get; set; }
 
         public string Username { get; set; }
 
@@ -32,9 +32,11 @@ namespace LoowooTech.Passport.Model
 
         public Role Role { get; set; }
 
+        public bool Deleted { get; set; }
+
         public bool IsAuthenticated
         {
-            get { return ID > 0; }
+            get { return AccountID > 0; }
         }
     }
 }

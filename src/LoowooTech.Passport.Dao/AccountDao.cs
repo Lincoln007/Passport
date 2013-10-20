@@ -9,39 +9,64 @@ namespace LoowooTech.Passport.Dao
 {
     public class AccountDao : DaoBase
     {
+        private USER_ACCOUNT GetEntity(string username)
+        {
+            return DB.USER_ACCOUNT.FirstOrDefault(a => a.USERNAME.ToLower() == username.ToLower());
+        }
+
+        private Account ConvertEntity(USER_ACCOUNT entity)
+        {
+            return new Account
+            {
+                AccountID = entity.ID,
+                CreateTime = entity.CREATE_TIME,
+                LastLoginIP = entity.LAST_LOGIN_IP,
+                LastLoginTime = entity.LAST_LOGIN_TIME,
+                Role = (Role)entity.ROLE,
+                TrueName = entity.TRUENAME,
+                Username = entity.USERNAME,
+                Password = entity.PASSWORD,
+                Deleted = entity.DELETED == 1
+            };
+        }
+
+        private USER_ACCOUNT ConvertModel(Account model, USER_ACCOUNT entity)
+        {
+            entity.ID = model.AccountID;
+            entity.CREATE_TIME = model.CreateTime;
+            entity.LAST_LOGIN_IP = model.LastLoginIP;
+            entity.LAST_LOGIN_TIME = model.LastLoginTime;
+            entity.ROLE = (short)model.Role;
+            entity.TRUENAME = model.TrueName;
+            entity.USERNAME = model.Username;
+            entity.PASSWORD = model.Password.MD5();
+            entity.DELETED = (short)(model.Deleted ? 1 : 0);
+            return entity;
+        }
+
         public Account GetAccount(string username, string password, string agentUsername)
         {
-            var user = GetAccount(username);
-            if (user == null || user.DELETED == 1)
+            var entity = GetEntity(username);
+            if (entity == null)
             {
                 throw new ArgumentException("用户名不存在！");
             }
-            if (user.PASSWORD.ToLower() != password.MD5())
+            if (entity.PASSWORD.ToLower() != password.MD5())
             {
                 throw new ArgumentException("密码不正确！");
             }
 
-            var account = new Account
-            {
-                ID = (int)user.ID,
-                CreateTime = user.CREATE_TIME,
-                LastLoginIP = user.LAST_LOGIN_IP,
-                LastLoginTime = user.LAST_LOGIN_TIME,
-                Role = (Role)user.ROLE,
-                TrueName = user.TRUENAME,
-                Username = user.USERNAME,
-                Password = user.PASSWORD,
-            };
+            var account = ConvertEntity(entity);
 
             if (!string.IsNullOrEmpty(agentUsername))
             {
-                var agent = GetAccount(agentUsername);
-                if (agent == null || agent.DELETED == 1)
+                var agent = GetEntity(agentUsername);
+                if (agent == null)
                 {
                     throw new ArgumentException("代理的用户名不存在！");
                 }
 
-                if (!DB.USER_ACCOUNT_AGENT.Any(a => a.ACCOUNT_ID == user.ID && a.AGENT_ID == agent.ID))
+                if (!DB.USER_ACCOUNT_AGENT.Any(a => a.ACCOUNT_ID == entity.ID && a.AGENT_ID == agent.ID))
                 {
                     throw new ArgumentException("你没有被授权代理这个用户！");
                 }
@@ -52,29 +77,34 @@ namespace LoowooTech.Passport.Dao
             return account;
         }
 
-        private USER_ACCOUNT GetAccount(string username)
-        {
-            return DB.USER_ACCOUNT.FirstOrDefault(a => a.USERNAME.ToLower() == username.ToLower());
-        }
-
         public Account GetAccount(int accountId)
         {
-            throw new NotImplementedException();
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == accountId);
+            return ConvertEntity(entity);
         }
 
-        public Account Create(Account account)
+        public void Create(Account account)
         {
-            throw new NotImplementedException();
+            var entity = new USER_ACCOUNT();
+            DB.USER_ACCOUNT.Add(ConvertModel(account, entity));
+            DB.SaveChanges();
         }
 
         public void Delete(int accountId)
         {
-            throw new NotImplementedException();
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == accountId);
+            if (entity != null && entity.DELETED == 0)
+            {
+                entity.DELETED = (short)1;
+                DB.SaveChanges();
+            }
         }
 
         public void Update(Account account)
         {
-            throw new NotImplementedException();
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == account.AccountID);
+            ConvertModel(account, entity);
+            DB.SaveChanges();
         }
 
 
