@@ -18,7 +18,7 @@ namespace LoowooTech.Passport.Dao
         {
             return new Account
             {
-                AccountID = entity.ID,
+                //AccountID = entity.ID,
                 CreateTime = entity.CREATE_TIME,
                 LastLoginIP = entity.LAST_LOGIN_IP,
                 LastLoginTime = entity.LAST_LOGIN_TIME,
@@ -83,11 +83,13 @@ namespace LoowooTech.Passport.Dao
             return ConvertEntity(entity);
         }
 
-        public void Create(Account account)
+        public Account Create(Account account)
         {
             var entity = new USER_ACCOUNT();
             DB.USER_ACCOUNT.Add(ConvertModel(account, entity));
             DB.SaveChanges();
+            account.AccountID = entity.ID;
+            return account;
         }
 
         public void Delete(int accountId)

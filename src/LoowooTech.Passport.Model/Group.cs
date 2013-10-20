@@ -7,7 +7,7 @@ namespace LoowooTech.Passport.Model
 {
     public class Group
     {
-        public int ID { get; set; }
+        public int GroupID { get; set; }
 
         public string Name { get; set; }
 

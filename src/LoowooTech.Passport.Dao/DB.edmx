@@ -23,7 +23,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
           <Property Name="CLIENT_ID" Type="varchar2" Nullable="false" MaxLength="32" />
           <Property Name="CLIENT_SECRET" Type="varchar2" Nullable="false" MaxLength="32" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -34,7 +34,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
           <Property Name="TOKEN" Type="varchar2" Nullable="false" MaxLength="64" />
           <Property Name="ACCOUNT_ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -44,7 +44,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" />
+          <Property Name="ID" Type="number" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ACCOUNT_ID" Type="number" Nullable="false" />
           <Property Name="ACTION" Type="varchar2" Nullable="false" MaxLength="256" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -53,7 +53,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
           <Property Name="USERNAME" Type="varchar2" Nullable="false" MaxLength="128" />
           <Property Name="PASSWORD" Type="varchar2" Nullable="false" MaxLength="32" />
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
@@ -86,7 +86,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="64" />
           <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
         </EntityType>
@@ -94,7 +94,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ID" Type="number" Nullable="false" Precision="10" StoreGeneratedPattern="Identity" />
           <Property Name="GROUP_ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="128" />
         </EntityType>
@@ -132,7 +132,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CLIENT_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="CLIENT_SECRET" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
@@ -143,7 +143,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TOKEN" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
           <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
@@ -153,7 +153,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ACCOUNT_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="ACTION" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
@@ -162,7 +162,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
           <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" />
@@ -195,7 +195,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
           <Property Name="DELETED" Type="Int16" Nullable="false" />
           <NavigationProperty Name="USER_GROUP_RIGHT" Relationship="Model.FK_RIGHT_GROUP_ID" FromRole="USER_GROUP" ToRole="USER_GROUP_RIGHT" />
@@ -204,7 +204,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GROUP_ID" Type="Int32" Nullable="false" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="USER_GROUP" Relationship="Model.FK_RIGHT_GROUP_ID" FromRole="USER_GROUP_RIGHT" ToRole="USER_GROUP" />
