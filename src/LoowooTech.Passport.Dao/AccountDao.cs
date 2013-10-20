@@ -47,7 +47,7 @@ namespace LoowooTech.Passport.Dao
         public Account GetAccount(string username, string password, string agentUsername)
         {
             var entity = GetEntity(username);
-            if (entity == null)
+            if (entity == null || entity.DELETED == 1)
             {
                 throw new ArgumentException("用户名不存在！");
             }
@@ -61,7 +61,7 @@ namespace LoowooTech.Passport.Dao
             if (!string.IsNullOrEmpty(agentUsername))
             {
                 var agent = GetEntity(agentUsername);
-                if (agent == null)
+                if (agent == null || agent.DELETED == 1)
                 {
                     throw new ArgumentException("代理的用户名不存在！");
                 }
