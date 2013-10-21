@@ -93,10 +93,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj">
-      <Project>{9824deb3-7bf9-41ed-b254-78ec4814a068}</Project>
-      <Name>LoowooTech.Passport.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Passport.Model\LoowooTech.Passport.Model.csproj">
       <Project>{ffad1617-3c7d-4694-8855-0a99f8abdb73}</Project>
       <Name>LoowooTech.Passport.Model</Name>

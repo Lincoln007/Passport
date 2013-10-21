@@ -10,8 +10,10 @@ using LoowooTech.Passport.Dao;
 
 namespace LoowooTech.Passport.Manager
 {
-    public class AuthManager
+    public class AuthManager : ManagerBase
     {
+        public AuthManager(Core core) : base(core) { }
+
         private static ConcurrentDictionary<string, AuthCode> _codes = new ConcurrentDictionary<string, AuthCode>();
         private static ConcurrentDictionary<string, AuthCode> _tokens = new ConcurrentDictionary<string, AuthCode>();
 
@@ -62,7 +64,7 @@ namespace LoowooTech.Passport.Manager
 
         public int GetAccountId(string accessToken)
         {
-            var code= _tokens[accessToken];
+            var code = _tokens[accessToken];
             if (code == null)
             {
                 return new AuthDao().GetAccountId(accessToken);

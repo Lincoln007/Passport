@@ -43,6 +43,7 @@
     <Compile Include="AuthManager.cs" />
     <Compile Include="ClientManager.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="ManagerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

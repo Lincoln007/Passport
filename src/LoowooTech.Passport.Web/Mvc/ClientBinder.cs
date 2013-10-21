@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LoowooTech.Passport.Manager;
 
 namespace LoowooTech.Passport.Web
 {
@@ -22,8 +23,8 @@ namespace LoowooTech.Passport.Web
                 {
                     throw new HttpException(403, "invalid_client");
                 }
-                var core = new Core();
-                var client = core.ClientManager.GetClient(client_id);
+
+                var client = Core.Instance.ClientManager.GetClient(client_id);
                 if (client == null)
                 {
                     throw new HttpException(403, "invalid_client");

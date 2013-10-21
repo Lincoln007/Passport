@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using LoowooTech.Passport.Common;
 
 namespace LoowooTech.Passport.Model
 {
@@ -16,9 +17,31 @@ namespace LoowooTech.Passport.Model
 
         public int AccountID { get; set; }
 
-        public string Username { get; set; }
+        private string _username;
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                if (value != null)
+                    _username = value.ToLower();
+            }
+        }
 
         public string Password { get; set; }
+
+        public string EncyptedPassword()
+        {
+            return EncyptPassword(Password);
+        }
+
+        public static string EncyptPassword(string password)
+        {
+            return password.SHA1().MD5();
+        }
 
         public int AgentID { get; set; }
 

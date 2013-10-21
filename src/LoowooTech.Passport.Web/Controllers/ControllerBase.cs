@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LoowooTech.Passport.Manager;
 using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web.Controllers
 {
     public class ControllerBase : AsyncController
     {
-        protected static Core Core = new Core();
+        protected Core Core = Core.Instance;
 
         protected CurrentUser CurrentUser
         {

@@ -15,5 +15,12 @@ namespace LoowooTech.Passport.Common
             var data = _md5Hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(str));
             return System.Text.Encoding.UTF8.GetString(data);
         }
+
+        private static System.Security.Cryptography.SHA1 _sha1 = System.Security.Cryptography.SHA1.Create();
+        public static string SHA1(this string str)
+        {
+            var data = _sha1.ComputeHash(System.Text.Encoding.UTF8.GetBytes(str));
+            return System.Text.Encoding.UTF8.GetString(data);
+        }
     }
 }
