@@ -2,34 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Dao
 {
     public class GroupDao : DaoBase
     {
-        public IEnumerable<USER_GROUP> GetGroups(int accountId)
+        public IEnumerable<Group> GetGroups(int accountId)
         {
             var groupIds = DB.USER_ACCOUNT_GROUP.Where(a => a.ACCOUNT_ID == accountId).Select(ag => ag.GROUP_ID).ToArray();
-            return DB.USER_GROUP.Where(g => groupIds.Contains(g.ID));
+            return DB.USER_GROUP.Where(g => groupIds.Contains(g.ID)).Select(g => new Group
+            {
+                GroupID = g.ID,
+                Name = g.NAME,
+                Rights = DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == g.ID).Select(e => e.NAME)
+            }); ;
         }
 
-        public IEnumerable<string> GetGroupRights(int groupId)
-        {
-            return DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == groupId).Select(e => e.NAME);
-        }
 
-        public void Create(USER_GROUP entity)
+        public void Create(Group group)
         {
+            var entity = new USER_GROUP
+            {
+                NAME = group.Name,
+                DELETED = 0,
+            };
             DB.USER_GROUP.Add(entity);
             DB.SaveChanges();
-        }
 
-        public void CreateGroupRights(IEnumerable<USER_GROUP_RIGHT> entities)
-        {
-            foreach (var entity in entities)
+            foreach (var right in group.Rights)
             {
-                DB.USER_GROUP_RIGHT.Add(entity);
+                DB.USER_GROUP_RIGHT.Add(new USER_GROUP_RIGHT
+                {
+                    NAME = right,
+                    GROUP_ID = entity.ID,
+                });
             }
+
             DB.SaveChanges();
         }
 
@@ -45,17 +54,35 @@ namespace LoowooTech.Passport.Dao
             DB.SaveChanges();
         }
 
-        public void Update(USER_GROUP entity)
+        public void Update(Group group)
         {
-            var updateEntity = DB.USER_GROUP.FirstOrDefault(e => e.ID == entity.ID);
-            if (updateEntity == null)
+            var entity = DB.USER_GROUP.FirstOrDefault(e => e.ID == group.GroupID);
+            if (entity == null)
             {
                 throw new ArgumentException("更新失败，没找到这个组！");
             }
+            entity.NAME = group.Name;
+            entity.DELETED = (short)(group.Deleted ? 1 : 0);
 
-            updateEntity.NAME = entity.NAME;
+            var rights = DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == group.GroupID);
 
+            foreach (var item in rights)
+            {
+                DB.USER_GROUP_RIGHT.Remove(item);
+            }
+
+            foreach (var right in group.Rights)
+            {
+                DB.USER_GROUP_RIGHT.Add(new USER_GROUP_RIGHT
+                {
+                    NAME = right,
+                    GROUP_ID = entity.ID,
+                });
+            }
+            
             DB.SaveChanges();
+
+
         }
 
         public void Delete(int groupId)

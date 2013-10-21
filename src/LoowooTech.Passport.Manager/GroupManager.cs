@@ -15,40 +15,22 @@ namespace LoowooTech.Passport.Manager
 
         public IEnumerable<Group> GetGroups(int accountId)
         {
-            return Dao.GetGroups(accountId).Select(g => new Group
-            {
-                Name = g.NAME,
-                Rights = Dao.GetGroupRights(g.ID)
-            });
+            return Dao.GetGroups(accountId);
         }
 
         public void Create(Group group)
         {
-            var entity = new USER_GROUP();
-            entity.NAME = group.Name;
-            Dao.Create(entity);
-
-            group.GroupID = entity.ID;
-
-            var rightEntities = ConvertModelRights(group);
-
-            Dao.CreateGroupRights(rightEntities);
-        }
-
-        private IEnumerable<USER_GROUP_RIGHT> ConvertModelRights(Group group)
-        {
-            return group.Rights.Select(name => new USER_GROUP_RIGHT
-            {
-                GROUP_ID = group.GroupID,
-                NAME = name
-            });
+            Dao.Create(group);
         }
 
         public void Update(Group group)
         {
-            Dao.DeleteGroupRights(group.GroupID);
-            Dao.CreateGroupRights(ConvertModelRights(group));
-            Dao.Update(new USER_GROUP { });
+            Dao.Update(group);
+        }
+
+        public void Delete(int groupId)
+        {
+            Dao.Delete(groupId);
         }
     }
 }

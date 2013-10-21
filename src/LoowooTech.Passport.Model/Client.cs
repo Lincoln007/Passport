@@ -15,5 +15,8 @@ namespace LoowooTech.Passport.Model
 
         public string Hosts { get; set; }
 
+        public DateTime CreateTime { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

@@ -14,5 +14,7 @@ namespace LoowooTech.Passport.Model
         public DateTime CreateTime { get; set; }
 
         public int AccountId { get; set; }
+
+        public string ClientId { get; set; }
     }
 }
