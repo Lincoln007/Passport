@@ -37,7 +37,7 @@ namespace LoowooTech.Passport.Manager
             entity.ROLE = (short)model.Role;
             entity.TRUENAME = model.TrueName;
             entity.USERNAME = model.Username;
-            entity.PASSWORD = model.EncyptedPassword();
+            entity.PASSWORD = model.EncyptedPassword;
             entity.DELETED = (short)(model.Deleted ? 1 : 0);
             return entity;
         }

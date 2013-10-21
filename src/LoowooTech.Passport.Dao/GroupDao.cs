@@ -1,5 +1,4 @@
-﻿using LoowooTech.Passport.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,56 +7,53 @@ namespace LoowooTech.Passport.Dao
 {
     public class GroupDao : DaoBase
     {
-        public IEnumerable<Group> GetGroups(int accountId)
+        public IEnumerable<USER_GROUP> GetGroups(int accountId)
         {
             var groupIds = DB.USER_ACCOUNT_GROUP.Where(a => a.ACCOUNT_ID == accountId).Select(ag => ag.GROUP_ID).ToArray();
-            return DB.USER_GROUP
-                .Where(g => groupIds.Contains(g.ID))
-                .Select(g => new Group
-                {
-                    GroupID = g.ID,
-                    Name = g.NAME,
-                    Rights = g.USER_GROUP_RIGHT.Select(r => r.NAME)
-                });
+            return DB.USER_GROUP.Where(g => groupIds.Contains(g.ID));
         }
 
-        public Group Create(Group group)
+        public IEnumerable<string> GetGroupRights(int groupId)
         {
-            var entity = new USER_GROUP
-            {
-                NAME = group.Name,
-                USER_GROUP_RIGHT = group.Rights.Select(rightName => new USER_GROUP_RIGHT
-                {
-                    NAME = rightName
-                }).ToArray()
-            };
+            return DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == groupId).Select(e => e.NAME);
+        }
 
+        public void Create(USER_GROUP entity)
+        {
             DB.USER_GROUP.Add(entity);
             DB.SaveChanges();
-            group.GroupID = entity.ID;
-            return group;
         }
 
-        public void Update(Group group)
+        public void CreateGroupRights(IEnumerable<USER_GROUP_RIGHT> entities)
         {
-            var entity = DB.USER_GROUP.FirstOrDefault(e => e.ID == group.GroupID);
-            if (entity == null)
+            foreach (var entity in entities)
             {
-                throw new ArgumentException("更新失败，没找到这个组！");
+                DB.USER_GROUP_RIGHT.Add(entity);
             }
-            entity.NAME = group.Name;
+            DB.SaveChanges();
+        }
 
-            var rights = DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == group.GroupID);
+        public void DeleteGroupRights(int groupId)
+        {
+            var rights = DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == groupId);
 
             foreach (var item in rights)
             {
                 DB.USER_GROUP_RIGHT.Remove(item);
             }
 
-            foreach (var name in group.Rights)
+            DB.SaveChanges();
+        }
+
+        public void Update(USER_GROUP entity)
+        {
+            var updateEntity = DB.USER_GROUP.FirstOrDefault(e => e.ID == entity.ID);
+            if (updateEntity == null)
             {
-                DB.USER_GROUP_RIGHT.Add(new USER_GROUP_RIGHT { NAME = name });
+                throw new ArgumentException("更新失败，没找到这个组！");
             }
+
+            updateEntity.NAME = entity.NAME;
 
             DB.SaveChanges();
         }

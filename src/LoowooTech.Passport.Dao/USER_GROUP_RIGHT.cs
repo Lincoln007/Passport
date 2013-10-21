@@ -17,7 +17,5 @@ namespace LoowooTech.Passport.Dao
         public int ID { get; set; }
         public int GROUP_ID { get; set; }
         public string NAME { get; set; }
-    
-        public virtual USER_GROUP USER_GROUP { get; set; }
     }
 }

@@ -93,12 +93,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoowooTech.Passport.Model\LoowooTech.Passport.Model.csproj">
-      <Project>{ffad1617-3c7d-4694-8855-0a99f8abdb73}</Project>
-      <Name>LoowooTech.Passport.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="scripts\app_client.sql" />
     <Content Include="scripts\auth_token.sql" />
     <Content Include="scripts\user_group_right.sql" />

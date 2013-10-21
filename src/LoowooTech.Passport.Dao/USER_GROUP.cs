@@ -14,15 +14,8 @@ namespace LoowooTech.Passport.Dao
     
     public partial class USER_GROUP
     {
-        public USER_GROUP()
-        {
-            this.USER_GROUP_RIGHT = new HashSet<USER_GROUP_RIGHT>();
-        }
-    
         public int ID { get; set; }
         public string NAME { get; set; }
         public short DELETED { get; set; }
-    
-        public virtual ICollection<USER_GROUP_RIGHT> USER_GROUP_RIGHT { get; set; }
     }
 }

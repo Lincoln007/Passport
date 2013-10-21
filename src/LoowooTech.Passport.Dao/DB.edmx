@@ -14,10 +14,6 @@
           <EntitySet Name="USER_ACCOUNT_GROUP" EntityType="Model.Store.USER_ACCOUNT_GROUP" store:Type="Tables" Schema="LOOWOOTECH" />
           <EntitySet Name="USER_GROUP" EntityType="Model.Store.USER_GROUP" store:Type="Tables" Schema="LOOWOOTECH" />
           <EntitySet Name="USER_GROUP_RIGHT" EntityType="Model.Store.USER_GROUP_RIGHT" store:Type="Tables" Schema="LOOWOOTECH" />
-          <AssociationSet Name="FK_RIGHT_GROUP_ID" Association="Model.Store.FK_RIGHT_GROUP_ID">
-            <End Role="USER_GROUP" EntitySet="USER_GROUP" />
-            <End Role="USER_GROUP_RIGHT" EntitySet="USER_GROUP_RIGHT" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="APP_CLIENT">
           <Key>
@@ -98,18 +94,6 @@
           <Property Name="GROUP_ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="128" />
         </EntityType>
-        <Association Name="FK_RIGHT_GROUP_ID">
-          <End Role="USER_GROUP" Type="Model.Store.USER_GROUP" Multiplicity="1" />
-          <End Role="USER_GROUP_RIGHT" Type="Model.Store.USER_GROUP_RIGHT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USER_GROUP">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="USER_GROUP_RIGHT">
-              <PropertyRef Name="GROUP_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -123,11 +107,7 @@
           <EntitySet Name="USER_ACCOUNT_GROUP" EntityType="Model.USER_ACCOUNT_GROUP" />
           <EntitySet Name="USER_GROUP" EntityType="Model.USER_GROUP" />
           <EntitySet Name="USER_GROUP_RIGHT" EntityType="Model.USER_GROUP_RIGHT" />
-          <AssociationSet Name="FK_RIGHT_GROUP_ID" Association="Model.FK_RIGHT_GROUP_ID">
-            <End Role="USER_GROUP" EntitySet="USER_GROUP" />
-            <End Role="USER_GROUP_RIGHT" EntitySet="USER_GROUP_RIGHT" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="APP_CLIENT">
           <Key>
             <PropertyRef Name="ID" />
@@ -198,7 +178,6 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="NAME" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="DELETED" Nullable="false" />
-          <NavigationProperty Name="USER_GROUP_RIGHT" Relationship="Model.FK_RIGHT_GROUP_ID" FromRole="USER_GROUP" ToRole="USER_GROUP_RIGHT" />
         </EntityType>
         <EntityType Name="USER_GROUP_RIGHT">
           <Key>
@@ -207,21 +186,8 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Int32" Name="GROUP_ID" Nullable="false" />
           <Property Type="String" Name="NAME" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="USER_GROUP" Relationship="Model.FK_RIGHT_GROUP_ID" FromRole="USER_GROUP_RIGHT" ToRole="USER_GROUP" />
         </EntityType>
-        <Association Name="FK_RIGHT_GROUP_ID">
-          <End Type="Model.USER_GROUP" Role="USER_GROUP" Multiplicity="1" />
-          <End Type="Model.USER_GROUP_RIGHT" Role="USER_GROUP_RIGHT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USER_GROUP">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="USER_GROUP_RIGHT">
-              <PropertyRef Name="GROUP_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -314,7 +280,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -23,6 +23,17 @@ namespace LoowooTech.Passport.Manager
             }
         }
 
+        private GroupManager _groupManager;
+        public GroupManager GroupManager
+        {
+            get
+            {
+                if (_groupManager == null) _groupManager = new GroupManager(this);
+
+                return _groupManager;
+            }
+        }
+
         private ClientManager _clientManager;
         public ClientManager ClientManager
         {

@@ -33,9 +33,9 @@ namespace LoowooTech.Passport.Model
 
         public string Password { get; set; }
 
-        public string EncyptedPassword()
+        public string EncyptedPassword
         {
-            return EncyptPassword(Password);
+            get { return EncyptPassword(Password); }
         }
 
         public static string EncyptPassword(string password)
