@@ -16,7 +16,7 @@ namespace LoowooTech.Passport.Model
             LastLoginIP = string.Empty;
         }
 
-        public long AccountID { get; set; }
+        public int AccountID { get; set; }
 
         private string _username;
         public string Username
@@ -44,7 +44,7 @@ namespace LoowooTech.Passport.Model
             return (password + createTime.Ticks).SHA1().MD5();
         }
 
-        public long AgentID { get; set; }
+        public int AgentID { get; set; }
 
         public DateTime CreateTime { get; set; }
 

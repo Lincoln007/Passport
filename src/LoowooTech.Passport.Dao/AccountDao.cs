@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LoowooTech.Passport.Model;
-using Dapper;
-using System.Dynamic;
 
 namespace LoowooTech.Passport.Dao
 {
     public class AccountDao : DaoBase
     {
-        private Account ConvertData(dynamic entity)
+        private Account ConvertEntity(USER_ACCOUNT entity)
         {
             if (entity == null) return null;
             return new Account
@@ -27,114 +25,69 @@ namespace LoowooTech.Passport.Dao
             };
         }
 
+        private USER_ACCOUNT ConvertModel(Account model, USER_ACCOUNT entity = null)
+        {
+            if (entity == null) entity = new USER_ACCOUNT();
+            entity.ID = model.AccountID;
+            entity.CREATE_TIME = model.CreateTime;
+            entity.LAST_LOGIN_IP = model.LastLoginIP;
+            entity.LAST_LOGIN_TIME = model.LastLoginTime;
+            entity.ROLE = (short)model.Role;
+            entity.TRUENAME = model.TrueName;
+            entity.USERNAME = model.Username;
+            entity.PASSWORD = model.EncyptedPassword;
+            entity.DELETED = (short)(model.Deleted ? 1 : 0);
+            return entity;
+        }
+
         public Account GetAccount(string username)
         {
-            using (var conn = GetConnection())
-            {
-                var data = conn.Query("SELECT * FROM USER_ACCOUNT WHERE USERNAME = :Username", new
-                {
-                    Username = username
-                }).FirstOrDefault();
-
-                return ConvertData(data);
-            }
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(a => a.USERNAME.ToLower() == username.ToLower());
+            return ConvertEntity(entity);
         }
 
-        public Account GetAccount(long accountId)
+        public Account GetAccount(int accountId)
         {
-            using (var conn = GetConnection())
-            {
-                var data = conn.Query("SELECT * FROM USER_ACCOUNT WHERE ID = :AccountId", new
-                {
-                    AccountId = accountId
-                }).FirstOrDefault();
-
-                return ConvertData(data);
-            }
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == accountId);
+            return ConvertEntity(entity);
         }
 
-        public bool HasAgent(long accountId, long agentId)
+        public bool HasAgent(int accountId, int agentId)
         {
-            using (var conn = GetConnection())
-            {
-                var sql = "SELECT COUNT(1) as C1 FROM USER_ACCOUNT_AGENT WHERE ACCOUNT_ID = :AccountId and AGENT_ID = :AgentId";
-                return conn.Query(sql, new
-                {
-                    AccountId = accountId,
-                    AgentId = agentId
-                }).Select(d => new { Count = d.C1 }).FirstOrDefault().Count > 0;
-            }
+            return DB.USER_ACCOUNT_AGENT.Any(a => a.ACCOUNT_ID == accountId && a.AGENT_ID == agentId);
         }
 
-        public void Create(Account model)
+        public void Create(Account account)
         {
+            var db = new DBEntities();
+            var entity = ConvertModel(account);
+            db.USER_ACCOUNT.Add(entity);
+            db.SaveChanges();
 
-            using (var conn = GetConnection())
-            {
-                var countRow = conn.Query("SELECT COUNT(1) as C1 FROM USER_ACCOUNT WHERE USERNAME = :Username", new
-                {
-                    model.Username
-                }).Select(d => new { Count= d.C1 }).FirstOrDefault();
-
-                if (countRow.Count > 0)
-                {
-                    throw new ArgumentException("用户名已被占用！");
-                }
-
-                var insertSql = @"
-INSERT INTO USER_ACCOUNT
-(ID,USERNAME,PASSWORD,CREATE_TIME,LAST_LOGIN_TIME,LAST_LOGIN_IP,ROLE,TRUENAME)
-VALUES
-(ACCOUNT_ID.NEXTVAL,:UserName,:Password,:CreateTime,:LastLoginTime,:LastLoginIP,:Role,:TrueName)";
-                conn.Execute(insertSql, new
-                {
-                    model.CreateTime,
-                    model.LastLoginIP,
-                    model.LastLoginTime,
-                    ROLE = (short)model.Role,
-                    model.TrueName,
-                    model.Username,
-                    Password = model.EncyptedPassword
-                });
-            }
+            account.AccountID = entity.ID;
         }
 
-        public void Delete(long accountId)
+        public void Delete(int accountId)
         {
-            using (var conn = GetConnection())
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == accountId);
+            if (entity != null && entity.DELETED == 0)
             {
-                conn.Execute(@"DELETE FROM USER_ACCOUNT WHERE ID = :id", new { id = accountId });
+                entity.DELETED = 1;
+                DB.SaveChanges();
             }
         }
 
         public void Update(Account account)
         {
-            using (var conn = GetConnection())
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == account.AccountID);
+            if (entity == null)
             {
-                var sql = @"
-UPDATE USER_ACCOUNT
-SET
-USERNAME = :Username,
-PASSWORD = :Password,
-TRUENAME = :TrueName,
-CREATE_TIME = :CreateTime,
-LAST_LOGIN_TIME = :LastLoginTime,
-LAST_LOGIN_IP = : LastLoginIp,
-ROLE = :Role
-WHERE ID = :id
-";
-                conn.Execute(sql, new
-                {
-                    id = account.AccountID,
-                    account.Username,
-                    account.EncyptedPassword,
-                    account.TrueName,
-                    account.CreateTime,
-                    account.LastLoginTime,
-                    account.LastLoginIP,
-                    Role = (int)account.Role
-                });
+                throw new ArgumentException("参数错误，没找到这个帐号");
             }
+
+            entity = ConvertModel(account, entity);
+
+            DB.SaveChanges();
         }
 
 

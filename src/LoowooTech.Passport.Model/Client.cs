@@ -7,7 +7,7 @@ namespace LoowooTech.Passport.Model
 {
     public class Client
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
 
         public string ClientId { get; set; }
 

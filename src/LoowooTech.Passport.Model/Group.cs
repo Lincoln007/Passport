@@ -12,7 +12,7 @@ namespace LoowooTech.Passport.Model
             Rights = new List<string>();
         }
 
-        public long GroupID { get; set; }
+        public int GroupID { get; set; }
 
         public string Name { get; set; }
 

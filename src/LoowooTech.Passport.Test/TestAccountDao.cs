@@ -10,16 +10,18 @@ namespace LoowooTech.Passport.Test
     [TestClass]
     public class TestAccountDao
     {
+        private AccountDao dao = new AccountDao();
+
         [TestMethod]
         public void TestGetAccount()
         {
-
+            var account = dao.GetAccount(1);
+            Assert.AreNotEqual(null, account);
         }
 
         [TestMethod]
         public void TestCreate()
         {
-            var dao = new AccountDao();
             var account = new Account
             {
                 Username = "maddemon" + DateTime.Now.Ticks,
@@ -30,9 +32,7 @@ namespace LoowooTech.Passport.Test
 
             dao.Create(account);
 
-            var id = dao.GetConnection().Query("SELECT ACCOUNT_ID.CURRVAL AS ID FROM USER_ACCOUNT").FirstOrDefault();
-
-            Assert.AreNotEqual(0, id.ID);
+            Assert.AreNotEqual(0, account.AccountID);
         }
     }
 }
