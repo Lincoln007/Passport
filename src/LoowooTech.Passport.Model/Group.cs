@@ -7,7 +7,12 @@ namespace LoowooTech.Passport.Model
 {
     public class Group
     {
-        public int GroupID { get; set; }
+        public Group()
+        {
+            Rights = new List<string>();
+        }
+
+        public long GroupID { get; set; }
 
         public string Name { get; set; }
 

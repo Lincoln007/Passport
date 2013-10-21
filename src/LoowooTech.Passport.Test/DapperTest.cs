@@ -7,7 +7,7 @@ using Oracle.ManagedDataAccess.Client;
 namespace LoowooTech.Passport.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class DapperTest
     {
         private static string connectionString;
 
@@ -21,7 +21,7 @@ namespace LoowooTech.Passport.Test
         }
 
         [TestMethod]
-        public void DapperSelectTest()
+        public void TestDapperSelect()
         {
             var sql = @"SELECT * FROM USER_ACCOUNT WHERE ID = :ID";
             var account = conn.Query(sql, new { ID = 2 }).Select(d => new Account
@@ -32,6 +32,28 @@ namespace LoowooTech.Passport.Test
 
             Assert.AreEqual(2, account.AccountID);
             Assert.AreEqual("test", account.Username);
+        }
+
+        [TestMethod]
+        public void TestDapperCreate()
+        {
+            var sql = @"INSERT INTO USER_ACCOUNT
+(ID,USERNAME,PASSWORD,CREATE_TIME,LAST_LOGIN_TIME,LAST_LOGIN_IP,ROLE,TRUENAME)
+VALUES
+(ROWIDENTITY.NEXTVAL,:UserName,:Password,:CreateTime,:LastLoginTime,:LastLoginIP,:Role,:TrueName)";
+
+            conn.Execute(sql, new
+            {
+                Username = "maddemon",
+                Password = "123",
+                CreateTime = DateTime.Now,
+                LastLoginTime = DateTime.Now,
+                LastLoginIp = "192.168.1.1",
+                Role = (short)Role.User,
+                TrueName = "Jim Zheng"
+            });
+
+
         }
 
     }

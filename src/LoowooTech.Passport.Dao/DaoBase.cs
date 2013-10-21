@@ -7,12 +7,10 @@ namespace LoowooTech.Passport.Dao
 {
     public class DaoBase
     {
-        protected DBEntities DB
+        private static string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
+        public System.Data.IDbConnection GetConnection()
         {
-            get
-            {
-                return new DBEntities();
-            }
+            return new Oracle.ManagedDataAccess.Client.OracleConnection(connectionString);
         }
     }
 }

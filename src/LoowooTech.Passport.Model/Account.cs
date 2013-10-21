@@ -13,9 +13,10 @@ namespace LoowooTech.Passport.Model
             CreateTime = DateTime.Now;
             LastLoginTime = CreateTime;
             Role = Model.Role.Everyone;
+            LastLoginIP = string.Empty;
         }
 
-        public int AccountID { get; set; }
+        public long AccountID { get; set; }
 
         private string _username;
         public string Username
@@ -35,15 +36,15 @@ namespace LoowooTech.Passport.Model
 
         public string EncyptedPassword
         {
-            get { return EncyptPassword(Password); }
+            get { return EncyptPassword(Password, CreateTime); }
         }
 
-        public static string EncyptPassword(string password)
+        public static string EncyptPassword(string password, DateTime createTime)
         {
-            return password.SHA1().MD5();
+            return (password + createTime.Ticks).SHA1().MD5();
         }
 
-        public int AgentID { get; set; }
+        public long AgentID { get; set; }
 
         public DateTime CreateTime { get; set; }
 

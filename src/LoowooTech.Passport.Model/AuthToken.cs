@@ -7,7 +7,7 @@ namespace LoowooTech.Passport.Model
 {
     public class AuthToken
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         public string Token { get; set; }
 

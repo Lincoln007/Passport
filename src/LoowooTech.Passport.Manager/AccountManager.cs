@@ -21,7 +21,7 @@ namespace LoowooTech.Passport.Manager
             {
                 throw new ArgumentException("用户名不存在！");
             }
-            if (account.Password.ToLower() != Account.EncyptPassword(password))
+            if (account.Password != Account.EncyptPassword(password, account.CreateTime))
             {
                 throw new ArgumentException("密码不正确！");
             }
@@ -69,7 +69,7 @@ namespace LoowooTech.Passport.Manager
             {
                 var val = random.Next('0', 'z');
                 if ((val > '9' && val < 'A')
-                    ||(val > 'Z' && val <'a')
+                    || (val > 'Z' && val < 'a')
                     )
                 {
                     continue;
