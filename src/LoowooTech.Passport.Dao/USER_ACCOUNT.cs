@@ -28,6 +28,7 @@ namespace LoowooTech.Passport.Dao
         public short DELETED { get; set; }
         public short ROLE { get; set; }
         public string TRUENAME { get; set; }
+        public short STATUS { get; set; }
     
         public virtual ICollection<USER_ACCOUNT_GROUP> USER_ACCOUNT_GROUP { get; set; }
     }

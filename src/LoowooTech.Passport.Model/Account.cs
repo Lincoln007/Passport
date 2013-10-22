@@ -14,6 +14,7 @@ namespace LoowooTech.Passport.Model
             LastLoginTime = CreateTime;
             Role = Model.Role.Everyone;
             LastLoginIP = string.Empty;
+            Status = Model.Status.Enabled;
         }
 
         public int AccountID { get; set; }
@@ -57,6 +58,8 @@ namespace LoowooTech.Passport.Model
         public Role Role { get; set; }
 
         public bool Deleted { get; set; }
+
+        public Status Status { get; set; }
 
         public bool IsAuthenticated
         {

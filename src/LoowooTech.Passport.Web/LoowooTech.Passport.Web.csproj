@@ -120,6 +120,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminControllerBase.cs" />
     <Compile Include="Areas\Admin\Controllers\ClientController.cs" />
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Mvc\AuthenticateModule.cs" />
     <Compile Include="Common\CurrentUser.cs" />

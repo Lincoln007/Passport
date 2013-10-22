@@ -21,7 +21,8 @@ namespace LoowooTech.Passport.Dao
                 TrueName = entity.TRUENAME,
                 Username = entity.USERNAME,
                 Password = entity.PASSWORD,
-                Deleted = entity.DELETED == 1
+                Deleted = entity.DELETED == 1,
+                Status = (Status)entity.STATUS
             };
         }
 
@@ -37,6 +38,7 @@ namespace LoowooTech.Passport.Dao
             entity.USERNAME = model.Username;
             entity.PASSWORD = model.EncyptedPassword;
             entity.DELETED = (short)(model.Deleted ? 1 : 0);
+            entity.STATUS = (short)model.Status;
             return entity;
         }
 

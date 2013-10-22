@@ -21,6 +21,12 @@ namespace LoowooTech.Passport.Manager
             {
                 throw new ArgumentException("用户名不存在！");
             }
+            
+            if (account.Status == Status.Disabled)
+            {
+                throw new ArgumentException("该用户登录功能已被关闭！");
+            }
+
             if (account.Password != Account.EncyptPassword(password, account.CreateTime))
             {
                 throw new ArgumentException("密码不正确！");

@@ -14,13 +14,12 @@ namespace LoowooTech.Passport.Manager
     {
         public AuthManager(Core core) : base(core) { }
 
-        private static ConcurrentDictionary<string, AuthCode> _codes = new ConcurrentDictionary<string, AuthCode>();
-        private static ConcurrentDictionary<string, AuthCode> _tokens = new ConcurrentDictionary<string, AuthCode>();
+        private static ConcurrentDictionary<string, AuthorizeCode> _codes = new ConcurrentDictionary<string, AuthorizeCode>();
 
         public string GenerateCode(Client client, int accountId)
         {
-            var code = Guid.NewGuid().ToString().MD5();
-            _codes.TryAdd(code, new AuthCode
+            var code = DateTime.Now.Ticks.ToString().MD5();
+            _codes.TryAdd(code, new AuthorizeCode
             {
                 ClientId = client.ClientId,
                 AccountId = accountId,
@@ -29,7 +28,7 @@ namespace LoowooTech.Passport.Manager
             return code;
         }
 
-        public AuthCode GetAuthCode(string code)
+        public AuthorizeCode GetAuthorizeCode(string code)
         {
             if (!_codes.ContainsKey(code)) return null;
 
@@ -43,33 +42,20 @@ namespace LoowooTech.Passport.Manager
             return authCode;
         }
 
-        public string GetAccessToken(AuthCode authCode)
+        public AccessToken GetAccessToken(AuthorizeCode code)
         {
-            if (!string.IsNullOrEmpty(authCode.AccessToken))
-            {
-                return authCode.AccessToken;
-            }
-
             var dao = new AuthDao();
-            var token = dao.GetAccessToken(authCode.ClientId, authCode.AccountId);
-            authCode.AccessToken = token;
-
-            if (!_tokens.ContainsKey(token))
-            {
-                _tokens.TryAdd(token, authCode);
-            }
-
-            return token;
+            return dao.GetAccessToken(code.ClientId, code.AccountId);
         }
 
-        public int GetAccountId(string accessToken)
-        {
-            var code = _tokens[accessToken];
-            if (code == null)
-            {
-                return new AuthDao().GetAccountId(accessToken);
-            }
-            return code.AccountId;
-        }
+        //public int GetAccountId(string accessToken)
+        //{
+        //    var code = _tokens[accessToken];
+        //    if (code == null)
+        //    {
+        //        return new AuthDao().GetAccountId(accessToken);
+        //    }
+        //    return code.AccountId;
+        //}
     }
 }

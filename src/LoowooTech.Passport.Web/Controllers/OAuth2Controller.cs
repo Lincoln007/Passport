@@ -27,20 +27,24 @@ namespace LoowooTech.Passport.Web.Controllers
         }
 
         [ActionName("access_token")]
-        public ActionResult AccessToken(string code)
+        public ActionResult AccessToken([ClientBinder]Client client, string code)
         {
-            var authCode = Core.AuthManager.GetAuthCode(code);
+            var authCode = Core.AuthManager.GetAuthorizeCode(code);
             if (authCode == null)
             {
                 throw new HttpException(401, "access_denied");
             }
 
             var accessToken = Core.AuthManager.GetAccessToken(authCode);
+            if (accessToken == null)
+            {
+                throw new HttpException(401, "invalid arguments");
+            }
 
             return Json(new
             {
-                user = Core.AccountManager.GetAccount(authCode.AccountId),
-                access_token = accessToken,
+                user = Core.AccountManager.GetAccount(accessToken.AccountId),
+                access_token = accessToken.Token,
             }, JsonRequestBehavior.AllowGet);
         }
 

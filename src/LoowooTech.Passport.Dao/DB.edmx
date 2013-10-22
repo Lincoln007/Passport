@@ -37,6 +37,7 @@
           <Property Name="CREATE_TIME" Type="date" Nullable="false" />
           <Property Name="HOSTS" Type="varchar2" Nullable="false" MaxLength="256" />
           <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="32" />
         </EntityType>
         <EntityType Name="AUTH_TOKEN">
           <Key>
@@ -70,6 +71,7 @@
           <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
           <Property Name="ROLE" Type="number" Nullable="false" Precision="5" />
           <Property Name="TRUENAME" Type="varchar2" MaxLength="32" />
+          <Property Name="STATUS" Type="number" Nullable="false" Precision="1" />
         </EntityType>
         <EntityType Name="USER_ACCOUNT_AGENT">
           <Key>
@@ -97,6 +99,7 @@
           <Property Name="ID" Type="number" Nullable="false" Precision="10" />
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="64" />
           <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="256" />
         </EntityType>
         <EntityType Name="USER_GROUP_RIGHT">
           <Key>
@@ -178,6 +181,7 @@
           <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
           <Property Type="String" Name="HOSTS" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AUTH_TOKEN">
           <Key>
@@ -212,6 +216,7 @@
           <Property Type="Int16" Name="ROLE" Nullable="false" />
           <Property Type="String" Name="TRUENAME" MaxLength="32" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="USER_ACCOUNT_GROUP" Relationship="Model.FK_ACCOUNT_GROUPS_ACCOUNT_ID" FromRole="USER_ACCOUNT" ToRole="USER_ACCOUNT_GROUP" />
+          <Property Type="Int16" Name="STATUS" Nullable="false" />
         </EntityType>
         <EntityType Name="USER_ACCOUNT_AGENT">
           <Key>
@@ -243,6 +248,7 @@
           <Property Type="Int16" Name="DELETED" Nullable="false" />
           <NavigationProperty Name="USER_ACCOUNT_GROUP" Relationship="Model.FK_ACCOUNT_GROUPS_GROUP_ID" FromRole="USER_GROUP" ToRole="USER_ACCOUNT_GROUP" />
           <NavigationProperty Name="USER_GROUP_RIGHT" Relationship="Model.FK_GROUP_RIGHT_ID" FromRole="USER_GROUP" ToRole="USER_GROUP_RIGHT" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="256" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="USER_GROUP_RIGHT">
           <Key>
@@ -298,6 +304,7 @@
           <EntitySetMapping Name="APP_CLIENT">
             <EntityTypeMapping TypeName="Model.APP_CLIENT">
               <MappingFragment StoreEntitySet="APP_CLIENT">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
                 <ScalarProperty Name="HOSTS" ColumnName="HOSTS" />
                 <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
@@ -331,6 +338,7 @@
           <EntitySetMapping Name="USER_ACCOUNT">
             <EntityTypeMapping TypeName="Model.USER_ACCOUNT">
               <MappingFragment StoreEntitySet="USER_ACCOUNT">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="TRUENAME" ColumnName="TRUENAME" />
                 <ScalarProperty Name="ROLE" ColumnName="ROLE" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
@@ -367,6 +375,7 @@
           <EntitySetMapping Name="USER_GROUP">
             <EntityTypeMapping TypeName="Model.USER_GROUP">
               <MappingFragment StoreEntitySet="USER_GROUP">
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

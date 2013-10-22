@@ -20,5 +20,6 @@ namespace LoowooTech.Passport.Dao
         public System.DateTime CREATE_TIME { get; set; }
         public string HOSTS { get; set; }
         public short DELETED { get; set; }
+        public string NAME { get; set; }
     }
 }

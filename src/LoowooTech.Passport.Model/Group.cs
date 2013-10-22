@@ -16,6 +16,8 @@ namespace LoowooTech.Passport.Model
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public bool Deleted { get; set; }
 
         public IEnumerable<string> Rights { get; set; }

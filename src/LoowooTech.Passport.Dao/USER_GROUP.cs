@@ -23,6 +23,7 @@ namespace LoowooTech.Passport.Dao
         public int ID { get; set; }
         public string NAME { get; set; }
         public short DELETED { get; set; }
+        public string DESCRIPTION { get; set; }
     
         public virtual ICollection<USER_ACCOUNT_GROUP> USER_ACCOUNT_GROUP { get; set; }
         public virtual ICollection<USER_GROUP_RIGHT> USER_GROUP_RIGHT { get; set; }

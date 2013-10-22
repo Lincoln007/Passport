@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LoowooTech.Passport.Model
 {
-    public class AuthToken
+    public class AccessToken
     {
         public int ID { get; set; }
 
