@@ -126,7 +126,7 @@
     <Compile Include="Mvc\AuthenticateModule.cs" />
     <Compile Include="Common\CurrentUser.cs" />
     <Compile Include="Common\UserPrincipal.cs" />
-    <Compile Include="Mvc\ClientBinder.cs" />
+    <Compile Include="Mvc\ClientBinderAttribute.cs" />
     <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />

@@ -14,14 +14,28 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             return Redirect("~/Account/Login");
         }
 
-        public ActionResult List(int page = 1)
+        public ActionResult List(string searchkey, bool? deleted, bool? enabled, int page = 1, int pageSize = 20)
         {
+
+            ViewBag.Data = Core.AccountManager.GetAccounts(new SelectFilter
+            {
+                Deleted = deleted,
+                Enabled = enabled,
+                SearchKey = searchkey,
+                Skip = (page - 1) * pageSize,
+                Limit = pageSize
+            });
+
             return View();
         }
 
         [HttpGet]
-        public ActionResult Edit(int accountId)
+        public ActionResult Edit(int? accountId)
         {
+            if (accountId.HasValue)
+            {
+                ViewBag.Account = Core.AccountManager.GetAccount(accountId.Value);
+            }
             return View();
         }
 

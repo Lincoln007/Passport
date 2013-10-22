@@ -14,6 +14,11 @@ namespace LoowooTech.Passport.Manager
 
         private static readonly AccountDao Dao = new AccountDao();
 
+        public PagingResult<Account> GetAccounts(SelectFilter filter)
+        {
+            return Dao.GetAccounts(filter);
+        }
+
         public Account GetAccount(string username, string password, string agentUsername = null)
         {
             var account = Dao.GetAccount(username);

@@ -42,6 +42,33 @@ namespace LoowooTech.Passport.Dao
             return entity;
         }
 
+        public PagingResult<Account> GetAccounts(SelectFilter filter)
+        {
+            var query = DB.USER_ACCOUNT.AsQueryable();
+            if (filter.Deleted.HasValue)
+            {
+                query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
+            }
+
+            if (filter.Enabled.HasValue)
+            {
+                query = query.Where(e => e.STATUS == (short)(filter.Enabled.Value ? Status.Enabled : Status.Disabled));
+            }
+
+            if (!string.IsNullOrEmpty(filter.SearchKey))
+            {
+                query = query.Where(e => e.TRUENAME.Contains(filter.SearchKey) || e.USERNAME.Contains(filter.SearchKey));
+            }
+
+            return new PagingResult<Account>
+            {
+                PageSize = filter.Limit,
+                CurrentPage = (filter.Skip / filter.Limit) + 1,
+                RecordCount = query.Count(),
+                List = query.Select(e => ConvertEntity(e))
+            };
+        }
+
         public Account GetAccount(string username)
         {
             var entity = DB.USER_ACCOUNT.FirstOrDefault(a => a.USERNAME.ToLower() == username.ToLower());
