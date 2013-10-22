@@ -21,5 +21,10 @@ namespace LoowooTech.Passport.Model
         public bool Deleted { get; set; }
 
         public IEnumerable<string> Rights { get; set; }
+
+        public bool HasRight(string rightName)
+        {
+            return Rights.Any(r => r.ToLower() == rightName.ToLower());
+        }
     }
 }

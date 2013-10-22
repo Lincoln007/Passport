@@ -17,7 +17,7 @@ namespace LoowooTech.Passport.Model
             Status = Model.Status.Enabled;
         }
 
-        public int AccountID { get; set; }
+        public int AccountId { get; set; }
 
         private string _username;
         public string Username
@@ -45,7 +45,7 @@ namespace LoowooTech.Passport.Model
             return (password + createTime.Ticks).SHA1().MD5();
         }
 
-        public int AgentID { get; set; }
+        public int AgentId { get; set; }
 
         public DateTime CreateTime { get; set; }
 
@@ -63,7 +63,7 @@ namespace LoowooTech.Passport.Model
 
         public bool IsAuthenticated
         {
-            get { return AccountID > 0; }
+            get { return AccountId > 0; }
         }
     }
 }

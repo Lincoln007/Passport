@@ -11,9 +11,9 @@ namespace LoowooTech.Passport.Web
     {
         public static void UserLogin(this HttpContextBase context, Account account)
         {
-            var ticketName = account.AccountID + "|" + (int)account.Role + "|" + account.AgentID + "|" + account.Username;
+            var ticketName = account.AccountId + "|" + (int)account.Role + "|" + account.AgentId + "|" + account.Username;
 
-            var ticket = new FormsAuthenticationTicket(account.AccountID.ToString(), false, 30);
+            var ticket = new FormsAuthenticationTicket(account.AccountId.ToString(), false, 30);
 
             context.Response.Cookies.Set(new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)));
 

@@ -122,13 +122,14 @@
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Mvc\AccessTokenBinderAttribute.cs" />
     <Compile Include="Mvc\AuthenticateModule.cs" />
     <Compile Include="Common\CurrentUser.cs" />
     <Compile Include="Common\UserPrincipal.cs" />
     <Compile Include="Mvc\ClientBinder.cs" />
     <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

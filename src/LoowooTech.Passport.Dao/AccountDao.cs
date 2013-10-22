@@ -13,7 +13,7 @@ namespace LoowooTech.Passport.Dao
             if (entity == null) return null;
             return new Account
             {
-                AccountID = entity.ID,
+                AccountId = entity.ID,
                 CreateTime = entity.CREATE_TIME,
                 LastLoginIP = entity.LAST_LOGIN_IP,
                 LastLoginTime = entity.LAST_LOGIN_TIME,
@@ -29,7 +29,7 @@ namespace LoowooTech.Passport.Dao
         private USER_ACCOUNT ConvertModel(Account model, USER_ACCOUNT entity = null)
         {
             if (entity == null) entity = new USER_ACCOUNT();
-            entity.ID = model.AccountID;
+            entity.ID = model.AccountId;
             entity.CREATE_TIME = model.CreateTime;
             entity.LAST_LOGIN_IP = model.LastLoginIP;
             entity.LAST_LOGIN_TIME = model.LastLoginTime;
@@ -66,7 +66,7 @@ namespace LoowooTech.Passport.Dao
             db.USER_ACCOUNT.Add(entity);
             db.SaveChanges();
 
-            account.AccountID = entity.ID;
+            account.AccountId = entity.ID;
         }
 
         public void Delete(int accountId)
@@ -81,7 +81,7 @@ namespace LoowooTech.Passport.Dao
 
         public void Update(Account account)
         {
-            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == account.AccountID);
+            var entity = DB.USER_ACCOUNT.FirstOrDefault(e => e.ID == account.AccountId);
             if (entity == null)
             {
                 throw new ArgumentException("参数错误，没找到这个帐号");

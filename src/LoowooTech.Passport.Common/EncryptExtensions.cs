@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 namespace LoowooTech.Passport.Common
 {
@@ -15,7 +16,7 @@ namespace LoowooTech.Passport.Common
         {
             var data = _md5Hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(str));
             var sb = new StringBuilder();
-            foreach(var b in data)
+            foreach (var b in data)
             {
                 sb.Append(b.ToString("x2"));
             }
@@ -32,6 +33,57 @@ namespace LoowooTech.Passport.Common
                 sb.Append(b.ToString("x2"));
             }
             return sb.ToString();
+        }
+
+        private static byte[] AES_KEY;
+        private static byte[] AES_IV;
+        static EncryptExtensions()
+        {
+            AES_KEY = Encoding.UTF8.GetBytes("lwaeskey");
+            AES_IV = AES_KEY;
+        }
+
+        public static string AESEncrypt(this string str)
+        {
+            using (var aes = System.Security.Cryptography.Aes.Create())
+            {
+                aes.Key = AES_KEY;
+                aes.IV = AES_IV;
+
+                var encryptor = aes.CreateEncryptor();
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var sw = new StreamWriter(cs))
+                        {
+                            sw.Write(str);
+                            return Encoding.UTF8.GetString(ms.ToArray());
+                        }
+                    }
+                }
+            }
+        }
+
+        public static string AESDecrypt(this string str)
+        {
+            using (var aes = System.Security.Cryptography.Aes.Create())
+            {
+                aes.Key = AES_KEY;
+                aes.IV = AES_IV;
+
+                var decryptor = aes.CreateDecryptor();
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (var sr = new StreamReader(cs))
+                        {
+                            return sr.ReadToEnd();
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -11,11 +11,16 @@ namespace LoowooTech.Passport.Manager
     {
         public GroupManager(Core core) : base(core) { }
 
-        private GroupDao Dao = new GroupDao();
+        private static readonly GroupDao Dao = new GroupDao();
 
         public IEnumerable<Group> GetGroups(int accountId)
         {
             return Dao.GetGroups(accountId);
+        }
+
+        public bool HasRights(IEnumerable<Group> groups, IEnumerable<string> rightNames)
+        {
+            throw new NotImplementedException();
         }
 
         public void Create(Group group)

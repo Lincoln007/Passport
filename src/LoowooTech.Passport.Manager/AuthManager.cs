@@ -15,6 +15,7 @@ namespace LoowooTech.Passport.Manager
         public AuthManager(Core core) : base(core) { }
 
         private static ConcurrentDictionary<string, AuthorizeCode> _codes = new ConcurrentDictionary<string, AuthorizeCode>();
+        private static readonly AuthDao Dao = new AuthDao();
 
         public string GenerateCode(Client client, int accountId)
         {
@@ -44,18 +45,7 @@ namespace LoowooTech.Passport.Manager
 
         public AccessToken GetAccessToken(AuthorizeCode code)
         {
-            var dao = new AuthDao();
-            return dao.GetAccessToken(code.ClientId, code.AccountId);
+            return Dao.GetAccessToken(code.ClientId, code.AccountId);
         }
-
-        //public int GetAccountId(string accessToken)
-        //{
-        //    var code = _tokens[accessToken];
-        //    if (code == null)
-        //    {
-        //        return new AuthDao().GetAccountId(accessToken);
-        //    }
-        //    return code.AccountId;
-        //}
     }
 }

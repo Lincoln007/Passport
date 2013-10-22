@@ -12,7 +12,7 @@ namespace LoowooTech.Passport.Manager
     {
         public AccountManager(Core core) : base(core) { }
 
-        private AccountDao Dao = new AccountDao();
+        private static readonly AccountDao Dao = new AccountDao();
 
         public Account GetAccount(string username, string password, string agentUsername = null)
         {
@@ -40,12 +40,12 @@ namespace LoowooTech.Passport.Manager
                     throw new ArgumentException("代理的用户名不存在！");
                 }
 
-                if (!Dao.HasAgent(account.AccountID, agent.AccountID))
+                if (!Dao.HasAgent(account.AccountId, agent.AccountId))
                 {
                     throw new ArgumentException("你没有被授权代理这个用户！");
                 }
 
-                account.AgentID = agent.AccountID;
+                account.AgentId = agent.AccountId;
             }
 
             return account;
@@ -92,6 +92,11 @@ namespace LoowooTech.Passport.Manager
             account.Password = GetRandomString();
             Dao.Update(account);
             return account.Password;
+        }
+
+        public bool HasAgent(int accountId, int agentId)
+        {
+            return Dao.HasAgent(accountId, agentId);
         }
     }
 }

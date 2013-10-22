@@ -8,7 +8,7 @@ using LoowooTech.Passport.Model;
 namespace LoowooTech.Passport.Web.Controllers
 {
 
-    public class OAuth2Controller : ControllerBase
+    public class AuthController : ControllerBase
     {
         [UserAuthorize]
         public ActionResult Authroize([ClientBinder]Client client, string redirect_url)

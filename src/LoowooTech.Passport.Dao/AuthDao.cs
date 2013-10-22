@@ -6,16 +6,59 @@ using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Dao
 {
-    public class AuthDao
+    public class AuthDao : DaoBase
     {
-        public AccessToken GetAccessToken(string clientId, int accountId)
+        private AccessToken ConvertEntity(AUTH_TOKEN entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                return null;
+            }
+            return new AccessToken
+            {
+                ID = entity.ID,
+                AccountId = entity.ACCOUNT_ID,
+                ClientId = entity.CLIENT_ID,
+                CreateTime = entity.CREATE_TIME,
+                Token = entity.TOKEN
+            };
         }
 
-        public int GetAccountId(string token)
+        public AccessToken GetAccessToken(string clientId, int accountId)
         {
-            throw new NotImplementedException();
+            var entity = DB.AUTH_TOKEN.Where(e => e.CLIENT_ID == clientId && e.ACCOUNT_ID == accountId).FirstOrDefault();
+            if (entity == null)
+            {
+                entity = new AUTH_TOKEN
+                {
+                    ACCOUNT_ID = accountId,
+                    CLIENT_ID = clientId,
+                    CREATE_TIME = DateTime.Now,
+                };
+
+                entity.TOKEN = AccessToken.GenerateToken(entity.CLIENT_ID, entity.ACCOUNT_ID, entity.CREATE_TIME);
+
+                DB.AUTH_TOKEN.Add(entity);
+                DB.SaveChanges();
+            }
+            return ConvertEntity(entity);
+        }
+
+        public void Create(AccessToken token)
+        {
+            var entity = new AUTH_TOKEN
+            {
+                CLIENT_ID = token.ClientId,
+                ACCOUNT_ID = token.AccountId,
+                CREATE_TIME = token.CreateTime,
+                TOKEN = token.Token,
+            };
+
+            DB.AUTH_TOKEN.Add(entity);
+            DB.SaveChanges();
+
+            token.ID = entity.ID;
+
         }
     }
 }

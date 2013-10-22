@@ -32,7 +32,7 @@ namespace LoowooTech.Passport.Test
 
             dao.Create(account);
 
-            Assert.AreNotEqual(0, account.AccountID);
+            Assert.AreNotEqual(0, account.AccountId);
         }
     }
 }
