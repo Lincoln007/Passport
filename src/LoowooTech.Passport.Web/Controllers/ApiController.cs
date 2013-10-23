@@ -16,7 +16,7 @@ namespace LoowooTech.Passport.Web.Controllers
             return Json(account, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult HasRight([AccessTokenBinder]AccessToken token, string rightNames, int agentId = 0)
+        public JsonResult HasRights([AccessTokenBinder]AccessToken token, string rightNames, int agentId = 0)
         {
             var groups = Core.GroupManager.GetGroups(token.AccountId);
             if (Core.GroupManager.HasRights(groups, rightNames.Split(',')))

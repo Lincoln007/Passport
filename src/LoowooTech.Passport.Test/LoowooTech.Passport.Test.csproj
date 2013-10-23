@@ -38,6 +38,10 @@
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.13\lib\net40\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -50,8 +54,14 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
@@ -67,10 +77,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AccountDaoTest.cs" />
+    <Compile Include="EncryptExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestAccountDao.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj">
+      <Project>{9824DEB3-7BF9-41ED-B254-78EC4814A068}</Project>
+      <Name>LoowooTech.Passport.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Passport.Dao\LoowooTech.Passport.Dao.csproj">
       <Project>{4e896dcd-cc94-40ed-b6dd-143c8367fa5e}</Project>
       <Name>LoowooTech.Passport.Dao</Name>

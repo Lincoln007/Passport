@@ -25,12 +25,12 @@ namespace LoowooTech.Passport.Model
 
         public static string GenerateToken(string clientId, int accountId, DateTime createTime)
         {
-            return (clientId + "|" + accountId + "|" + createTime.ToString()).AESEncrypt();
+            return (clientId + "|" + accountId + "|" + createTime.ToString()).AESEncrypt().ToHexString();
         }
 
         public static AccessToken Create(string accessToken)
         {
-            var vals = accessToken.AESDecrypt().Split('|');
+            var vals = accessToken.FromHexString().AESDecrypt().Split('|');
             try
             {
                 return new AccessToken
