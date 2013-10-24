@@ -14,9 +14,15 @@ namespace LoowooTech.Passport.Manager
 
         private static readonly AccountDao Dao = new AccountDao();
 
-        public PagingResult<Account> GetAccounts(SelectFilter filter)
+        public PagingResult<Account> GetAccounts(SelectFilter filter, int page = 1, int pageSize = 20)
         {
-            return Dao.GetAccounts(filter);
+            var paging = new Paging
+            {
+                PageSize = pageSize,
+                CurrentPage = page,
+            };
+            var data = Dao.GetAccounts(filter, paging);
+            return new PagingResult<Account>(paging, data);
         }
 
         public Account GetAccount(string username, string password, string agentUsername = null)
@@ -26,7 +32,7 @@ namespace LoowooTech.Passport.Manager
             {
                 throw new ArgumentException("用户名不存在！");
             }
-            
+
             if (account.Status == Status.Disabled)
             {
                 throw new ArgumentException("该用户登录功能已被关闭！");

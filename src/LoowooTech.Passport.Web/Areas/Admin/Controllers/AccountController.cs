@@ -21,10 +21,8 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             {
                 Deleted = deleted,
                 Enabled = enabled,
-                SearchKey = searchkey,
-                Skip = (page - 1) * pageSize,
-                Limit = pageSize
-            });
+                SearchKey = searchkey
+            }, page, pageSize);
 
             return View();
         }

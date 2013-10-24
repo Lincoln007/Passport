@@ -23,7 +23,7 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void GetAccountTest()
         {
-            var account = target.GetAccounts(new SelectFilter { SearchKey = "maddemon" }).List.FirstOrDefault();
+            var account = target.GetAccounts(new SelectFilter { SearchKey = "maddemon" }).Take(1).FirstOrDefault();
             
             var username = account.Username;
 
@@ -83,12 +83,18 @@ namespace LoowooTech.Passport.Test
         public void GetAccountsTest()
         {
 
-            SelectFilter filter = null; // TODO: Initialize to an appropriate value
-            PagingResult<Account> expected = null; // TODO: Initialize to an appropriate value
-            PagingResult<Account> actual;
-            actual = target.GetAccounts(filter);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            var filter = new SelectFilter { Deleted = true};
+            var account = target.GetAccounts(filter).Take(1).FirstOrDefault();
+            if (account != null)
+            {
+                Assert.AreEqual(true, account.Deleted);
+            }
+            filter = new SelectFilter { Enabled = false };
+            account = target.GetAccounts(filter).Take(1).FirstOrDefault();
+            if (account != null)
+            {
+                Assert.AreEqual(Status.Disabled, account.Status);
+            }
         }
 
         /// <summary>

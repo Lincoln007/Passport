@@ -8,10 +8,8 @@ namespace LoowooTech.Passport.Dao
 {
     public class ClientDao : DaoBase
     {
-        public Client GetClient(string clientId)
-        {
-            var entity = DB.APP_CLIENT.Where(e => e.CLIENT_ID == clientId).FirstOrDefault();
-
+        private Client ConvertEntity(APP_CLIENT entity)
+        { 
             return new Client
             {
                 ID = entity.ID,
@@ -20,7 +18,25 @@ namespace LoowooTech.Passport.Dao
                 ClientSecret = entity.CLIENT_SECRET,
                 CreateTime = entity.CREATE_TIME,
                 Hosts = entity.HOSTS
-            };
+            }; 
+        }
+
+        public IEnumerable<Client> GetClients(SelectFilter filter, Paging page)
+        {
+            var query = DB.APP_CLIENT.AsQueryable();
+            if (filter.Deleted.HasValue)
+            {
+                query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
+            }
+
+            return query.SetPage(page).Select(e => ConvertEntity(e));
+        }
+
+        public Client GetClient(string clientId)
+        {
+            var entity = DB.APP_CLIENT.Where(e => e.CLIENT_ID == clientId).FirstOrDefault();
+
+            return ConvertEntity(entity);
         }
 
         public void Create(Client client)

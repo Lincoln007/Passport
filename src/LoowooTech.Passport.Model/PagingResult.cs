@@ -7,9 +7,17 @@ namespace LoowooTech.Passport.Model
 {
     public class Paging
     {
-        public Paging()
+        public Paging() : this(0) { }
+
+        public Paging(int start = 0, int limit = 20)
         {
-            PageSize = 20;
+            if (limit == 0)
+            {
+                limit = int.MaxValue;
+            }
+
+            CurrentPage = (int)(start / limit) + start % limit == 0 ? 0 : 1;
+
         }
 
         public int RecordCount { get; set; }
@@ -26,6 +34,13 @@ namespace LoowooTech.Passport.Model
 
     public class PagingResult<T> : Paging
     {
+        public PagingResult(Paging page,IEnumerable<T> data)
+        {
+            PageSize = page.PageSize;
+            CurrentPage = page.CurrentPage;
+            RecordCount = page.RecordCount;
+            List = data;
+        }
         public IEnumerable<T> List { get; set; }
     }
 }

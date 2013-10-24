@@ -8,6 +8,23 @@ namespace LoowooTech.Passport.Dao
 {
     public class GroupDao : DaoBase
     {
+        public IEnumerable<Group> GetGroups(SelectFilter filter, Paging page = null)
+        {
+            var query = DB.USER_GROUP.AsQueryable();
+            if (filter.Deleted.HasValue)
+            {
+                query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
+            }
+
+            return query.SetPage(page).Select(e => new Group
+            {
+                GroupID = e.ID,
+                Name = e.NAME,
+                Deleted = e.DELETED == 1,
+                Description = e.DESCRIPTION,
+            });
+        }
+
         public IEnumerable<Group> GetGroups(int accountId)
         {
             var groupIds = DB.USER_ACCOUNT_GROUP.Where(a => a.ACCOUNT_ID == accountId).Select(ag => ag.GROUP_ID).ToArray();

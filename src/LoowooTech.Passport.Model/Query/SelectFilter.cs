@@ -12,9 +12,5 @@ namespace LoowooTech.Passport.Model
         public bool? Deleted { get; set; }
 
         public string SearchKey { get; set; }
-
-        public int Limit { get; set; }
-
-        public int Skip { get; set; }
     }
 }
