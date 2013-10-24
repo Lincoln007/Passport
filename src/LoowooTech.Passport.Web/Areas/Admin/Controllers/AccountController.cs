@@ -32,17 +32,19 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int? accountId)
         {
+            var model = new Account();
             if (accountId.HasValue)
             {
-                ViewBag.Account = Core.AccountManager.GetAccount(accountId.Value);
+                model = Core.AccountManager.GetAccount(accountId.Value);
             }
-            return View();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(Account account)
+        public JsonResult Edit(Account account)
         {
-            return View();
+            Core.AccountManager.Save(account);
+            return Success();
         }
 
         public JsonResult Delete(int accountId)

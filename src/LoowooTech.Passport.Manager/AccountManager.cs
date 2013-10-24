@@ -67,9 +67,33 @@ namespace LoowooTech.Passport.Manager
             return Dao.GetAccount(accountId);
         }
 
-        public void Create(Account account)
+        public void Save(Account account)
         {
-            Dao.Create(account);
+            if (string.IsNullOrEmpty(account.Username))
+            {
+                throw new ArgumentException("用户名不能为空！");
+            }
+            
+            if (string.IsNullOrEmpty(account.Password))
+            {
+                throw new ArgumentException("密码不能为空！");
+            }
+
+
+            if (account.AccountId > 0)
+            {
+                var tmp = Dao.GetAccount(account.Username);
+                if (tmp.AccountId != account.AccountId)
+                {
+                    throw new ArgumentException("用户名已被使用！");
+                }
+
+                Dao.Update(account);
+            }
+            else
+            {
+                Dao.Create(account);
+            }
         }
 
 

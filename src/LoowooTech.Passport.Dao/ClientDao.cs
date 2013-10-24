@@ -9,7 +9,8 @@ namespace LoowooTech.Passport.Dao
     public class ClientDao : DaoBase
     {
         private Client ConvertEntity(APP_CLIENT entity)
-        { 
+        {
+            if (entity == null) return null;
             return new Client
             {
                 ID = entity.ID,
@@ -21,13 +22,13 @@ namespace LoowooTech.Passport.Dao
             }; 
         }
 
-        public IEnumerable<Client> GetClients(SelectFilter filter, Paging page)
+        public IEnumerable<Client> GetClients(Paging page)
         {
             var query = DB.APP_CLIENT.AsQueryable();
-            if (filter.Deleted.HasValue)
-            {
-                query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
-            }
+            //if (filter.Deleted.HasValue)
+            //{
+            //    query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
+            //}
 
             return query.SetPage(page).Select(e => ConvertEntity(e));
         }
@@ -57,10 +58,23 @@ namespace LoowooTech.Passport.Dao
 
         public void Delete(int id)
         {
-            var entity = DB.APP_CLIENT.FirstOrDefault(e => e.ID == id);
+            var entity = DB.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
             entity.DELETED = 1;
             DB.SaveChanges();
         }
 
+
+        public Client GetClient(int id)
+        {
+            var entity = DB.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
+            return ConvertEntity(entity);
+        }
+
+        public void Update(Client client)
+        {
+            var entity = DB.APP_CLIENT.Where(e => e.ID == client.ID).FirstOrDefault();
+            entity.NAME = client.Name;
+            DB.SaveChanges();
+        }
     }
 }

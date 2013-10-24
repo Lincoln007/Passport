@@ -9,21 +9,34 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 {
     public class ClientController : AdminControllerBase
     {
-        public ActionResult List()
+        public ActionResult List(int page = 1, int pageSize = 20)
         {
+            ViewBag.Data = Core.ClientManager.GetClients(page, pageSize);
             return View();
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int? id)
         {
-            return View();
+            var model = new Client();
+            if (id.HasValue)
+            {
+                model = Core.ClientManager.GetClient(id.Value);
+            }
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(Client client)
+        public JsonResult Edit(Client client)
         {
-            return View();
+            Core.ClientManager.Save(client);
+            return Success();
+        }
+
+        public JsonResult Delete(int id)
+        {
+            Core.ClientManager.Delete(id);
+            return Success();
         }
 
     }

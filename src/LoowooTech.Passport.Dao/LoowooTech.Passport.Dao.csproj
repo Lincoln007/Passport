@@ -95,7 +95,6 @@
     <Compile Include="USER_GROUP_RIGHT.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <None Include="AccountDao.cs.bak" />
     <Compile Include="AccountDao.cs" />
     <Compile Include="AuthDao.cs" />
     <Compile Include="ClientDao.cs" />
@@ -118,7 +117,6 @@
       <DependentUpon>DB.edmx</DependentUpon>
       <LastGenOutput>DB.cs</LastGenOutput>
     </None>
-    <None Include="GroupDao.cs.bak" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

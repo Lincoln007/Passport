@@ -8,6 +8,26 @@ namespace LoowooTech.Passport.Dao
 {
     public class GroupDao : DaoBase
     {
+        private Group ConvertEntity(USER_GROUP entity, bool getRights = false)
+        {
+            if (entity == null) return null;
+            var model = new Group
+            {
+                GroupID = entity.ID,
+                Name = entity.NAME,
+                Deleted = entity.DELETED == 1,
+                Description = entity.DESCRIPTION,
+                CreateTime = entity.CREATE_TIME
+            };
+
+            if (getRights)
+            {
+                model.Rights = DB.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == entity.ID).Select(e => e.NAME);
+            }
+
+            return model;
+        }
+
         public IEnumerable<Group> GetGroups(SelectFilter filter, Paging page = null)
         {
             var query = DB.USER_GROUP.AsQueryable();
@@ -16,24 +36,13 @@ namespace LoowooTech.Passport.Dao
                 query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
             }
 
-            return query.SetPage(page).Select(e => new Group
-            {
-                GroupID = e.ID,
-                Name = e.NAME,
-                Deleted = e.DELETED == 1,
-                Description = e.DESCRIPTION,
-            });
+            return query.SetPage(page).Select(e => ConvertEntity(e, false));
         }
 
         public IEnumerable<Group> GetGroups(int accountId)
         {
             var groupIds = DB.USER_ACCOUNT_GROUP.Where(a => a.ACCOUNT_ID == accountId).Select(ag => ag.GROUP_ID).ToArray();
-            return DB.USER_GROUP.Where(g => groupIds.Contains(g.ID)).Select(g => new Group
-            {
-                GroupID = g.ID,
-                Name = g.NAME,
-                Rights = g.USER_GROUP_RIGHT.Select(e => e.NAME)
-            }); ;
+            return DB.USER_GROUP.Where(e => groupIds.Contains(e.ID)).Select(e => ConvertEntity(e, true)); ;
         }
 
 
@@ -103,6 +112,12 @@ namespace LoowooTech.Passport.Dao
             entity.DELETED = 1;
             DB.SaveChanges();
 
+        }
+
+        public Group GetGroup(int groupId)
+        {
+            var entity = DB.USER_GROUP.FirstOrDefault(e => e.ID == groupId);
+            return ConvertEntity(entity, true);
         }
     }
 }

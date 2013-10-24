@@ -100,6 +100,7 @@
           <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="64" />
           <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
           <Property Name="DESCRIPTION" Type="varchar2" MaxLength="256" />
+          <Property Name="CREATE_TIME" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="USER_GROUP_RIGHT">
           <Key>
@@ -249,6 +250,7 @@
           <NavigationProperty Name="USER_ACCOUNT_GROUP" Relationship="Model.FK_ACCOUNT_GROUPS_GROUP_ID" FromRole="USER_GROUP" ToRole="USER_ACCOUNT_GROUP" />
           <NavigationProperty Name="USER_GROUP_RIGHT" Relationship="Model.FK_GROUP_RIGHT_ID" FromRole="USER_GROUP" ToRole="USER_GROUP_RIGHT" />
           <Property Type="String" Name="DESCRIPTION" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
         </EntityType>
         <EntityType Name="USER_GROUP_RIGHT">
           <Key>
@@ -375,6 +377,7 @@
           <EntitySetMapping Name="USER_GROUP">
             <EntityTypeMapping TypeName="Model.USER_GROUP">
               <MappingFragment StoreEntitySet="USER_GROUP">
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />

@@ -9,21 +9,34 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 {
     public class GroupController : AdminControllerBase
     {
-        public ActionResult List()
+        public ActionResult List(int page = 1, int pageSize = 20)
         {
+            var data = Core.GroupManager.GetGroups(page, pageSize);
             return View();
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int? groupId)
         {
-            return View();
+            var model = new Group();
+            if (groupId.HasValue)
+            {
+                model = Core.GroupManager.GetGroup(groupId.Value);
+            }
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(Group group)
+        public JsonResult Edit(Group group)
         {
-            return View();
+            Core.GroupManager.Save(group);
+            return Success();
+        }
+
+        public JsonResult Delete(int groupId)
+        {
+            Core.GroupManager.Delete(groupId);
+            return Success();
         }
     }
 }
