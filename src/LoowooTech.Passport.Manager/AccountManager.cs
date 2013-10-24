@@ -14,7 +14,7 @@ namespace LoowooTech.Passport.Manager
 
         private static readonly AccountDao Dao = new AccountDao();
 
-        public PagingResult<Account> GetAccounts(SelectFilter filter, int page = 1, int pageSize = 20)
+        public PagingResult<Account> GetAccounts(AccountFilter filter, int page = 1, int pageSize = 20)
         {
             var paging = new Paging
             {

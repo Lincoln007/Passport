@@ -23,7 +23,7 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void GetAccountTest()
         {
-            var account = target.GetAccounts(new SelectFilter { SearchKey = "maddemon" }).Take(1).FirstOrDefault();
+            var account = target.GetAccounts(new AccountFilter { SearchKey = "maddemon" }).Take(1).FirstOrDefault();
             
             var username = account.Username;
 
@@ -83,13 +83,13 @@ namespace LoowooTech.Passport.Test
         public void GetAccountsTest()
         {
 
-            var filter = new SelectFilter { Deleted = true};
+            var filter = new AccountFilter { Deleted = true };
             var account = target.GetAccounts(filter).Take(1).FirstOrDefault();
             if (account != null)
             {
                 Assert.AreEqual(true, account.Deleted);
             }
-            filter = new SelectFilter { Enabled = false };
+            filter = new AccountFilter { Enabled = false };
             account = target.GetAccounts(filter).Take(1).FirstOrDefault();
             if (account != null)
             {

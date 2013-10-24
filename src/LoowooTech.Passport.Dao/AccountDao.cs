@@ -42,7 +42,7 @@ namespace LoowooTech.Passport.Dao
             return entity;
         }
 
-        public IEnumerable<Account> GetAccounts(SelectFilter filter, Paging page = null)
+        public IEnumerable<Account> GetAccounts(AccountFilter filter, Paging page = null)
         {
             var query = DB.USER_ACCOUNT.AsQueryable();
             if (filter.Deleted.HasValue)
@@ -58,6 +58,16 @@ namespace LoowooTech.Passport.Dao
             if (!string.IsNullOrEmpty(filter.SearchKey))
             {
                 query = query.Where(e => e.TRUENAME.Contains(filter.SearchKey) || e.USERNAME.Contains(filter.SearchKey));
+            }
+
+            if (filter.BeginTime.HasValue)
+            {
+                query = query.Where(e => e.CREATE_TIME > filter.BeginTime.Value);
+            }
+
+            if (filter.EndTime.HasValue)
+            {
+                query = query.Where(e => e.CREATE_TIME <= filter.EndTime.Value);
             }
 
             return query.SetPage(page).Select(e => ConvertEntity(e));
