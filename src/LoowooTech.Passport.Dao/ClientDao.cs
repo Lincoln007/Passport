@@ -19,25 +19,32 @@ namespace LoowooTech.Passport.Dao
                 ClientSecret = entity.CLIENT_SECRET,
                 CreateTime = entity.CREATE_TIME,
                 Hosts = entity.HOSTS
-            }; 
+            };
         }
 
         public IEnumerable<Client> GetClients(Paging page)
         {
-            var query = DB.APP_CLIENT.AsQueryable();
-            //if (filter.Deleted.HasValue)
-            //{
-            //    query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
-            //}
+            using (var db = GetDataContext())
+            {
 
-            return query.SetPage(page).Select(e => ConvertEntity(e));
+                var query = db.APP_CLIENT.AsQueryable();
+                //if (filter.Deleted.HasValue)
+                //{
+                //    query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
+                //}
+
+                return query.OrderByDescending(e => e.ID).SetPage(page).AsEnumerable().Select(e => ConvertEntity(e));
+            }
         }
 
         public Client GetClient(string clientId)
         {
-            var entity = DB.APP_CLIENT.Where(e => e.CLIENT_ID == clientId).FirstOrDefault();
+            using (var db = GetDataContext())
+            {
+                var entity = db.APP_CLIENT.Where(e => e.CLIENT_ID == clientId).FirstOrDefault();
 
-            return ConvertEntity(entity);
+                return ConvertEntity(entity);
+            }
         }
 
         public void Create(Client client)
@@ -50,31 +57,43 @@ namespace LoowooTech.Passport.Dao
                 CREATE_TIME = client.CreateTime,
             };
 
-            DB.APP_CLIENT.Add(entity);
+            using (var db = GetDataContext())
+            {
+                db.APP_CLIENT.Add(entity);
 
-            DB.SaveChanges();
-            client.ID = entity.ID;
+                db.SaveChanges();
+                client.ID = entity.ID;
+            }
         }
 
         public void Delete(int id)
         {
-            var entity = DB.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
-            entity.DELETED = 1;
-            DB.SaveChanges();
+            using (var db = GetDataContext())
+            {
+                var entity = db.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
+                entity.DELETED = 1;
+                db.SaveChanges();
+            }
         }
 
 
         public Client GetClient(int id)
         {
-            var entity = DB.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
-            return ConvertEntity(entity);
+            using (var db = GetDataContext())
+            {
+                var entity = db.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
+                return ConvertEntity(entity);
+            }
         }
 
         public void Update(Client client)
         {
-            var entity = DB.APP_CLIENT.Where(e => e.ID == client.ID).FirstOrDefault();
-            entity.NAME = client.Name;
-            DB.SaveChanges();
+            using (var db = GetDataContext())
+            {
+                var entity = db.APP_CLIENT.Where(e => e.ID == client.ID).FirstOrDefault();
+                entity.NAME = client.Name;
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -26,22 +26,25 @@ namespace LoowooTech.Passport.Dao
 
         public AccessToken GetAccessToken(string clientId, int accountId)
         {
-            var entity = DB.AUTH_TOKEN.Where(e => e.CLIENT_ID == clientId && e.ACCOUNT_ID == accountId).FirstOrDefault();
-            if (entity == null)
+            using (var db = GetDataContext())
             {
-                entity = new AUTH_TOKEN
+                var entity = db.AUTH_TOKEN.Where(e => e.CLIENT_ID == clientId && e.ACCOUNT_ID == accountId).FirstOrDefault();
+                if (entity == null)
                 {
-                    ACCOUNT_ID = accountId,
-                    CLIENT_ID = clientId,
-                    CREATE_TIME = DateTime.Now,
-                };
+                    entity = new AUTH_TOKEN
+                    {
+                        ACCOUNT_ID = accountId,
+                        CLIENT_ID = clientId,
+                        CREATE_TIME = DateTime.Now,
+                    };
 
-                entity.TOKEN = AccessToken.GenerateToken(entity.CLIENT_ID, entity.ACCOUNT_ID, entity.CREATE_TIME);
+                    entity.TOKEN = AccessToken.GenerateToken(entity.CLIENT_ID, entity.ACCOUNT_ID, entity.CREATE_TIME);
 
-                DB.AUTH_TOKEN.Add(entity);
-                DB.SaveChanges();
+                    db.AUTH_TOKEN.Add(entity);
+                    db.SaveChanges();
+                }
+                return ConvertEntity(entity);
             }
-            return ConvertEntity(entity);
         }
 
         public void Create(AccessToken token)
@@ -54,11 +57,14 @@ namespace LoowooTech.Passport.Dao
                 TOKEN = token.Token,
             };
 
-            DB.AUTH_TOKEN.Add(entity);
-            DB.SaveChanges();
+            using (var db = GetDataContext())
+            {
+                db.AUTH_TOKEN.Add(entity);
+                db.SaveChanges();
 
-            token.ID = entity.ID;
+                token.ID = entity.ID;
 
+            }
         }
     }
 }

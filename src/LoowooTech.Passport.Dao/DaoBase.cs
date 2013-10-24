@@ -7,12 +7,17 @@ namespace LoowooTech.Passport.Dao
 {
     public class DaoBase
     {
-        protected DBEntities DB
+        //protected DBEntities db
+        //{
+        //    get
+        //    {
+        //        return new DBEntities();
+        //    }
+        //}
+
+        protected DBEntities GetDataContext()
         {
-            get
-            {
-                return new DBEntities();
-            }
+            return new DBEntities();
         }
     }
 }
