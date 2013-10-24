@@ -9,9 +9,13 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 {
     public class GroupController : AdminControllerBase
     {
-        public ActionResult List(int page = 1, int pageSize = 20)
+        public ActionResult List(int? accountId, bool? deleted, int page = 1, int pageSize = 20)
         {
-            var data = Core.GroupManager.GetGroups(page, pageSize);
+            var data = Core.GroupManager.GetGroups(new GroupFilter
+            {
+                AccountId = accountId,
+                Deleted = deleted
+            }, page, pageSize);
             return View();
         }
 

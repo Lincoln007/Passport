@@ -31,7 +31,7 @@ namespace LoowooTech.Passport.Dao
             return model;
         }
 
-        public IEnumerable<Group> GetGroups(SelectFilter filter, Paging page = null)
+        public IEnumerable<Group> GetGroups(GroupFilter filter, Paging page = null)
         {
             using (var db = GetDataContext())
             {
@@ -41,17 +41,19 @@ namespace LoowooTech.Passport.Dao
                     query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
                 }
 
-                return query.OrderByDescending(e => e.ID).SetPage(page).Select(e => ConvertEntity(e, false));
+                if (filter.AccountId.HasValue)
+                {
+                    var groupIds = db.USER_ACCOUNT_GROUP.Where(a => a.ACCOUNT_ID == filter.AccountId.Value).Select(ag => ag.GROUP_ID).ToArray();
+                    query = query.Where(e => groupIds.Contains(e.ID));
+                }
+
+                return query.OrderByDescending(e => e.ID).SetPage(page).Select(e => ConvertEntity(e, filter.GetRights));
             }
         }
 
         public IEnumerable<Group> GetGroups(int accountId)
         {
-            using (var db = GetDataContext())
-            {
-                var groupIds = db.USER_ACCOUNT_GROUP.Where(a => a.ACCOUNT_ID == accountId).Select(ag => ag.GROUP_ID).ToArray();
-                return db.USER_GROUP.Where(e => groupIds.Contains(e.ID)).Select(e => ConvertEntity(e, true)); ;
-            }
+            return GetGroups(new GroupFilter { AccountId = accountId, GetRights = true });
         }
 
 
@@ -61,15 +63,26 @@ namespace LoowooTech.Passport.Dao
             {
                 NAME = group.Name,
                 DELETED = 0,
+                DESCRIPTION = group.Description,
+                CREATE_TIME = group.CreateTime,
+
             };
 
             using (var db = GetDataContext())
             {
-
-                entity.USER_GROUP_RIGHT = group.Rights.Select(name => new USER_GROUP_RIGHT { NAME = name }).ToArray();
-
                 db.USER_GROUP.Add(entity);
+                db.SaveChanges();
 
+                var rights = group.Rights.Select(name => new USER_GROUP_RIGHT
+                {
+                    GROUP_ID = entity.ID,
+                    NAME = name
+                });
+
+                foreach (var item in rights)
+                {
+                    db.USER_GROUP_RIGHT.Add(item);
+                }
                 db.SaveChanges();
             }
         }
@@ -100,21 +113,24 @@ namespace LoowooTech.Passport.Dao
                 }
                 entity.NAME = group.Name;
                 entity.DELETED = (short)(group.Deleted ? 1 : 0);
+                db.SaveChanges();
 
-                foreach (var item in entity.USER_GROUP_RIGHT)
+                foreach (var item in db.USER_GROUP_RIGHT.Where(e => e.GROUP_ID == entity.ID))
                 {
-                    entity.USER_GROUP_RIGHT.Remove(item);
+                    db.USER_GROUP_RIGHT.Remove(item);
                 }
 
                 foreach (var name in group.Rights)
                 {
-                    entity.USER_GROUP_RIGHT.Add(new USER_GROUP_RIGHT
+                    db.USER_GROUP_RIGHT.Add(new USER_GROUP_RIGHT
                     {
+                        GROUP_ID = group.GroupID,
                         NAME = name,
                     });
                 }
 
                 db.SaveChanges();
+
             }
 
         }

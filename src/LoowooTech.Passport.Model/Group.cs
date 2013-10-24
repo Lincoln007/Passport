@@ -10,6 +10,7 @@ namespace LoowooTech.Passport.Model
         public Group()
         {
             Rights = new List<string>();
+            CreateTime = DateTime.Now;
         }
 
         public int GroupID { get; set; }

@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="AccountDaoTest.cs" />
     <Compile Include="EncryptExtensionsTest.cs" />
+    <Compile Include="GroupDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
