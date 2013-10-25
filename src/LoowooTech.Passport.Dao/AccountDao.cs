@@ -83,13 +83,14 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var query = db.USER_ACCOUNT.Where(a => a.USERNAME.ToLower() == username.ToLower());
+                var entity = db.USER_ACCOUNT.Where(a => a.USERNAME.ToLower() == username.ToLower()).FirstOrDefault();
                 if (!string.IsNullOrEmpty(password))
                 {
-                    query = query.Where(e => e.PASSWORD == Account.EncyptPassword(e.PASSWORD, e.CREATE_TIME));
+                    if (entity.PASSWORD != Account.EncyptPassword(password, entity.CREATE_TIME))
+                    {
+                        return null;
+                    }
                 }
-
-                var entity = query.FirstOrDefault();
 
                 return ConvertEntity(entity);
             }

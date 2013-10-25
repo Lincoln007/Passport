@@ -78,6 +78,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AccountDaoTest.cs" />
+    <Compile Include="AccountManagerTest.cs" />
     <Compile Include="ClientDaoTest.cs" />
     <Compile Include="EncryptExtensionsTest.cs" />
     <Compile Include="GroupDaoTest.cs" />
@@ -91,6 +92,10 @@
     <ProjectReference Include="..\LoowooTech.Passport.Dao\LoowooTech.Passport.Dao.csproj">
       <Project>{4e896dcd-cc94-40ed-b6dd-143c8367fa5e}</Project>
       <Name>LoowooTech.Passport.Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.Passport.Manager\LoowooTech.Passport.Manager.csproj">
+      <Project>{F17AC330-9CD3-48A6-A67C-FE62BA06263B}</Project>
+      <Name>LoowooTech.Passport.Manager</Name>
     </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Passport.Model\LoowooTech.Passport.Model.csproj">
       <Project>{ffad1617-3c7d-4694-8855-0a99f8abdb73}</Project>

@@ -27,20 +27,15 @@ namespace LoowooTech.Passport.Manager
 
         public Account GetAccount(string username, string password, string agentUsername = null)
         {
-            var account = Dao.GetAccount(username);
+            var account = Dao.GetAccount(username, password);
             if (account == null || account.Deleted)
             {
-                throw new ArgumentException("用户名不存在！");
+                throw new ArgumentException("用户名或密码不正确！");
             }
 
             if (account.Status == Status.Disabled)
             {
                 throw new ArgumentException("该用户登录功能已被关闭！");
-            }
-
-            if (account.Password != Account.EncyptPassword(password, account.CreateTime))
-            {
-                throw new ArgumentException("密码不正确！");
             }
 
             if (!string.IsNullOrEmpty(agentUsername))
@@ -73,7 +68,7 @@ namespace LoowooTech.Passport.Manager
             {
                 throw new ArgumentException("用户名不能为空！");
             }
-            
+
             if (string.IsNullOrEmpty(account.Password))
             {
                 throw new ArgumentException("密码不能为空！");
