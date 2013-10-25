@@ -57,5 +57,17 @@ namespace LoowooTech.Passport.Manager
         }
 
 
+        private LogManager _logManager;
+        public LogManager LogManager
+        {
+            get
+            {
+                if (_logManager == null) _logManager = new LogManager(this);
+
+                return _logManager;
+            }
+        }
+
+
     }
 }

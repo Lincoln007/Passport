@@ -45,6 +45,7 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="OperateLog.cs" />
     <Compile Include="PagingResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\AccountFilter.cs" />

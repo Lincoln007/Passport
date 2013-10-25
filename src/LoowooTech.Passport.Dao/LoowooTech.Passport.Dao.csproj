@@ -60,6 +60,7 @@
     <Compile Include="AUTH_TOKEN.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="OperateLogDao.cs" />
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="DB.Context.cs">
       <AutoGen>True</AutoGen>

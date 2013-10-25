@@ -8,6 +8,7 @@ using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web.Controllers
 {
+    [UserLog]
     public class ControllerBase : AsyncController
     {
         protected Core Core = Core.Instance;
@@ -22,6 +23,20 @@ namespace LoowooTech.Passport.Web.Controllers
 
         protected override void OnException(ExceptionContext filterContext)
         {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+            filterContext.HttpContext.Response.StatusCode = filterContext.Exception.GetStatusCode();
+            filterContext.ExceptionHandled = true;
+            if (filterContext.HttpContext.IsAjaxRequest())
+            {
+                filterContext.Result = Json(new { Message = filterContext.Exception.Message });
+            }
+            else
+            {
+                filterContext.Result = View("Error", filterContext.Exception);
+            }
             base.OnException(filterContext);
         }
     }
