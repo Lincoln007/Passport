@@ -189,7 +189,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="TOKEN" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TOKEN" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ACCOUNT_ID" Nullable="false" />
           <Property Type="DateTime" Name="CREATE_TIME" Nullable="false" />
           <Property Type="String" Name="CLIENT_ID" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />

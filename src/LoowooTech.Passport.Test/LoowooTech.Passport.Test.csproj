@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="AccountDaoTest.cs" />
     <Compile Include="AccountManagerTest.cs" />
+    <Compile Include="AuthManagerTest.cs" />
     <Compile Include="ClientDaoTest.cs" />
     <Compile Include="EncryptExtensionsTest.cs" />
     <Compile Include="GroupDaoTest.cs" />
