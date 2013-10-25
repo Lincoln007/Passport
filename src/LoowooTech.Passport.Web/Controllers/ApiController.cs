@@ -19,28 +19,24 @@ namespace LoowooTech.Passport.Web.Controllers
         public JsonResult GetRightInfo([AccessTokenBinder]AccessToken token, string rightNames, int agentId = 0)
         {
             var groups = Core.GroupManager.GetGroups(token.AccountId);
-            var levels = Core.GroupManager.GetRightLevels(groups, rightNames.Split(','), RightLevel.SelfRight);
+            var selfRights = Core.GroupManager.GetRightLevels(groups, rightNames.Split(','), RightLevel.SelfRight);
 
             if (agentId > 0 && Core.AccountManager.HasAgent(token.AccountId,agentId))
             {
                 groups = Core.GroupManager.GetGroups(agentId);
-                var agentLevels = Core.GroupManager.GetRightLevels(groups, rightNames.Split(','), RightLevel.AgentRight);
+                var agentRights = Core.GroupManager.GetRightLevels(groups, rightNames.Split(','), RightLevel.AgentRight);
 
-                //TODO：重复的权限移除，以代理权限为主。
-                foreach (var kv in agentLevels)
+                //SelfRights和AgentRights键值完全重复，如果Agent键值不为Agent级别，则用Self键值代替
+                foreach (var kv in agentRights)
                 {
-                    if (levels.ContainsKey(kv.Key))
+                    if (agentRights[kv.Key] == RightLevel.AgentRight)
                     {
-                        levels.Remove(kv.Key);
-                    }
-                    else
-                    {
-                        levels.Add(kv.Key,kv.Value);
+                        selfRights[kv.Key] = agentRights[kv.Key];
                     }
                 }
             }
 
-            return Json(levels, JsonRequestBehavior.AllowGet);
+            return Json(selfRights, JsonRequestBehavior.AllowGet);
         }
     }
 }
