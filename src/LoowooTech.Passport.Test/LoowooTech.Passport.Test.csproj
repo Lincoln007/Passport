@@ -78,6 +78,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AccountDaoTest.cs" />
+    <Compile Include="ClientDaoTest.cs" />
     <Compile Include="EncryptExtensionsTest.cs" />
     <Compile Include="GroupDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

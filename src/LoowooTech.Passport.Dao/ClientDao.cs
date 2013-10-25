@@ -18,7 +18,8 @@ namespace LoowooTech.Passport.Dao
                 Deleted = entity.DELETED == 1,
                 ClientSecret = entity.CLIENT_SECRET,
                 CreateTime = entity.CREATE_TIME,
-                Hosts = entity.HOSTS
+                Hosts = entity.HOSTS,
+                Name = entity.NAME,
             };
         }
 
@@ -33,7 +34,7 @@ namespace LoowooTech.Passport.Dao
                 //    query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
                 //}
 
-                return query.OrderByDescending(e => e.ID).SetPage(page).AsEnumerable().Select(e => ConvertEntity(e));
+                return query.OrderByDescending(e => e.ID).SetPage(page).ToList().Select(e => ConvertEntity(e));
             }
         }
 
@@ -55,6 +56,7 @@ namespace LoowooTech.Passport.Dao
                 CLIENT_SECRET = client.ClientSecret,
                 HOSTS = client.Hosts,
                 CREATE_TIME = client.CreateTime,
+                NAME = client.Name
             };
 
             using (var db = GetDataContext())
