@@ -26,9 +26,17 @@ namespace LoowooTech.Passport.Manager
             return new PagingResult<Group>(paging, list);
         }
 
-        public bool HasRights(IEnumerable<Group> groups, IEnumerable<string> rightNames)
+        public Dictionary<string, RightLevel> GetRightLevels(IEnumerable<Group> groups, IEnumerable<string> rightNames, RightLevel level)
         {
-            throw new NotImplementedException();
+            var result = new Dictionary<string, RightLevel>();
+            foreach (var group in groups)
+            {
+                foreach (var name in rightNames)
+                {
+                    result.Add(name, rightNames.Contains(name) ? level : RightLevel.NoRight);
+                }
+            }
+            return result;
         }
 
         public void Delete(int groupId)

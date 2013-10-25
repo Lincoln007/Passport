@@ -50,6 +50,7 @@
     <Compile Include="Query\AccountFilter.cs" />
     <Compile Include="Query\GroupFilter.cs" />
     <Compile Include="Query\SelectFilter.cs" />
+    <Compile Include="RightInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Status.cs" />
   </ItemGroup>

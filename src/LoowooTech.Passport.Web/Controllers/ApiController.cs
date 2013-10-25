@@ -16,24 +16,31 @@ namespace LoowooTech.Passport.Web.Controllers
             return Json(account, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult HasRights([AccessTokenBinder]AccessToken token, string rightNames, int agentId = 0)
+        public JsonResult GetRightInfo([AccessTokenBinder]AccessToken token, string rightNames, int agentId = 0)
         {
             var groups = Core.GroupManager.GetGroups(token.AccountId);
-            if (Core.GroupManager.HasRights(groups, rightNames.Split(',')))
-            {
-                return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
-            }
+            var levels = Core.GroupManager.GetRightLevels(groups, rightNames.Split(','), RightLevel.SelfRight);
 
             if (agentId > 0 && Core.AccountManager.HasAgent(token.AccountId,agentId))
             {
                 groups = Core.GroupManager.GetGroups(agentId);
-                if (Core.GroupManager.HasRights(groups, rightNames.Split(',')))
+                var agentLevels = Core.GroupManager.GetRightLevels(groups, rightNames.Split(','), RightLevel.AgentRight);
+
+                //TODO：重复的权限移除，以代理权限为主。
+                foreach (var kv in agentLevels)
                 {
-                    return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+                    if (levels.ContainsKey(kv.Key))
+                    {
+                        levels.Remove(kv.Key);
+                    }
+                    else
+                    {
+                        levels.Add(kv.Key,kv.Value);
+                    }
                 }
             }
 
-            return Json(new { result = 0 }, JsonRequestBehavior.AllowGet);
+            return Json(levels, JsonRequestBehavior.AllowGet);
         }
     }
 }
