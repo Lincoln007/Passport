@@ -42,15 +42,15 @@ namespace LoowooTech.Passport.Manager
             }
         }
 
-        public Dictionary<string, RightLevel> GetAllRightLevels(Account account)
+        public Dictionary<string, RightLevel> GetAllRightLevels(int accountId, int agentId)
         {
 
-            var selfRights = GetAllRightNames(account.AccountId).ToDictionary(r => r, r => RightLevel.SelfRight);
+            var selfRights = GetAllRightNames(accountId).ToDictionary(r => r, r => RightLevel.SelfRight);
 
-            if (account.AgentId > 0)
+            if (agentId > 0)
             {
-                var agentRights = GetAllRightNames(account.AgentId).ToDictionary(r => r, r => RightLevel.SelfRight);
-                
+                var agentRights = GetAllRightNames(agentId).ToDictionary(r => r, r => RightLevel.SelfRight);
+
                 //把代理权限也赋予本人，但标明为代理权限。
                 foreach (var kv in agentRights)
                 {
@@ -68,10 +68,10 @@ namespace LoowooTech.Passport.Manager
             return selfRights;
         }
 
-        public Dictionary<string, RightLevel> GetRightLevels(Account account, IEnumerable<string> rightNames)
+        public Dictionary<string, RightLevel> CheckRights(IEnumerable<string> rightNames, int accountId, int agentId)
         {
             var result = rightNames.ToDictionary(r => r, r => RightLevel.NoRight);
-            var allRights = GetAllRightLevels(account);
+            var allRights = GetAllRightLevels(accountId, agentId);
 
             foreach (var name in rightNames)
             {

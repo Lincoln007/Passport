@@ -42,7 +42,7 @@ namespace LoowooTech.Passport.Web.Controllers
             }
 
             var account = Core.AccountManager.GetAccount(accessToken.AccountId);
-            var allRights = Core.GroupManager.GetAllRightLevels(account);
+            var allRights = Core.GroupManager.GetAllRightLevels(account.AccountId, account.AgentId);
             return Json(new
             {
                 user = Core.AccountManager.GetAccount(accessToken.AccountId),

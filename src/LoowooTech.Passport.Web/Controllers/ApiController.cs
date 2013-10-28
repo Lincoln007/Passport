@@ -15,5 +15,12 @@ namespace LoowooTech.Passport.Web.Controllers
 
             return Json(account, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CheckRights([AccessTokenBinder]AccessToken token, string rightNames, int agentId = 0)
+        {
+            var result = Core.GroupManager.CheckRights(rightNames.Split(','), token.AccountId, agentId);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }
