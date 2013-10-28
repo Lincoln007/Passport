@@ -18,6 +18,8 @@ namespace LoowooTech.Passport.Model
 
         public string ClientId { get; set; }
 
+        public int AgentId { get; set; }
+
         public string GenerateToken()
         {
             return AccessToken.GenerateToken(ClientId, AccountId, CreateTime);

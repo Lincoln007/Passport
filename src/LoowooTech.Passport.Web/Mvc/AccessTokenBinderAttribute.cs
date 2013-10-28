@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LoowooTech.Passport.Manager;
 using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web
@@ -25,7 +26,25 @@ namespace LoowooTech.Passport.Web
                     throw new HttpException(403, "invalid access_token");
                 }
 
-                return AccessToken.Create(accessToken);
+                var token = AccessToken.Create(accessToken);
+
+                var agentId = 0;
+                int.TryParse(controllerContext.HttpContext.Request["agentId"], out agentId);
+                if (agentId > 0)
+                {
+                    if (agentId > 0)
+                    {
+                        var hasAgent = Core.Instance.AccountManager.HasAgent(token.AccountId, agentId);
+                        if (!hasAgent)
+                        {
+                            throw new HttpException(401, string.Format("当前用户没有代理{0}用户的权限！", agentId));
+                        }
+
+                        token.AgentId = agentId;
+                    }
+                }
+
+                return token;
             }
         }
     }
