@@ -15,6 +15,10 @@ namespace LoowooTech.Passport.Manager
 
         public IEnumerable<Group> GetGroups(int accountId)
         {
+            if (accountId == 0)
+            {
+                return new List<Group>();
+            }
             return Dao.GetGroups(accountId);
         }
 
@@ -26,16 +30,57 @@ namespace LoowooTech.Passport.Manager
             return new PagingResult<Group>(paging, list);
         }
 
-        public Dictionary<string, RightLevel> GetRightLevels(IEnumerable<Group> groups, IEnumerable<string> rightNames, RightLevel level)
+        public IEnumerable<string> GetAllRightNames(int accountId)
         {
-            var result = new Dictionary<string, RightLevel>();
-            foreach (var group in groups)
+            var groups = GetGroups(accountId);
+            foreach (var g in groups)
             {
-                foreach (var name in rightNames)
+                foreach (var right in g.Rights)
                 {
-                    result.Add(name, rightNames.Contains(name) ? level : RightLevel.NoRight);
+                    yield return right;
                 }
             }
+        }
+
+        public Dictionary<string, RightLevel> GetAllRightLevels(Account account)
+        {
+
+            var selfRights = GetAllRightNames(account.AccountId).ToDictionary(r => r, r => RightLevel.SelfRight);
+
+            if (account.AgentId > 0)
+            {
+                var agentRights = GetAllRightNames(account.AgentId).ToDictionary(r => r, r => RightLevel.SelfRight);
+                
+                //把代理权限也赋予本人，但标明为代理权限。
+                foreach (var kv in agentRights)
+                {
+                    if (selfRights.ContainsKey(kv.Key))
+                    {
+                        selfRights[kv.Key] = kv.Value;
+                    }
+                    else
+                    {
+                        selfRights.Add(kv.Key, kv.Value);
+                    }
+                }
+            }
+
+            return selfRights;
+        }
+
+        public Dictionary<string, RightLevel> GetRightLevels(Account account, IEnumerable<string> rightNames)
+        {
+            var result = rightNames.ToDictionary(r => r, r => RightLevel.NoRight);
+            var allRights = GetAllRightLevels(account);
+
+            foreach (var name in rightNames)
+            {
+                if (allRights.ContainsKey(name))
+                {
+                    result[name] = allRights[name];
+                }
+            }
+
             return result;
         }
 

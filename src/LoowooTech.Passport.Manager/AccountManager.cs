@@ -59,6 +59,10 @@ namespace LoowooTech.Passport.Manager
 
         public Account GetAccount(int accountId)
         {
+            if (accountId == 0)
+            {
+                return null;
+            }
             return Dao.GetAccount(accountId);
         }
 
