@@ -30,16 +30,6 @@ namespace LoowooTech.Passport.Web
                     throw new HttpException(403, "invalid_client");
                 }
 
-                var actionName = controllerContext.RouteData.Values["Action"].ToString();
-                if (actionName.ToLower() == "access_token")
-                {
-                    var clientSecret = controllerContext.HttpContext.Request["client_secret"];
-                    if (string.IsNullOrEmpty(clientSecret) || client.ClientSecret.ToLower() != clientSecret.ToLower())
-                    {
-                        throw new HttpException(403, "invalid_client");
-                    }
-                }
-
                 return client;
             }
         }

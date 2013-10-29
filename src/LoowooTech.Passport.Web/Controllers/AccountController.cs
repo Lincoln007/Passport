@@ -12,8 +12,10 @@ namespace LoowooTech.Passport.Web.Controllers
     {
         [UserRole(Role = Role.Everyone)]
         [HttpGet]
-        public ActionResult Login(string returnUrl = "/")
+        public ActionResult Login(string returnUrl = "/", string client_id = null, string css = null)
         {
+            ViewBag.ClientId = client_id;
+            ViewBag.CssUrl = css;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -42,18 +44,6 @@ namespace LoowooTech.Passport.Web.Controllers
         {
             HttpContext.UserLogout();
             return Redirect(returnUrl);
-        }
-
-        [HttpGet]
-        public ActionResult EditPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult EditPassword(string oldPassword,string newPassword,string rePassword)
-        {
-            return View();
         }
     }
 }

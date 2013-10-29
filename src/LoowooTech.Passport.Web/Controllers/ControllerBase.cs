@@ -31,7 +31,7 @@ namespace LoowooTech.Passport.Web.Controllers
             filterContext.ExceptionHandled = true;
             if (filterContext.HttpContext.IsAjaxRequest())
             {
-                filterContext.Result = Json(new { Message = filterContext.Exception.Message });
+                filterContext.Result = Json(new { result = false, message = filterContext.Exception.Message });
             }
             else
             {

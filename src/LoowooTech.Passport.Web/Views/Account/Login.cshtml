@@ -1,7 +1,9 @@
 ﻿<h2>用户登录</h2>
-<form action="?returnUrl=@(ViewBag.ReturnUrl)" method="post">
-    <p>用户名：<input type="text" name="username" /></p>
-    <p>代理人用户名：<input type="text" name="agentUsername" /></p>
-    <p>密码：<input type="password" name="password"/></p>
-    <p><input type="submit" value="登录" /></p>
-</form>
+<div class="login_form">
+    <form action="?returnUrl=@(ViewBag.ReturnUrl)" method="post">
+        <p><label>用户名</label><input type="text" name="username" /></p>
+        <p><label>代理人(选填)</label><input type="text" name="agentUsername" /></p>
+        <p><label>密码</label><input type="password" name="password" /></p>
+        <p><input type="submit" value="登录" /></p>
+    </form>
+</div>
