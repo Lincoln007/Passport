@@ -30,9 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +50,7 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="GroupRight.cs" />
     <Compile Include="OperateLog.cs" />
     <Compile Include="PagingResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,10 +62,13 @@
     <Compile Include="Status.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj">
+    <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">
       <Project>{9824deb3-7bf9-41ed-b254-78ec4814a068}</Project>
-      <Name>LoowooTech.Passport.Common</Name>
+      <Name>LoowooTech.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

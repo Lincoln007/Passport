@@ -170,10 +170,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj">
-      <Project>{9824deb3-7bf9-41ed-b254-78ec4814a068}</Project>
-      <Name>LoowooTech.Passport.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Passport.Manager\LoowooTech.Passport.Manager.csproj">
       <Project>{f17ac330-9cd3-48a6-a67c-fe62ba06263b}</Project>
       <Name>LoowooTech.Passport.Manager</Name>

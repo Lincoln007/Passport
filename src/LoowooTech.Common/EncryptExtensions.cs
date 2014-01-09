@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 
-namespace LoowooTech.Passport.Common
+namespace LoowooTech.Common
 {
     public static class EncryptExtensions
     {
@@ -91,6 +91,12 @@ namespace LoowooTech.Passport.Common
                     }
                 }
             }
+        }
+
+        public static string AESDecrypt(this string encrypted)
+        {
+            var bytes = Encoding.UTF8.GetBytes(encrypted);
+            return bytes.AESDecrypt();
         }
 
         public static string AESDecrypt(this byte[] encryptedBytes)

@@ -14,12 +14,7 @@ namespace LoowooTech.Passport.Dao
             {
                 foreach (var log in logs)
                 {
-                    db.OPERATE_LOG.Add(new OPERATE_LOG
-                    {
-                        ACCOUNT_ID = log.AccountId,
-                        ACTION = log.Action,
-                        CREATE_TIME = log.CreateTime,
-                    });
+                    db.OperateLog.Add(log);
                 }
 
                 db.SaveChanges();

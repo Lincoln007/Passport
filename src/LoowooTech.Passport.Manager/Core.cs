@@ -12,59 +12,44 @@ namespace LoowooTech.Passport.Manager
 
         public static Core Instance = new Core();
 
-        private AccountManager _accountManager;
         public AccountManager AccountManager
         {
             get
             {
-                if (_accountManager == null) _accountManager = new AccountManager(this);
-
-                return _accountManager;
+                return new AccountManager();
             }
         }
 
-        private GroupManager _groupManager;
         public GroupManager GroupManager
         {
             get
             {
-                if (_groupManager == null) _groupManager = new GroupManager(this);
-
-                return _groupManager;
+                return new GroupManager();
             }
         }
 
-        private ClientManager _clientManager;
         public ClientManager ClientManager
         {
             get
             {
-                if (_clientManager == null) _clientManager = new ClientManager(this);
-
-                return _clientManager;
+                return new ClientManager();
             }
         }
 
-        private AuthManager _authManager;
         public AuthManager AuthManager
         {
             get
             {
-                if (_authManager == null) _authManager = new AuthManager(this);
-
-                return _authManager;
+                return new AuthManager();
             }
         }
 
 
-        private LogManager _logManager;
         public LogManager LogManager
         {
             get
             {
-                if (_logManager == null) _logManager = new LogManager(this);
-
-                return _logManager;
+                return new LogManager();
             }
         }
 

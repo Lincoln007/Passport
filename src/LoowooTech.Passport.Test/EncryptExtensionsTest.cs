@@ -1,4 +1,4 @@
-﻿using LoowooTech.Passport.Common;
+﻿using LoowooTech.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

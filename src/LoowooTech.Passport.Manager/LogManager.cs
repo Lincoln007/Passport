@@ -10,8 +10,6 @@ namespace LoowooTech.Passport.Manager
 {
     public class LogManager : ManagerBase
     {
-        public LogManager(Core core) : base(core) { }
-
         private static ConcurrentBag<OperateLog> _queue = new ConcurrentBag<OperateLog>();
 
         private OperateLogDao Dao = new OperateLogDao();

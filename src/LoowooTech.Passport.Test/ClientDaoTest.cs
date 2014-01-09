@@ -28,19 +28,19 @@ namespace LoowooTech.Passport.Test
         public void UpdateTest()
         {
             Client client = null;
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.APP_CLIENT.FirstOrDefault();
+                var entity = db.Client.FirstOrDefault();
                 client = target.GetClient(entity.ID);
                 client.Name = "UPDATE.TEST" + DateTime.Now.Ticks;
                 target.Update(client);
             }
 
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.APP_CLIENT.Where(e => e.ID == client.ID).FirstOrDefault();
+                var entity = db.Client.Where(e => e.ID == client.ID).FirstOrDefault();
 
-                Assert.AreEqual(entity.NAME, client.Name);
+                Assert.AreEqual(entity.Name, client.Name);
             }
         }
 
@@ -50,13 +50,13 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void GetClientTest()
         {
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.APP_CLIENT.FirstOrDefault();
+                var entity = db.Client.FirstOrDefault();
                 var client = target.GetClient(entity.ID);
-                Assert.AreEqual(entity.NAME, client.Name);
+                Assert.AreEqual(entity.Name, client.Name);
 
-                client = target.GetClient(entity.CLIENT_ID);
+                client = target.GetClient(entity.ClientId);
                 Assert.AreEqual(entity.ID, client.ID);
             }
         }
@@ -67,12 +67,12 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void DeleteTest()
         {
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.APP_CLIENT.FirstOrDefault();
+                var entity = db.Client.FirstOrDefault();
                 target.Delete(entity.ID);
                 var client = target.GetClient(entity.ID);
-                Assert.AreEqual(true, client.Deleted);
+                Assert.AreEqual(1, client.Deleted);
             }
         }
 

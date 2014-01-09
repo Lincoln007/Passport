@@ -8,33 +8,18 @@ namespace LoowooTech.Passport.Dao
 {
     public class ClientDao : DaoBase
     {
-        private Client ConvertEntity(APP_CLIENT entity)
-        {
-            if (entity == null) return null;
-            return new Client
-            {
-                ID = entity.ID,
-                ClientId = entity.CLIENT_ID,
-                Deleted = entity.DELETED == 1,
-                ClientSecret = entity.CLIENT_SECRET,
-                CreateTime = entity.CREATE_TIME,
-                Hosts = entity.HOSTS,
-                Name = entity.NAME,
-            };
-        }
-
         public IEnumerable<Client> GetClients(Paging page)
         {
             using (var db = GetDataContext())
             {
 
-                var query = db.APP_CLIENT.AsQueryable();
+                var query = db.Client.AsQueryable();
                 //if (filter.Deleted.HasValue)
                 //{
                 //    query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
                 //}
 
-                return query.OrderByDescending(e => e.ID).SetPage(page).ToList().Select(e => ConvertEntity(e));
+                return query.OrderByDescending(e => e.ID).SetPage(page).ToList();
             }
         }
 
@@ -42,29 +27,17 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var entity = db.APP_CLIENT.Where(e => e.CLIENT_ID == clientId).FirstOrDefault();
-
-                return ConvertEntity(entity);
+                return db.Client.Where(e => e.ClientId == clientId).FirstOrDefault();
             }
         }
 
         public void Create(Client client)
         {
-            var entity = new APP_CLIENT
-            {
-                CLIENT_ID = client.ClientId,
-                CLIENT_SECRET = client.ClientSecret,
-                HOSTS = client.Hosts,
-                CREATE_TIME = client.CreateTime,
-                NAME = client.Name
-            };
-
             using (var db = GetDataContext())
             {
-                db.APP_CLIENT.Add(entity);
+                db.Client.Add(client);
 
                 db.SaveChanges();
-                client.ID = entity.ID;
             }
         }
 
@@ -72,8 +45,8 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var entity = db.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
-                entity.DELETED = 1;
+                var entity = db.Client.Where(e => e.ID == id).FirstOrDefault();
+                entity.Deleted = 1;
                 db.SaveChanges();
             }
         }
@@ -83,8 +56,7 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var entity = db.APP_CLIENT.Where(e => e.ID == id).FirstOrDefault();
-                return ConvertEntity(entity);
+                return db.Client.Where(e => e.ID == id).FirstOrDefault();
             }
         }
 
@@ -92,8 +64,8 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var entity = db.APP_CLIENT.Where(e => e.ID == client.ID).FirstOrDefault();
-                entity.NAME = client.Name;
+                var entity = db.Client.Where(e => e.ID == client.ID).FirstOrDefault();
+                db.Entry(entity).CurrentValues.SetValues(client);
                 db.SaveChanges();
             }
         }

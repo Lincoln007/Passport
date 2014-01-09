@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using LoowooTech.Passport.Model;
-using LoowooTech.Passport.Common;
+using LoowooTech.Common;
 using LoowooTech.Passport.Dao;
 
 
@@ -12,8 +12,6 @@ namespace LoowooTech.Passport.Manager
 {
     public class AuthManager : ManagerBase
     {
-        public AuthManager(Core core) : base(core) { }
-
         private static ConcurrentDictionary<string, AuthorizeCode> _codes = new ConcurrentDictionary<string, AuthorizeCode>();
         private static readonly AuthDao Dao = new AuthDao();
 

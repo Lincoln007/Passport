@@ -9,8 +9,6 @@ namespace LoowooTech.Passport.Manager
 {
     public class ClientManager : ManagerBase
     {
-        public ClientManager(Core core) : base(core) { }
-
         private static readonly ClientDao Dao = new ClientDao();
 
         public Client GetClient(string clientId)

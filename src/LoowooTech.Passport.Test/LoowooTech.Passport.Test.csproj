@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.13\lib\net40\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -81,14 +78,15 @@
     <Compile Include="AccountManagerTest.cs" />
     <Compile Include="AuthManagerTest.cs" />
     <Compile Include="ClientDaoTest.cs" />
+    <Compile Include="DbHelper.cs" />
     <Compile Include="EncryptExtensionsTest.cs" />
     <Compile Include="GroupDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj">
-      <Project>{9824DEB3-7BF9-41ED-B254-78EC4814A068}</Project>
-      <Name>LoowooTech.Passport.Common</Name>
+    <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">
+      <Project>{9824deb3-7bf9-41ed-b254-78ec4814a068}</Project>
+      <Name>LoowooTech.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\LoowooTech.Passport.Dao\LoowooTech.Passport.Dao.csproj">
       <Project>{4e896dcd-cc94-40ed-b6dd-143c8367fa5e}</Project>

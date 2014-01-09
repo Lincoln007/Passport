@@ -7,10 +7,6 @@ namespace LoowooTech.Passport.Manager
 {
     public class ManagerBase
     {
-        protected Core Core;
-        public ManagerBase(Core core)
-        {
-            Core = core;
-        }
+        protected Core Core = Core.Instance;
     }
 }

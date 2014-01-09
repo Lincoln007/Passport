@@ -23,13 +23,13 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void GetAccountTest()
         {
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var data = db.USER_ACCOUNT.Where(e => e.USERNAME.Contains("maddemon")).FirstOrDefault();
+                var data = db.Account.Where(e => e.Username.Contains("maddemon")).FirstOrDefault();
 
-                var account = target.GetAccount(data.USERNAME);
+                var account = target.GetAccount(data.Username);
 
-                Assert.AreEqual(data.USERNAME, account.Username);
+                Assert.AreEqual(data.Username, account.Username);
             }
         }
 
@@ -43,7 +43,7 @@ namespace LoowooTech.Passport.Test
             {
                 Username = "maddemon" + DateTime.Now.Ticks,
                 Password = "123",
-                Role = Role.Administrator,
+                Role = (short)Role.Administrator,
                 TrueName = "jim",
             };
             target.Create(account);
@@ -61,29 +61,29 @@ namespace LoowooTech.Passport.Test
         public void DeleteTest()
         {
             var account = target.GetAccounts(new AccountFilter { Deleted = false }).FirstOrDefault();
-            account.Deleted = true;
+            account.Deleted = 1;
             target.Delete(account.AccountId);
             var expect = target.GetAccount(account.AccountId);
 
-            Assert.AreEqual(true, expect.Deleted);
+            Assert.AreEqual(1, expect.Deleted);
         }
 
-        /// <summary>
-        ///A test for HasAgent
-        ///</summary>
-        [TestMethod()]
-        public void HasAgentTest()
-        {
-            using (var db = new DBEntities())
-            {
-                var data = db.USER_ACCOUNT_AGENT.FirstOrDefault();
-                if (data != null)
-                {
-                    var expect = target.HasAgent(data.ACCOUNT_ID, data.AGENT_ID);
-                    Assert.AreEqual(true, expect);
-                }
-            }
-        }
+        ///// <summary>
+        /////A test for HasAgent
+        /////</summary>
+        //[TestMethod()]
+        //public void HasAgentTest()
+        //{
+        //    using (var db = DbHelper.GetDataContext())
+        //    {
+        //        var data = db.USER_ACCOUNT_AGENT.FirstOrDefault();
+        //        if (data != null)
+        //        {
+        //            var expect = target.HasAgent(data.ACCOUNT_ID, data.AGENT_ID);
+        //            Assert.AreEqual(true, expect);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         ///A test for Update
@@ -93,19 +93,19 @@ namespace LoowooTech.Passport.Test
         {
             Account account = null;
 
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.USER_ACCOUNT.FirstOrDefault();
-                account = target.GetAccount(entity.ID);
+                var entity = db.Account.FirstOrDefault();
+                account = target.GetAccount(entity.AccountId);
                 account.Username = "test" + DateTime.Now.Ticks;
                 target.Update(account);
             }
 
 
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var expect = db.USER_ACCOUNT.Where(e => e.ID == account.AccountId).FirstOrDefault();
-                Assert.AreEqual(expect.USERNAME, account.Username);
+                var expect = db.Account.Where(e => e.AccountId == account.AccountId).FirstOrDefault();
+                Assert.AreEqual(expect.Username, account.Username);
             }
         }
 
@@ -115,11 +115,11 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void GetAccountsTest()
         {
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.USER_ACCOUNT.FirstOrDefault();
-                entity.DELETED = 1;
-                entity.STATUS = (short)Status.Disabled;
+                var entity = db.Account.FirstOrDefault();
+                entity.Deleted = 1;
+                entity.Status = (short)Status.Disabled;
                 db.SaveChanges();
 
                 var list = target.GetAccounts(new AccountFilter { Deleted = true, Enabled = false });

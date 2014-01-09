@@ -22,13 +22,13 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void ResetPasswordTest()
         {
-            using (var db = new DBEntities())
+            using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.USER_ACCOUNT.Where(e => e.DELETED == 0).FirstOrDefault();
-                var newpw = Core.Instance.AccountManager.ResetPassword(entity.ID);
-                var account = Core.Instance.AccountManager.GetAccount(entity.USERNAME, newpw);
+                var entity = db.Account.Where(e => e.Deleted == 0).FirstOrDefault();
+                var newpw = Core.Instance.AccountManager.ResetPassword(entity.AccountId);
+                var account = Core.Instance.AccountManager.GetAccount(entity.Username, newpw);
                 Assert.AreNotEqual(null, account);
-                Assert.AreEqual(entity.ID, account.AccountId);
+                Assert.AreEqual(entity.AccountId, account.AccountId);
             }
         }
     }

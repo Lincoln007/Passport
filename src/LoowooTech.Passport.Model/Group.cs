@@ -2,32 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace LoowooTech.Passport.Model
 {
+    [Table("USER_GROUP")]
     public class Group
     {
         public Group()
         {
-            Rights = new List<string>();
             CreateTime = DateTime.Now;
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("ID")]
         public int GroupID { get; set; }
 
+        [Column("NAME")]
         public string Name { get; set; }
 
+        [Column("DESCRIPTION")]
         public string Description { get; set; }
 
+        [Column("CREATE_TIME")]
         public DateTime CreateTime { get; set; }
 
-        public bool Deleted { get; set; }
+        [Column("DELETED")]
+        public short Deleted { get; set; }
 
-        public IEnumerable<string> Rights { get; set; }
-
-        public bool HasRight(string rightName)
-        {
-            return Rights.Any(r => r.ToLower() == rightName.ToLower());
-        }
+        [ForeignKey("GROUP_ID")]
+        public virtual IEnumerable<GroupRight> Rights { get; set; }
     }
 }

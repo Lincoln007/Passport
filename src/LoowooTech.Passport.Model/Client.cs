@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using LoowooTech.Passport.Common;
+using LoowooTech.Common;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoowooTech.Passport.Model
 {
+    [Table("APP_CLIENT")]
     public class Client
     {
         public Client()
@@ -15,18 +18,27 @@ namespace LoowooTech.Passport.Model
             ClientSecret = Guid.NewGuid().ToString().MD5();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("ID")]
         public int ID { get; set; }
 
+        [Column("NAME")]
         public string Name { get; set; }
 
+        [Column("CLIENT_ID")]
         public string ClientId { get; set; }
 
+        [Column("CLIENT_SECRET")]
         public string ClientSecret { get; set; }
 
+        [Column("HOSTS")]
         public string Hosts { get; set; }
 
+        [Column("CREATE_TIME")]
         public DateTime CreateTime { get; set; }
 
-        public bool Deleted { get; set; }
+        [Column("DELETED")]
+        public short Deleted { get; set; }
     }
 }

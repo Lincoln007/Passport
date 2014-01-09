@@ -15,9 +15,9 @@ namespace LoowooTech.Passport.Dao
         //    }
         //}
 
-        protected DBEntities GetDataContext()
+        protected DBDataContext GetDataContext()
         {
-            return new DBEntities();
+            return new DBDataContext();
         }
     }
 }

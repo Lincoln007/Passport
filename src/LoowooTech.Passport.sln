@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Model",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Manager", "LoowooTech.Passport.Manager\LoowooTech.Passport.Manager.csproj", "{F17AC330-9CD3-48A6-A67C-FE62BA06263B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Common", "LoowooTech.Passport.Common\LoowooTech.Passport.Common.csproj", "{9824DEB3-7BF9-41ED-B254-78EC4814A068}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Test", "LoowooTech.Passport.Test\LoowooTech.Passport.Test.csproj", "{71438A02-3755-4DFE-AACB-8C4B6637F3A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Common", "LoowooTech.Common\LoowooTech.Common.csproj", "{9824DEB3-7BF9-41ED-B254-78EC4814A068}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +35,14 @@ Global
 		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F17AC330-9CD3-48A6-A67C-FE62BA06263B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71438A02-3755-4DFE-AACB-8C4B6637F3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71438A02-3755-4DFE-AACB-8C4B6637F3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71438A02-3755-4DFE-AACB-8C4B6637F3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71438A02-3755-4DFE-AACB-8C4B6637F3A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

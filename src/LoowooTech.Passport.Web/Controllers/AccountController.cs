@@ -32,7 +32,7 @@ namespace LoowooTech.Passport.Web.Controllers
 
             HttpContext.UserLogin(user);
 
-            if (user.Role == Role.Administrator && returnUrl == "/")
+            if ((Role)user.Role == Role.Administrator && returnUrl == "/")
             {
                 returnUrl = "/admin";
             }

@@ -9,8 +9,6 @@ namespace LoowooTech.Passport.Manager
 {
     public class GroupManager : ManagerBase
     {
-        public GroupManager(Core core) : base(core) { }
-
         private static readonly GroupDao Dao = new GroupDao();
 
         public IEnumerable<Group> GetGroups(int accountId)
@@ -32,16 +30,8 @@ namespace LoowooTech.Passport.Manager
 
         public IEnumerable<string> GetAllRightNames(int accountId)
         {
-            var groups = GetGroups(accountId);
-            foreach (var g in groups)
-            {
-                foreach (var right in g.Rights)
-                {
-                    yield return right;
-                }
-            }
+            return GetGroups(accountId).SelectMany(e => e.Rights).Select(e => e.Name);
         }
-
         public Dictionary<string, RightLevel> GetAllRightLevels(int accountId, int agentId)
         {
 

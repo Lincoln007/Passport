@@ -10,16 +10,13 @@ namespace LoowooTech.Passport.Dao
     {
         public static IQueryable<T> SetPage<T>(this IOrderedQueryable<T> query, Paging page)
         {
-            if (page != null)
-            {
-                if (page.RecordCount == 0)
-                {
-                    page.RecordCount = query.Count();
+            if (page == null) return query;
 
-                    return query.Skip(page.PageSize * (page.CurrentPage - 1)).Take(page.PageSize);
-                }
+            if (page.RecordCount == 0)
+            {
+                page.RecordCount = query.Count();
             }
-            return query;
+            return query.Skip(page.PageSize * (page.CurrentPage - 1)).Take(page.PageSize);
         }
     }
 }
