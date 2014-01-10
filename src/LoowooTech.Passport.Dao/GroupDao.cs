@@ -3,38 +3,82 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LoowooTech.Passport.Model;
+using LoowooTech.Common;
 
 namespace LoowooTech.Passport.Dao
 {
     public class GroupDao : DaoBase
     {
+        private string _groupKey = "AllGroups";
+        private string _rightKey = "AllRights";
+
+        private List<GroupRight> GetAllRights()
+        {
+            var list = Cache.Get<List<GroupRight>>(_rightKey);
+            if (list == null)
+            {
+                using (var db = GetDataContext())
+                {
+                    list = db.GroupRight.ToList();
+                }
+                Cache.Set(_rightKey, list);
+            }
+            return list;
+        }
+
+        private List<Group> GetAllGroups()
+        {
+            var list = Cache.Get<List<Group>>(_groupKey);
+            if (list == null)
+            {
+                using (var db = GetDataContext())
+                {
+                    list = db.Group.Select(e => new Group
+                    {
+                        CreateTime = e.CreateTime,
+                        Description = e.Description,
+                        Deleted = e.Deleted,
+                        GroupID = e.GroupID,
+                        Name = e.Name,
+                        Rights = GetAllRights().Where(r => r.GroupID == e.GroupID)
+                    }).ToList();
+                }
+                Cache.Set(_groupKey, list);
+            }
+            return list;
+        }
+
+        private void RemoveCache()
+        {
+            Cache.Remove(_rightKey);
+            Cache.Remove(_groupKey);
+        }
+
         public List<Group> GetGroups(GroupFilter filter, Paging page = null)
         {
-            using (var db = GetDataContext())
+            if (filter.AccountId.HasValue)
             {
-                var query = db.Group.AsQueryable();
-                if (filter.Deleted.HasValue)
-                {
-                    query = query.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
-                }
-
-                if (filter.AccountId.HasValue)
-                {
-                    var account = db.Account.FirstOrDefault(e => e.AccountId == filter.AccountId);
-                    if (!string.IsNullOrEmpty(account.Groups))
-                    {
-                        var groupIds = account.Groups.Split(',').Select(s => int.Parse(s)).ToArray();
-                        query = query.Where(e => groupIds.Contains(e.GroupID));
-                    }
-                }
-
-                return query.OrderByDescending(e => e.GroupID).SetPage(page).ToList();
+                return GetGroups(filter.AccountId.Value);
             }
+
+            var list = GetAllGroups();
+            var query = GetAllGroups().AsQueryable();
+            if (filter.Deleted.HasValue)
+            {
+                query = query.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
+            }
+            return query.OrderByDescending(e => e.GroupID).SetPage(page).ToList();
         }
 
         public List<Group> GetGroups(int accountId)
         {
-            return GetGroups(new GroupFilter { AccountId = accountId, GetRights = true });
+            var account = new AccountDao().GetAccount(accountId);
+            if (string.IsNullOrEmpty(account.Groups))
+            {
+                return new List<Group>();
+            }
+            var groupIds = account.Groups.Split(',').Select(s => int.Parse(s));
+            return GetAllGroups().Where(e => groupIds.Contains(e.GroupID)).ToList();
         }
 
 
@@ -46,6 +90,7 @@ namespace LoowooTech.Passport.Dao
                 db.SaveChanges();
                 AddRights(group);
             }
+            RemoveCache();
         }
 
         private void AddRights(Group group)
@@ -60,6 +105,7 @@ namespace LoowooTech.Passport.Dao
                 }
                 db.SaveChanges();
             }
+            RemoveCache();
         }
 
         private void RemoveRigths(int groupId)
@@ -72,6 +118,7 @@ namespace LoowooTech.Passport.Dao
                 }
                 db.SaveChanges();
             }
+            RemoveCache();
         }
 
         public void Update(Group group)
@@ -88,6 +135,7 @@ namespace LoowooTech.Passport.Dao
                 db.SaveChanges();
                 AddRights(group);
             }
+            RemoveCache();
 
         }
 
@@ -106,6 +154,7 @@ namespace LoowooTech.Passport.Dao
 
                 RemoveRigths(groupId);
             }
+            RemoveCache();
         }
 
         public Group GetGroup(int groupId)

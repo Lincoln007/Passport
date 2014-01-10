@@ -23,6 +23,7 @@ namespace LoowooTech.Passport.Manager
         public PagingResult<Group> GetGroups(GroupFilter filter, int page, int pageSize)
         {
             var paging = new Paging(page, pageSize);
+
             var list = Dao.GetGroups(filter, paging);
 
             return new PagingResult<Group>(paging, list);
