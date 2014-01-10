@@ -9,19 +9,21 @@ namespace LoowooTech.Passport.Web
 {
     public static class LoginHelper
     {
+        private static string CookieName = ".lwAuth";
+
         public static void UserLogin(this HttpContextBase context, Account account)
         {
             var ticketName = account.AccountId + "|" + (int)account.Role + "|" + account.AgentId + "|" + account.Username;
 
-            var ticket = new FormsAuthenticationTicket(account.AccountId.ToString(), false, 30);
+            var ticket = new FormsAuthenticationTicket(ticketName, false, 30);
 
-            context.Response.Cookies.Set(new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)));
+            context.Response.Cookies.Set(new HttpCookie(CookieName, FormsAuthentication.Encrypt(ticket)));
 
         }
 
         public static void UserLogout(this HttpContextBase context)
         {
-            var cookie = context.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+            var cookie = context.Request.Cookies.Get(CookieName);
             cookie.Value = null;
             cookie.Expires = DateTime.Now.AddYears(-1);
             context.Response.SetCookie(cookie);
@@ -29,8 +31,8 @@ namespace LoowooTech.Passport.Web
 
         public static CurrentUser GetCurrentUser(this HttpContextBase context)
         {
-            var user = new CurrentUser(); 
-            var cookie = context.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+            var user = new CurrentUser();
+            var cookie = context.Request.Cookies.Get(CookieName);
             if (cookie == null) return user;
 
             var ticket = FormsAuthentication.Decrypt(cookie.Value);

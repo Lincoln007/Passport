@@ -17,8 +17,8 @@ namespace LoowooTech.Passport.Web.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
-                new[] { "LoowooTech.Passport.Web.Admin.Controllers" }
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                new[] { "LoowooTech.Passport.Web.Areas.Admin.Controllers" }
             );
         }
     }

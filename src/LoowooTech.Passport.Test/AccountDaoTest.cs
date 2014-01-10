@@ -41,17 +41,16 @@ namespace LoowooTech.Passport.Test
         {
             Account account = new Account
             {
-                Username = "maddemon" + DateTime.Now.Ticks,
+                Username = "maddemon",
                 Password = "123",
                 Role = (short)Role.Administrator,
                 TrueName = "jim",
             };
             target.Create(account);
 
-            var expect = target.GetAccount(account.Username);
+            var expect = target.GetAccount(account.Username, "123");
 
             Assert.AreNotEqual(0, expect.AccountId);
-
         }
 
         /// <summary>

@@ -10,15 +10,15 @@ namespace LoowooTech.Passport.Dao
     {
         public void Create(IEnumerable<OperateLog> logs)
         {
-            using (var db = GetDataContext())
-            {
-                foreach (var log in logs)
-                {
-                    db.OperateLog.Add(log);
-                }
+            //using (var db = GetDataContext())
+            //{
+            //    foreach (var log in logs)
+            //    {
+            //        db.OperateLog.Add(log);
+            //    }
 
-                db.SaveChanges();
-            }
+            //    db.SaveChanges();
+            //}
         }
     }
 }

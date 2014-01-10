@@ -7,27 +7,28 @@ using LoowooTech.Passport.Model;
 
 namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 {
+    [UserAuthorize]
     public class AccountController : AdminControllerBase
     {
-        public ActionResult Login()
+        public ActionResult List()
         {
-            return Redirect("~/Account/Login");
+            return View();
         }
 
-        public ActionResult List(string searchkey, bool? deleted, bool? enabled, DateTime? beginTime, DateTime? endTime, int page = 1, int pageSize = 20)
+        public ActionResult GetList(string searchkey, bool? deleted, bool? enabled, DateTime? beginTime, DateTime? endTime, int page = 1, int rows = 20)
         {
-
-            ViewBag.Data = Core.AccountManager.GetAccounts(new AccountFilter
+            var list = Core.AccountManager.GetAccounts(new AccountFilter
             {
                 Deleted = deleted,
                 Enabled = enabled,
                 SearchKey = searchkey,
                 BeginTime = beginTime,
                 EndTime = endTime
-            }, page, pageSize);
+            }, page, rows);
 
-            return View();
+            return JsonContent(list);
         }
+
 
         [HttpGet]
         public ActionResult Edit(int? accountId)

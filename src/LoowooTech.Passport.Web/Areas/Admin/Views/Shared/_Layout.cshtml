@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户管理中心</title>
+    @Html.Raw(Page.Static)
+</head>
+<body class="easyui-layout">
+    <div region="north" style="height: 60px; background-color: #333">
+        <h1 style="color: #fff;">用户管理中心</h1>
+    </div>
+    <div region="west" style="width: 200px" title="功能菜单">
+        @Html.Partial("_navigation")
+    </div>
+    <div region="center">
+        <div id="main-tabs" class="easyui-tabs" fit="true">
+            @RenderBody()
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#navigation a").click(function () {
+                var title = $(this).html();
+                var href = $(this).attr("href");
+                var tabs = $("#main-tabs");
+                tabs.tabs("close", title).tabs("add", { title: title, href: href, closable: true });
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

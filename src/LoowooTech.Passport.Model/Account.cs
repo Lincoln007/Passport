@@ -44,15 +44,9 @@ namespace LoowooTech.Passport.Model
             return Groups.Split(',').Contains(groupId.ToString());
         }
 
-        [NotMapped]
-        public string EncyptedPassword
+        public static string GetEncyptPassword(string password, DateTime createTime)
         {
-            get { return EncyptPassword(Password, CreateTime); }
-        }
-
-        public static string EncyptPassword(string password, DateTime createTime)
-        {
-            return (password + createTime.Ticks).SHA1().MD5();
+            return (password + createTime.ToString()).SHA1().MD5();
         }
 
         [NotMapped]

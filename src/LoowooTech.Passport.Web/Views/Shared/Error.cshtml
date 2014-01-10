@@ -3,7 +3,7 @@
     ViewBag.Title = "Error";
 }
 
-<h2>Error</h2>
+<h2>@Model.Message</h2>
 <div>
     @Html.Raw(Model.StackTrace.Replace("\n", "<br />"))
 </div>

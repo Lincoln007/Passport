@@ -22,7 +22,7 @@ namespace LoowooTech.Passport.Web.Controllers
 
         [UserRole(Role = Role.Everyone)]
         [HttpPost]
-        public ActionResult Login(string username, string password, string agentUsername, string returnUrl = "/")
+        public ActionResult LoginResult(string username, string password, string agentUsername, string returnUrl = "/")
         {
             var user = Core.AccountManager.GetAccount(username, password, agentUsername);
             if (user == null)
@@ -34,10 +34,11 @@ namespace LoowooTech.Passport.Web.Controllers
 
             if ((Role)user.Role == Role.Administrator && returnUrl == "/")
             {
-                returnUrl = "/admin";
+                returnUrl = "/admin/account/list";
             }
+            ViewBag.ReturnUrl = returnUrl;
 
-            return Redirect(returnUrl);
+            return View();
         }
 
         public ActionResult Logout(string returnUrl = "/")

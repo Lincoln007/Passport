@@ -49,7 +49,7 @@ namespace LoowooTech.Passport.Dao
                 var entity = db.Account.Where(a => a.Username.ToLower() == username.ToLower()).FirstOrDefault();
                 if (!string.IsNullOrEmpty(password))
                 {
-                    if (entity.Password != Account.EncyptPassword(password, entity.CreateTime))
+                    if (entity.Password != Account.GetEncyptPassword(password, entity.CreateTime))
                     {
                         return null;
                     }
@@ -88,11 +88,13 @@ namespace LoowooTech.Passport.Dao
                     throw new ArgumentNullException("密码没有填写！");
                 }
 
+                var password = account.Password;
+                account.Password = Account.GetEncyptPassword(password, account.CreateTime);
 
                 db.Account.Add(account);
 
                 db.SaveChanges();
-
+                account.Password = password;
             }
         }
 
@@ -122,7 +124,7 @@ namespace LoowooTech.Passport.Dao
                 db.Entry(entity).CurrentValues.SetValues(account);
                 if (!string.IsNullOrEmpty(account.Password))
                 {
-                    entity.Password = account.EncyptedPassword;
+                    entity.Password = Account.GetEncyptPassword(entity.Password, entity.CreateTime);
                 }
 
                 db.SaveChanges();

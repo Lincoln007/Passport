@@ -27,7 +27,7 @@ namespace LoowooTech.Passport.Web.Controllers
             {
                 return;
             }
-            filterContext.HttpContext.Response.StatusCode = filterContext.Exception.GetStatusCode();
+
             filterContext.ExceptionHandled = true;
             if (filterContext.HttpContext.IsAjaxRequest())
             {

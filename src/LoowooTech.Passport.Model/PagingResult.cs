@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,16 @@ namespace LoowooTech.Passport.Model
 
         }
 
+        [JsonProperty("total")]
         public int RecordCount { get; set; }
+
+        [JsonProperty("page")]
         public int CurrentPage { get; set; }
+
+        [JsonProperty("pageRows")]
         public int PageSize { get; set; }
+
+        [JsonProperty("pageCount")]
         public int PageCount
         {
             get
@@ -34,13 +42,15 @@ namespace LoowooTech.Passport.Model
 
     public class PagingResult<T> : Paging
     {
-        public PagingResult(Paging page,IEnumerable<T> data)
+        public PagingResult(Paging page, IEnumerable<T> data)
         {
             PageSize = page.PageSize;
             CurrentPage = page.CurrentPage;
             RecordCount = page.RecordCount;
             List = data;
         }
+
+        [JsonProperty("rows")]
         public IEnumerable<T> List { get; set; }
     }
 }
