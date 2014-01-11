@@ -13,11 +13,7 @@ namespace LoowooTech.Passport.Dao
             using (var db = GetDataContext())
             {
 
-                var query = db.Client.AsQueryable();
-                //if (filter.Deleted.HasValue)
-                //{
-                //    query = query.Where(e => e.DELETED == (short)(filter.Deleted.Value ? 1 : 0));
-                //}
+                var query = db.Client.Where(e => e.Deleted == 0);
 
                 return query.OrderByDescending(e => e.ID).SetPage(page).ToList();
             }
@@ -25,6 +21,7 @@ namespace LoowooTech.Passport.Dao
 
         public Client GetClient(string clientId)
         {
+            if (string.IsNullOrEmpty(clientId)) return null;
             using (var db = GetDataContext())
             {
                 return db.Client.Where(e => e.ClientId == clientId).FirstOrDefault();

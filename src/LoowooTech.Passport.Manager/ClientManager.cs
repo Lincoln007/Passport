@@ -39,6 +39,7 @@ namespace LoowooTech.Passport.Manager
             {
                 Dao.Update(client);
             }
+            else
             {
                 Dao.Create(client);
             }

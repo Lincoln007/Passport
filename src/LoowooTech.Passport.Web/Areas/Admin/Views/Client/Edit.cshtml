@@ -1,5 +1,34 @@
-﻿@{
-    ViewBag.Title = "Edit";
-}
+﻿@using LoowooTech.Passport.Model
 
-<h2>Edit</h2>
+<form id="client-form" action="/admin/client/edit?id=@(Model.ID)" method="post">
+    <input type="hidden" name="ClientId" value="@(Model.ClientId)" />
+    <input type="hidden" name="ClientSecret" value="@(Model.ClientSecret)" />
+    <input type="hidden" name="CreateTime" value="@(Model.CreateTime)" />
+    <p>
+        <label>站点名称：</label>
+        <input type="text" name="Name" value="@(Model.Name)" />
+    </p>
+    <p>
+        <label>站点域名：</label>
+        <input type="text" name="Hosts" value="@(Model.Hosts)" />
+        多个用,隔开
+    </p>
+    <p>
+        <a href="#" id="client-form-btn-save" class="easyui-linkbutton" iconcls="icon-save">保存</a>
+    </p>
+</form>
+<script>
+    (function () {
+        $("#client-form-btn-save").click(function () {
+            $("#client-form").form("submit", {
+                success: function (data) {
+                    if (data.result) {
+                        $.closeWindow();
+                        $("#client-list").datagrid("reload");
+                    }
+                }
+            });
+            return false;
+        });
+    })();
+</script>

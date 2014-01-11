@@ -1,6 +1,11 @@
-﻿<h2>用户登录</h2>
+﻿@if (ViewBag.CssUrl != null)
+{ 
+    <link rel="styleshee"" type="text/css" href="@(ViewBag.CssUrl)">
+}
+    
+<h2>用户登录</h2>
 <div class="login_form">
-    <form action="/account/loginresult?returnUrl=@(ViewBag.ReturnUrl)" method="post">
+    <form action="/account/loginresult?clientId=@(ViewBag.ClientId)&returnUrl=@(ViewBag.ReturnUrl)" method="post">
         <p><label>用户名</label><input type="text" name="username" /></p>
         <p><label>代理人(选填)</label><input type="text" name="agentUsername" /></p>
         <p><label>密码</label><input type="password" name="password" /></p>

@@ -9,10 +9,15 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 {
     public class ClientController : AdminControllerBase
     {
-        public ActionResult List(int page = 1, int pageSize = 20)
+        public ActionResult List()
         {
-            ViewBag.Data = Core.ClientManager.GetClients(page, pageSize);
             return View();
+        }
+
+        public ActionResult GetList(int page = 1, int rows = 20)
+        { 
+            var list =  Core.ClientManager.GetClients(page, rows);
+            return JsonContent(list);
         }
 
         [HttpGet]
