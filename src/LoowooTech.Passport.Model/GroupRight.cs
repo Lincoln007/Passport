@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoowooTech.Passport.Model
 {
-    [Table("USER_GROUP_RIGHT")]
+    [Table("GROUP_RIGHT")]
     public class GroupRight
     {
         [Key]

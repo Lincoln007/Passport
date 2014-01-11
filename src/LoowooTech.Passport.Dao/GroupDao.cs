@@ -56,18 +56,30 @@ namespace LoowooTech.Passport.Dao
 
         public List<Group> GetGroups(GroupFilter filter, Paging page = null)
         {
-            if (filter.AccountId.HasValue)
+            IQueryable<Group> list = null;
+            if (filter == null)
             {
-                return GetGroups(filter.AccountId.Value);
+                return GetAllGroups();
             }
 
-            var list = GetAllGroups();
-            var query = GetAllGroups().AsQueryable();
+            if (filter.AccountId.HasValue)
+            {
+                list = GetGroups(filter.AccountId.Value).AsQueryable();
+            }
+            else
+            {
+                list = GetAllGroups().AsQueryable();
+            }
+            if (filter.ClientId.HasValue)
+            {
+                list = list.Where(e => e.ClientID == filter.ClientId.Value);
+            }
+
             if (filter.Deleted.HasValue)
             {
-                query = query.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
+                list = list.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
             }
-            return query.OrderByDescending(e => e.GroupID).SetPage(page).ToList();
+            return list.OrderByDescending(e => e.GroupID).SetPage(page).ToList();
         }
 
         public List<Group> GetGroups(int accountId)

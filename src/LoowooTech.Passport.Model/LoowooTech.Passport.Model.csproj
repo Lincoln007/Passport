@@ -53,6 +53,7 @@
     <Compile Include="AuthorizeCode.cs" />
     <Compile Include="AccessToken.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Department.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupRight.cs" />
     <Compile Include="OperateLog.cs" />

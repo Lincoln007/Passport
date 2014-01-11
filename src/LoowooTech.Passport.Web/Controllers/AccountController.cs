@@ -34,7 +34,7 @@ namespace LoowooTech.Passport.Web.Controllers
 
             if ((Role)user.Role == Role.Administrator && returnUrl == "/")
             {
-                returnUrl = "/admin/account/list";
+                returnUrl = "/admin";
             }
             ViewBag.ReturnUrl = returnUrl;
 

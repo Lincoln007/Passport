@@ -1,42 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace LoowooTech.Passport.Model
 {
-    [Table("GROUP")]
-    public class Group
+    [Table("DEPARTMENT")]
+    public class Department
     {
-        public Group()
-        {
-            CreateTime = DateTime.Now;
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("ID")]
-        public int GroupID { get; set; }
+        public int ID { get; set; }
 
         [Column("NAME")]
         public string Name { get; set; }
 
-        [Column("DESCRIPTION")]
-        public string Description { get; set; }
+        [Column("PARENT_ID")]
+        public int ParentID { get; set; }
+
+        [Column("CLIENT_ID")]
+        public int ClientID { get; set; }
 
         [Column("CREATE_TIME")]
         public DateTime CreateTime { get; set; }
 
         [Column("DELETED")]
         public short Deleted { get; set; }
-
-        [Column("CLIENT_ID")]
-        public int ClientID { get; set; }
-
-        [ForeignKey("GROUP_ID")]
-        public virtual IEnumerable<GroupRight> Rights { get; set; }
     }
 }

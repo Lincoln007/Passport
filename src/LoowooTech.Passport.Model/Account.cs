@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LoowooTech.Passport.Model
 {
 
-    [Table("USER_ACCOUNT")]
+    [Table("ACCOUNT")]
     public class Account
     {
         public Account()
@@ -34,6 +34,9 @@ namespace LoowooTech.Passport.Model
 
         [Column("GROUPS")]
         public string Groups { get; set; }
+
+        [Column("DEPARTMENT_ID")]
+        public int DepartmentId { get; set; }
 
         public bool HasGroup(int groupId)
         {
@@ -72,6 +75,15 @@ namespace LoowooTech.Passport.Model
 
         [Column("STATUS")]
         public short Status { get; set; }
+
+        [Column("PHONE")]
+        public string Phone { get; set; }
+
+        [Column("EMAIL")]
+        public string Email { get; set; }
+
+        [Column("JOB")]
+        public string Job { get; set; }
 
         [NotMapped]
         public bool IsAuthenticated
