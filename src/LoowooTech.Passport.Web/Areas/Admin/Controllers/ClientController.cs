@@ -32,16 +32,16 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(Client client)
+        public ActionResult Edit(Client client)
         {
             Core.ClientManager.Save(client);
-            return Success();
+            return JsonSuccess();
         }
 
-        public JsonResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             Core.ClientManager.Delete(id);
-            return Success();
+            return JsonSuccess();
         }
 
     }

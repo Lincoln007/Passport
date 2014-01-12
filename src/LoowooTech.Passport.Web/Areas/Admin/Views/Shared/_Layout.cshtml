@@ -31,7 +31,7 @@
         });
         $.openWindow = function (options) {
             var id = options.id || "#main-window";
-            $(id).window(options).window("open").window("refresh", options.url);
+            $(id).window(options).window("open").window("center").window("refresh", options.url);
         };
 
         $.closeWindow = function () {

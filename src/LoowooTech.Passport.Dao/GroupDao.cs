@@ -33,14 +33,15 @@ namespace LoowooTech.Passport.Dao
             {
                 using (var db = GetDataContext())
                 {
-                    list = db.Group.Select(e => new Group
+                    list = db.Group.Where(e => e.Deleted == 0).ToList().Select(e => new Group
                     {
+                        ClientId = e.ClientId,
                         CreateTime = e.CreateTime,
                         Description = e.Description,
                         Deleted = e.Deleted,
-                        GroupID = e.GroupID,
+                        GroupId = e.GroupId,
                         Name = e.Name,
-                        Rights = GetAllRights().Where(r => r.GroupID == e.GroupID)
+                        Rights = GetAllRights().Where(r => r.GroupID == e.GroupId)
                     }).ToList();
                 }
                 Cache.Set(_groupKey, list);
@@ -72,14 +73,14 @@ namespace LoowooTech.Passport.Dao
             }
             if (filter.ClientId.HasValue)
             {
-                list = list.Where(e => e.ClientID == filter.ClientId.Value);
+                list = list.Where(e => e.ClientId == filter.ClientId.Value);
             }
 
             if (filter.Deleted.HasValue)
             {
                 list = list.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
             }
-            return list.OrderByDescending(e => e.GroupID).SetPage(page).ToList();
+            return list.OrderByDescending(e => e.GroupId).SetPage(page).ToList();
         }
 
         public List<Group> GetGroups(int accountId)
@@ -90,7 +91,7 @@ namespace LoowooTech.Passport.Dao
                 return new List<Group>();
             }
             var groupIds = account.Groups.Split(',').Select(s => int.Parse(s));
-            return GetAllGroups().Where(e => groupIds.Contains(e.GroupID)).ToList();
+            return GetAllGroups().Where(e => groupIds.Contains(e.GroupId)).ToList();
         }
 
 
@@ -112,7 +113,7 @@ namespace LoowooTech.Passport.Dao
             {
                 foreach (var right in group.Rights)
                 {
-                    right.GroupID = group.GroupID;
+                    right.GroupID = group.GroupId;
                     db.GroupRight.Add(right);
                 }
                 db.SaveChanges();
@@ -137,12 +138,12 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var toUpdate = db.Group.FirstOrDefault(e => e.GroupID == group.GroupID);
+                var toUpdate = db.Group.FirstOrDefault(e => e.GroupId == group.GroupId);
                 if (toUpdate == null)
                 {
                     throw new ArgumentException("更新失败，没找到这个组！");
                 }
-                RemoveRigths(toUpdate.GroupID);
+                RemoveRigths(toUpdate.GroupId);
                 db.Entry(toUpdate).CurrentValues.SetValues(group);
                 db.SaveChanges();
                 AddRights(group);
@@ -155,7 +156,7 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                var entity = db.Group.FirstOrDefault(e => e.GroupID == groupId);
+                var entity = db.Group.FirstOrDefault(e => e.GroupId == groupId);
                 if (entity == null)
                 {
                     throw new ArgumentException("更新失败，没找到这个组！");
@@ -171,10 +172,7 @@ namespace LoowooTech.Passport.Dao
 
         public Group GetGroup(int groupId)
         {
-            using (var db = GetDataContext())
-            {
-                return db.Group.FirstOrDefault(e => e.GroupID == groupId);
-            }
+            return GetAllGroups().FirstOrDefault(e => e.GroupId == groupId);
         }
 
         //public List<GroupRight> GetGroupRights(int groupId)

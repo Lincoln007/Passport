@@ -1,5 +1,67 @@
-﻿@{
-    ViewBag.Title = "List";
-}
-
-<h2>List</h2>
+﻿<div id="group-list-toolbar">
+    <a href="#add" class="easyui-linkbutton" iconcls="icon-add">添加</a>
+    <a href="#edit" class="easyui-linkbutton" iconcls="icon-edit">修改</a>
+    <a href="#remove" class="easyui-linkbutton" iconcls="icon-remove">删除</a>
+    <a href="#reload" class="easyui-linkbutton" iconcls="icon-reload">刷新</a>
+</div>
+<table id="group-list" url="/admin/group/getlist" toolbar="#group-list-toolbar" class="easyui-datagrid" border="false" singleselect="true" rownumbers="true" fit="true" pagination="true">
+    <thead>
+        <tr>
+            <th field="Name" width="150">权限组名称</th>
+            <th field="ClientName" width="240">所属站点</th>
+            <th field="Description" width="300">描述</th>
+        </tr>
+    </thead>
+</table>
+<script>
+    (function () {
+        var dg = $("#group-list");
+        function getRow() {
+            var row = dg.datagrid("getSelected");
+            if (row) { return row; }
+            $.messager.alert("提醒", "请先选择一行数据");
+            return null;
+        }
+        $("#group-list-toolbar a").click(function () {
+            var name = $(this).attr("href");
+            switch (name) {
+                case "#add":
+                    $.openWindow({
+                        width: 600,
+                        height: 400,
+                        title: "添加权限组",
+                        url: "/admin/group/edit"
+                    });
+                    break;
+                case "#edit":
+                    var row = getRow();
+                    if (row) {
+                        $.openWindow({
+                            width: 600,
+                            height: 400,
+                            title: "编辑权限组",
+                            url: "/admin/group/edit?id=" + row.GroupId
+                        });
+                    }
+                    break;
+                case "#remove":
+                    var row = getRow();
+                    if (row) {
+                        $.messager.confirm("提醒", "你确定要删除吗？", function (r) {
+                            if (!r) return;
+                            $.get("/admin/group/delete?id=" + row.GroupId).done(function (data) {
+                                if (data.result) {
+                                    dg.datagrid("reload");
+                                }
+                            });
+                        });
+                    }
+                    break;
+                case "#reload":
+                    dg.datagrid("reload");
+                    break;
+            }
+            return false;
+        });
+    })();
+</script>

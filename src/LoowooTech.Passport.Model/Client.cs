@@ -35,6 +35,9 @@ namespace LoowooTech.Passport.Model
         [Column("HOSTS")]
         public string Hosts { get; set; }
 
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
+
         [Column("CREATE_TIME")]
         public DateTime CreateTime { get; set; }
 

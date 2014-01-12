@@ -1,5 +1,60 @@
-﻿@{
-    ViewBag.Title = "Edit";
-}
+﻿@using LoowooTech.Passport.Model
+@using LoowooTech.Common
 
-<h2>Edit</h2>
+<form id="group-form" action="/admin/group/edit" method="post">
+    <input type="hidden" name="GroupId" value="@(Model.GroupId)" />
+    <table>
+        <tr>
+            <td>组名称：</td>
+            <td>
+                <input type="text" name="Name" value="@(Model.Name)"  style="width:300px;"/>
+            </td>
+        </tr>
+        <tr>
+            <td>所属站点：</td>
+            <td>
+                <select id="group-form-select" name="ClientId" style="width: 300px;" class="easyui-combobox"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>组描述：</td>
+            <td>
+                <textarea name="Description" style="width: 300px;">@(Model.Description)</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>权限列表：</td>
+            <td>
+                <textarea name="Rights" style="height: 200px; width: 300px;">@(Html.Raw(ViewBag.Rights))</textarea>每行一个权限名称
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="#" id="group-form-btn-save" class="easyui-linkbutton" iconcls="icon-save">保存</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    (function () {
+        $("#group-form-select").combobox({
+            //editable="false" textField="Name" valueField="ClientId" data-options='data:'
+            textField: "Name",
+            valueField: "ID",
+            data:@(Html.Raw((ViewBag.Clients.List as object).ToJson())),
+            editable:false
+        }).combobox("select","@(Model.ClientId)");
+        $("#group-form-btn-save").click(function () {
+            $("#group-form").form("submit", {
+                success: function (data) {
+                    if (data.result) {
+                        console.log(data);
+                        $.closeWindow();
+                        $("#group-list").datagrid("reload");
+                    }
+                }
+            });
+            return false;
+        });
+    })();
+</script>

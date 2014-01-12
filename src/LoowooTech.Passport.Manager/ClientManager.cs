@@ -16,7 +16,7 @@ namespace LoowooTech.Passport.Manager
             return Dao.GetClient(clientId);
         }
 
-        public PagingResult<Client> GetClients(int page, int pageSize)
+        public PagingResult<Client> GetClients(int page = 1, int pageSize = int.MaxValue)
         {
             var paging = new Paging(page, pageSize);
             var list = Dao.GetClients(paging);

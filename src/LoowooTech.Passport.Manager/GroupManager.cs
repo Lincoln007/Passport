@@ -82,6 +82,7 @@ namespace LoowooTech.Passport.Manager
 
         public Group GetGroup(int groupId)
         {
+            if (groupId == 0) return null;
             return Dao.GetGroup(groupId);
         }
 
@@ -92,7 +93,7 @@ namespace LoowooTech.Passport.Manager
                 throw new ArgumentNullException("用户组名称没有填写！");
             }
 
-            if (group.GroupID > 0)
+            if (group.GroupId > 0)
             {
                 Dao.Update(group);
             }

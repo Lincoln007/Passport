@@ -14,15 +14,17 @@ namespace LoowooTech.Passport.Model
         public Group()
         {
             CreateTime = DateTime.Now;
+            Rights = new List<GroupRight>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("ID")]
-        public int GroupID { get; set; }
+        public int GroupId { get; set; }
 
         [Column("NAME")]
         public string Name { get; set; }
+
 
         [Column("DESCRIPTION")]
         public string Description { get; set; }
@@ -34,7 +36,10 @@ namespace LoowooTech.Passport.Model
         public short Deleted { get; set; }
 
         [Column("CLIENT_ID")]
-        public int ClientID { get; set; }
+        public int ClientId { get; set; }
+
+        [NotMapped]
+        public string ClientName { get; set; }
 
         [ForeignKey("GROUP_ID")]
         public virtual IEnumerable<GroupRight> Rights { get; set; }

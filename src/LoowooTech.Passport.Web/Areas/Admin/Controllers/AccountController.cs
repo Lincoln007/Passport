@@ -42,22 +42,22 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(Account account)
+        public ActionResult Edit(Account account)
         {
             Core.AccountManager.Save(account);
-            return Success();
+            return JsonSuccess();
         }
 
-        public JsonResult Delete(int accountId)
+        public ActionResult Delete(int accountId)
         {
             Core.AccountManager.Delete(accountId);
-            return Success(null, "账号已被删除！");
+            return JsonSuccess(null, "账号已被删除！");
         }
 
-        public JsonResult ResetPassword(int accountId)
+        public ActionResult ResetPassword(int accountId)
         {
             var newPassword = Core.AccountManager.ResetPassword(accountId);
-            return Success(new { password = newPassword });
+            return JsonSuccess(new { password = newPassword });
         }
     }
 }

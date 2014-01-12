@@ -31,7 +31,7 @@ namespace LoowooTech.Passport.Test
                 if (data != null)
                 {
                     var list = target.GetGroups(data.AccountId);
-                    Assert.AreEqual(data.Groups, string.Join(",", list.Select(e => e.GroupID)));
+                    Assert.AreEqual(data.Groups, string.Join(",", list.Select(e => e.GroupId)));
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace LoowooTech.Passport.Test
                 var data = db.Group.FirstOrDefault();
                 if (data != null)
                 {
-                    var group = target.GetGroup(data.GroupID);
+                    var group = target.GetGroup(data.GroupId);
                     Assert.AreEqual(data.Name, group.Name);
                 }
             }
@@ -64,8 +64,8 @@ namespace LoowooTech.Passport.Test
                 var data = db.Group.FirstOrDefault();
                 if (data != null)
                 {
-                    target.Delete(data.GroupID);
-                    var group = target.GetGroup(data.GroupID);
+                    target.Delete(data.GroupId);
+                    var group = target.GetGroup(data.GroupId);
                     Assert.AreEqual(1, group.Deleted);
                 }
             }
@@ -95,7 +95,7 @@ namespace LoowooTech.Passport.Test
 
                 Assert.AreNotEqual(null, entity);
 
-                var rights = db.GroupRight.Where(e => e.GroupID == entity.GroupID).Select(e => e.Name).ToList();
+                var rights = db.GroupRight.Where(e => e.GroupID == entity.GroupId).Select(e => e.Name).ToList();
 
                 Assert.AreEqual("TEST.UPDATE,TEST.ADD", string.Join(",", rights));
             }
@@ -114,7 +114,7 @@ namespace LoowooTech.Passport.Test
                 var data = db.Group.FirstOrDefault();
                 if (data == null) return;
 
-                group = target.GetGroup(data.GroupID);
+                group = target.GetGroup(data.GroupId);
                 group.Name = "UpdateTest" + DateTime.Now.Ticks;
                 group.Rights = new List<GroupRight> {
                     new GroupRight{Name= "TEST.UPDATE"}, 
@@ -128,11 +128,11 @@ namespace LoowooTech.Passport.Test
 
             using (var db = DbHelper.GetDataContext())
             {
-                var entity = db.Group.Where(e => e.GroupID == group.GroupID).FirstOrDefault();
+                var entity = db.Group.Where(e => e.GroupId == group.GroupId).FirstOrDefault();
 
                 Assert.AreEqual(entity.Name, group.Name);
 
-                var rights = db.GroupRight.Where(e => e.GroupID == group.GroupID).Select(e => e.Name).ToList();
+                var rights = db.GroupRight.Where(e => e.GroupID == group.GroupId).Select(e => e.Name).ToList();
 
                 Assert.AreEqual(string.Join(",", rights), string.Join(",", group.Rights.Select(e => e.Name)));
             }
