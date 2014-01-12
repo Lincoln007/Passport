@@ -33,7 +33,7 @@ namespace LoowooTech.Passport.Dao
         public DbSet<AccessToken> AccessToken { get; set; }
         public DbSet<Client> Client { get; set; }
         public DbSet<OperateLog> OperateLog { get; set; }
-        
+        public DbSet<Department> Department { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,6 +43,7 @@ namespace LoowooTech.Passport.Dao
             modelBuilder.Entity<AccessToken>().ToTable(MappingHelper.GetTableName<AccessToken>());
             modelBuilder.Entity<Client>().ToTable(MappingHelper.GetTableName<Client>());
             modelBuilder.Entity<OperateLog>().ToTable(MappingHelper.GetTableName<OperateLog>());
+            modelBuilder.Entity<Department>().ToTable(MappingHelper.GetTableName<Department>());
         }
     }
 }

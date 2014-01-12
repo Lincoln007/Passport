@@ -8,18 +8,18 @@ namespace LoowooTech.Passport.Dao
 {
     public class ClientDao : DaoBase
     {
-        public IEnumerable<Client> GetClients(Paging page)
+        public List<Client> GetList()
         {
             using (var db = GetDataContext())
             {
 
                 var query = db.Client.Where(e => e.Deleted == 0);
 
-                return query.OrderByDescending(e => e.ID).SetPage(page).ToList();
+                return query.OrderByDescending(e => e.ID).ToList();
             }
         }
 
-        public Client GetClient(string clientId)
+        public Client GetModel(string clientId)
         {
             if (string.IsNullOrEmpty(clientId)) return null;
             using (var db = GetDataContext())

@@ -53,6 +53,13 @@ namespace LoowooTech.Passport.Manager
             }
         }
 
+        public DepartmentManager DepartmentManager
+        {
+            get
+            {
+                return new DepartmentManager();
+            }
+        }
 
     }
 }

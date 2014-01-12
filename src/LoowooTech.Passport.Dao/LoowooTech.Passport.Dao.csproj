@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBDataContext.cs" />
+    <Compile Include="DepartmentDao.cs" />
     <Compile Include="MappingHelper.cs" />
     <Compile Include="OperateLogDao.cs" />
     <Compile Include="QueryableExtensions.cs" />

@@ -17,7 +17,7 @@ namespace LoowooTech.Passport.Test
         [TestMethod()]
         public void GetClientsTest()
         {
-            var list = target.GetClients(null);
+            var list = target.GetList();
             Assert.AreNotEqual(0, list.Count());
         }
 
@@ -56,7 +56,7 @@ namespace LoowooTech.Passport.Test
                 var client = target.GetClient(entity.ID);
                 Assert.AreEqual(entity.Name, client.Name);
 
-                client = target.GetClient(entity.ClientId);
+                client = target.GetModel(entity.ClientId);
                 Assert.AreEqual(entity.ID, client.ID);
             }
         }

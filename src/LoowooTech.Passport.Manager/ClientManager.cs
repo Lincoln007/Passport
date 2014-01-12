@@ -11,16 +11,14 @@ namespace LoowooTech.Passport.Manager
     {
         private static readonly ClientDao Dao = new ClientDao();
 
-        public Client GetClient(string clientId)
+        public Client GetModel(string clientId)
         {
-            return Dao.GetClient(clientId);
+            return Dao.GetModel(clientId);
         }
 
-        public PagingResult<Client> GetClients(int page = 1, int pageSize = int.MaxValue)
+        public List<Client> GetList()
         {
-            var paging = new Paging(page, pageSize);
-            var list = Dao.GetClients(paging);
-            return new PagingResult<Client>(paging, list);
+            return Dao.GetList();
         }
 
         public void Delete(int id)
@@ -45,7 +43,7 @@ namespace LoowooTech.Passport.Manager
             }
         }
 
-        public Client GetClient(int id)
+        public Client GetModel(int id)
         {
             return Dao.GetClient(id);
         }

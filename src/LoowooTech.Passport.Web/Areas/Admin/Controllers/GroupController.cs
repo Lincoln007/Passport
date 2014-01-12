@@ -11,6 +11,7 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
     {
         public ActionResult List(int? accountId, bool? deleted, int page = 1, int pageSize = 20)
         {
+            ViewBag.Clients = Core.ClientManager.GetList();
             return View();
         }
 
@@ -30,7 +31,7 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         {
             var model = Core.GroupManager.GetGroup(id) ?? new Group();
             ViewBag.Rights = string.Join("\n", model.Rights.Select(e => e.Name));
-            ViewBag.Clients = Core.ClientManager.GetClients();
+            ViewBag.Clients = Core.ClientManager.GetList();
             return View(model);
         }
 

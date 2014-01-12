@@ -14,7 +14,7 @@ namespace LoowooTech.Passport.Web.Controllers
         [HttpGet]
         public ActionResult Login(string return_url = "/", string client_id = null, string css = null)
         {
-            var client = Core.ClientManager.GetClient(client_id);
+            var client = Core.ClientManager.GetModel(client_id);
             ViewBag.ClientId = client_id;
             ViewBag.CssUrl = css;
             ViewBag.ReturnUrl = HttpUtility.UrlEncode(return_url);
@@ -30,7 +30,7 @@ namespace LoowooTech.Passport.Web.Controllers
             {
                 throw new ArgumentException("用户名或密码有误！");
             }
-            var client = Core.ClientManager.GetClient(clientId);
+            var client = Core.ClientManager.GetModel(clientId);
             if (client == null)
             {
                 throw new ArgumentException("Client_Id参数错误");

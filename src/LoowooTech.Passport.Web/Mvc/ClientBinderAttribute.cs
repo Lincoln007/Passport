@@ -24,7 +24,7 @@ namespace LoowooTech.Passport.Web
                     throw new HttpException(403, "invalid_client");
                 }
 
-                var client = Core.Instance.ClientManager.GetClient(client_id);
+                var client = Core.Instance.ClientManager.GetModel(client_id);
                 if (client == null)
                 {
                     throw new HttpException(403, "invalid_client");

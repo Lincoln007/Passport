@@ -14,10 +14,9 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult GetList(int page = 1, int rows = 20)
-        { 
-            var list =  Core.ClientManager.GetClients(page, rows);
-            return JsonContent(list);
+        public ActionResult GetList()
+        {
+            return JsonContent(Core.ClientManager.GetList());
         }
 
         [HttpGet]
@@ -26,7 +25,7 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             var model = new Client();
             if (id.HasValue)
             {
-                model = Core.ClientManager.GetClient(id.Value);
+                model = Core.ClientManager.GetModel(id.Value);
             }
             return View(model);
         }
