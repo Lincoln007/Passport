@@ -29,15 +29,12 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             return JsonContent(list);
         }
 
-
         [HttpGet]
-        public ActionResult Edit(int? accountId)
+        public ActionResult Edit(int id = 0)
         {
-            var model = new Account();
-            if (accountId.HasValue)
-            {
-                model = Core.AccountManager.GetAccount(accountId.Value);
-            }
+            var model = Core.AccountManager.GetAccount(id) ?? new Account();
+            ViewBag.Departments = Core.DepartmentManager.GetTree();
+            ViewBag.Groups = Core.GroupManager.GetGroups(0);
             return View(model);
         }
 

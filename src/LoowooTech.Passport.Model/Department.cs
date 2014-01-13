@@ -27,9 +27,6 @@ namespace LoowooTech.Passport.Model
         [Column("PARENT_ID")]
         public int ParentID { get; set; }
 
-        [Column("CLIENT_ID")]
-        public int ClientID { get; set; }
-
         [Column("CREATE_TIME")]
         public DateTime CreateTime { get; set; }
 

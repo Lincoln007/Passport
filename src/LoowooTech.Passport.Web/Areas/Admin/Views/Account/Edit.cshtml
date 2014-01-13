@@ -1,39 +1,107 @@
-﻿@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-<form>
-    <p>
-        <label>用户名：</label>
-        <input type="text" name="Username" />
-    </p>
-    <p>
-        <label>密码：</label>
-        <input type="password" name="password" />
-    </p>
-    <p>
-        <label>姓名：</label>
-        <input type="text" name="RealName" />
-    </p>
-    <p>
-        <label>职务：</label>
-        <input type="text" name="RealName" />
-    </p>
-    <p>
-        <label>Email：</label>
-        <input type="text" name="Email" />
-    </p>
-    <p>
-        <label>联系电话：</label>
-        <input type="text" name="Phone" />
-    </p>
-    <p>
-        <label>所属机构：</label>
-        <select name="DepartmentId"></select>
-    </p>
-    <p>
-        <label>所属权限组：</label>
-        <select name="Groups" multiple="multiple"></select>
-    </p>
+﻿@using LoowooTech.Common
+<form id="account-form" action="/admin/account/edit" method="post">
+    <input type="hidden" name="AccountId" value="@Model.AccountId" />
+    <table>
+        <tr>
+            <td>用户名：</td>
+            <td>
+                <input type="text" name="Username" value="@(Model.Username)" />
+            </td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td>
+                <input type="password" name="password" />
+            </td>
+        </tr>
+        <tr>
+            <td>所属机构：</td>
+            <td>
+                <input type="text" id="account-deparment-select" name="DepartmentId" value="@(Model.DepartmentId)" class="easyui-combotree" panelheight="auto" editable="false" style="width: 200px;" /></td>
+            </td>
+        </tr>
+        <tr>
+            <td>所属权限组：</td>
+            <td>
+                <input id="account-group-select" type="text" name="Groups" value="@(Model.Groups)"  class="easyui-combobox" value="@Model.Groups" style="width:300px;"/>
+            </td>
+        </tr>
+        <tr>
+            <td>姓名：</td>
+            <td>
+                <input type="text" name="TrueName" value="@(Model.TrueName)" />
+            </td>
+        </tr>
+        <tr>
+            <td>职务：</td>
+            <td>
+                <input type="text" name="Job" value="@(Model.Job)" />
+            </td>
+        </tr>
+        <tr>
+            <td>Email：</td>
+            <td>
+                <input type="text" name="Email" value="@(Model.Email)" />
+            </td>
+        </tr>
+        <tr>
+            <td>联系电话：</td>
+            <td>
+                <input type="text" name="Phone"  value="@(Model.Phone)"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="#" id="account-form-btn-save" class="easyui-linkbutton" iconcls="icon-save">保存</a></td>
+        </tr>
+    </table>
 </form>
+<script>
+    (function () {
+        var treeData = @(Html.Raw((ViewBag.Departments as object).ToJson()));
+        var roots = [];
+        treeData.forEach(function(data){
+            roots.push(convertData(data));
+        });
+
+        function convertData(data){
+            var node = {};
+            node.id = data.ID;
+            node.text = data.Name;
+            if(data.children.length >0){
+                node.children = [];
+                data.children.forEach(function(c){
+                    node.children.push(convertData(c));
+                });
+            }
+            return node;
+        }
+
+        $("#account-deparment-select").combotree({
+            data:roots
+        });
+
+        $("#account-group-select").combobox({
+            valueField: "GroupId",
+            textField: "Name",
+            multiple: true,
+            panelHeight: "auto",
+            editable:false,
+            data:@(Html.Raw((ViewBag.Groups as object).ToJson()))
+        });
+
+        $("#account-form-btn-save").click(function () {
+            $("#account-form").form("submit", {
+                success: function (data) {
+                    data = $.parseJSON(data);
+                    if (data.result) {
+                        console.log(data);
+                        $.closeWindow();
+                        $("#account-list").datagrid("reload");
+                    }
+                }
+            });
+            return false;
+        });
+    })();
+</script>

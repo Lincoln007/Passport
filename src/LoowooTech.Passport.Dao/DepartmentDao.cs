@@ -8,11 +8,11 @@ namespace LoowooTech.Passport.Dao
 {
     public class DepartmentDao : DaoBase
     {
-        public List<Department> GetList(int clientId)
+        public List<Department> GetList()
         {
             using (var db = GetDataContext())
             {
-                return db.Department.Where(e => e.Deleted == 0 && e.ClientID == clientId).ToList();
+                return db.Department.Where(e => e.Deleted == 0).ToList();
             }
         }
 

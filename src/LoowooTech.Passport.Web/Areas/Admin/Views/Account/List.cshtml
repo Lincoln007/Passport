@@ -16,3 +16,55 @@
         </tr>
     </thead>
 </table>
+<script>
+    (function () {
+        var dg = $("#account-list");
+        function getRow() {
+            var row = dg.datagrid("getSelected");
+            if (row) { return row; }
+            $.messager.alert("提醒", "请先选择一行数据");
+            return null;
+        }
+        $("#account-list-toolbar a").click(function () {
+            var name = $(this).attr("href");
+            switch (name) {
+                case "#add":
+                    $.openWindow({
+                        width: 500,
+                        height: 350,
+                        title: "添加用户",
+                        url: "/admin/account/edit"
+                    });
+                    break;
+                case "#edit":
+                    var row = getRow();
+                    if (row) {
+                        $.openWindow({
+                            width: 500,
+                            height: 350,
+                            title: "编辑用户",
+                            url: "/admin/account/edit?id=" + row.AccountId
+                        });
+                    }
+                    break;
+                case "#remove":
+                    var row = getRow();
+                    if (row) {
+                        $.messager.confirm("提醒", "你确定要删除吗？", function (r) {
+                            if (!r) return;
+                            $.get("/admin/account/delete?id=" + row.AccountId).done(function (data) {
+                                if (data.result) {
+                                    dg.datagrid("reload");
+                                }
+                            });
+                        });
+                    }
+                    break;
+                case "#reload":
+                    dg.datagrid("reload");
+                    break;
+            }
+            return false;
+        });
+    })();
+</script>

@@ -35,9 +35,6 @@ namespace LoowooTech.Passport.Model
         [Column("DELETED")]
         public short Deleted { get; set; }
 
-        [Column("CLIENT_ID")]
-        public int ClientId { get; set; }
-
         [NotMapped]
         public string ClientName { get; set; }
 

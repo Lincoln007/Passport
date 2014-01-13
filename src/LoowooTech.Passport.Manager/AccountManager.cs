@@ -71,12 +71,6 @@ namespace LoowooTech.Passport.Manager
                 throw new ArgumentException("用户名不能为空！");
             }
 
-            if (string.IsNullOrEmpty(account.Password))
-            {
-                throw new ArgumentException("密码不能为空！");
-            }
-
-
             if (account.AccountId > 0)
             {
                 var tmp = Dao.GetAccount(account.Username);
@@ -89,6 +83,10 @@ namespace LoowooTech.Passport.Manager
             }
             else
             {
+                if (string.IsNullOrEmpty(account.Password))
+                {
+                    throw new ArgumentException("密码不能为空！");
+                }
                 Dao.Create(account);
             }
         }

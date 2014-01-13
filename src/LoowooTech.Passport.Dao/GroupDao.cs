@@ -35,7 +35,6 @@ namespace LoowooTech.Passport.Dao
                 {
                     list = db.Group.Where(e => e.Deleted == 0).ToList().Select(e => new Group
                     {
-                        ClientId = e.ClientId,
                         CreateTime = e.CreateTime,
                         Description = e.Description,
                         Deleted = e.Deleted,
@@ -55,43 +54,47 @@ namespace LoowooTech.Passport.Dao
             Cache.Remove(_groupKey);
         }
 
-        public List<Group> GetGroups(GroupFilter filter, Paging page = null)
-        {
-            IQueryable<Group> list = null;
-            if (filter == null)
-            {
-                return GetAllGroups();
-            }
+        //public List<Group> GetGroups(GroupFilter filter, Paging page = null)
+        //{
+        //    IQueryable<Group> list = null;
+        //    if (filter == null)
+        //    {
+        //        return GetAllGroups();
+        //    }
 
-            if (filter.AccountId.HasValue)
-            {
-                list = GetGroups(filter.AccountId.Value).AsQueryable();
-            }
-            else
-            {
-                list = GetAllGroups().AsQueryable();
-            }
-            if (filter.ClientId.HasValue)
-            {
-                list = list.Where(e => e.ClientId == filter.ClientId.Value);
-            }
+        //    if (filter.AccountId.HasValue)
+        //    {
+        //        list = GetGroups(filter.AccountId.Value).AsQueryable();
+        //    }
+        //    else
+        //    {
+        //        list = GetAllGroups().AsQueryable();
+        //    }
 
-            if (filter.Deleted.HasValue)
-            {
-                list = list.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
-            }
-            return list.OrderByDescending(e => e.GroupId).SetPage(page).ToList();
-        }
+        //    if (filter.Deleted.HasValue)
+        //    {
+        //        list = list.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
+        //    }
+        //    return list.OrderByDescending(e => e.GroupId).SetPage(page).ToList();
+        //}
 
         public List<Group> GetGroups(int accountId)
         {
-            var account = new AccountDao().GetAccount(accountId);
-            if (string.IsNullOrEmpty(account.Groups))
+            var query = GetAllGroups();
+            if (accountId > 0)
             {
-                return new List<Group>();
+                var account = new AccountDao().GetAccount(accountId);
+                if (string.IsNullOrEmpty(account.Groups))
+                {
+                    return new List<Group>();
+                }
+                var groupIds = account.Groups.Split(',').Select(s => int.Parse(s));
+                return query.Where(e => groupIds.Contains(e.GroupId)).ToList();
             }
-            var groupIds = account.Groups.Split(',').Select(s => int.Parse(s));
-            return GetAllGroups().Where(e => groupIds.Contains(e.GroupId)).ToList();
+            else
+            {
+                return query;
+            }
         }
 
 

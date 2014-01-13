@@ -20,13 +20,10 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id =0)
         {
-            var model = new Client();
-            if (id.HasValue)
-            {
-                model = Core.ClientManager.GetModel(id.Value);
-            }
+            var model = Core.ClientManager.GetModel(id) ?? new Client();
+            ViewBag.Departments = Core.DepartmentManager.GetTree();
             return View(model);
         }
 

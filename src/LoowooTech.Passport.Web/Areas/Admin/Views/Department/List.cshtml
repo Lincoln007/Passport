@@ -1,6 +1,5 @@
 ﻿@using LoowooTech.Common
 <div id="department-list-toolbar">
-    按站点筛选：<select id="client-select" class="easyui-combobox" editable="false" style="width: 200px"></select>
     <a href="#add" class="easyui-linkbutton" iconcls="icon-add">添加</a>
     <a href="#edit" class="easyui-linkbutton" iconcls="icon-edit">修改</a>
     <a href="#remove" class="easyui-linkbutton" iconcls="icon-remove">删除</a>
@@ -17,72 +16,39 @@
 <script>
     (function () {
         var dg = $("#department-list");
-        $("#client-select").combobox({
-            data:@(Html.Raw((ViewBag.Clients as object).ToJson())),
-            valueField:"ID",
-            textField:"Name",
-            onSelect: function (record) {
-                reloadGrid();
-            },
-        });
 
         dg.etreegrid({
-            idField:'ID',
-            treeField:'Name',
-            parentIdField:'ParentID',
-            saveUrl:'/admin/department/edit',
-            updateUrl:'/admin/department/edit',
+            idField: 'ID',
+            treeField: 'Name',
+            parentIdField: 'ParentID',
+            url: '/admin/department/getlist',
+            saveUrl: '/admin/department/edit',
+            updateUrl: '/admin/department/edit',
             deleteUrl: '/admin/department/delete',
-            reloadGrid:reloadGrid,
-            onRemove:reloadGrid
+            reloadGrid: reloadGrid,
+            onRemove: reloadGrid
         });
 
-        function getClientId()
-        {
+        function getClientId() {
             return $("#client-select").combobox("getValue");
         }
 
         function reloadGrid() {
-            var clientId = getClientId();
-            $.getJSON("/admin/department/getlist?clientId=" + clientId, function (data) {
-                dg.etreegrid("loadData",data);
-            });
+            dg.etreegrid("reload");
         }
 
-        function getRow() {
-            var row = dg.datagrid("getSelected");
-            if (row) { return row; }
-            $.messager.alert("提醒", "请先选择一行数据");
-            return null;
-        }
         $("#department-list-toolbar a").click(function () {
             var name = $(this).attr("href");
             switch (name) {
                 case "#add":
-                    var clientId = getClientId();
-                    if(!clientId){
-                        $.messager.alert("提醒","请先选择一个站点");
-                        return;
-                    }
                     var selectedRow = dg.datagrid("getSelected") || {};
-                    dg.etreegrid("addRow",{ClientId:clientId,ParentID:selectedRow.ID || 0});
+                    dg.etreegrid("addRow", { ParentID: selectedRow.ID || 0 });
                     return;
                 case "#edit":
-                    var row = getRow();
-                    if (row) {
-                        $.openWindow({
-                            width: 350,
-                            height: 180,
-                            title: "编辑部门",
-                            url: "/admin/department/edit?id=" + row.ID
-                        });
-                    }
+                    dg.etreegrid("editRow", row);
                     break;
                 case "#remove":
-                    var row = getRow();
-                    if (row) {
-                        dg.etreegrid("removeRow");
-                    }
+                    dg.etreegrid("removeRow");
                     break;
                 case "#reload":
                     reloadGrid();

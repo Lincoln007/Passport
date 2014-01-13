@@ -45,6 +45,7 @@ namespace LoowooTech.Passport.Manager
 
         public Client GetModel(int id)
         {
+            if (id == 0) return null;
             return Dao.GetClient(id);
         }
     }

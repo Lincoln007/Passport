@@ -1,4 +1,5 @@
 ﻿@using LoowooTech.Passport.Model
+@using LoowooTech.Common
 
 <form id="client-form" action="/admin/client/edit?id=@(Model.ID)" method="post">
     <input type="hidden" name="ClientId" value="@(Model.ClientId)" />
@@ -31,6 +32,12 @@
             </td>
         </tr>
         <tr>
+            <td>所属机构：</td>
+            <td>
+                <input type="text" id="client-deparment-select" name="DepartmentId" value="@(Model.DepartmentId)" class="easyui-combotree" panelheight="auto" editable="false" style="width: 200px;" /></td>
+            </td>
+        </tr>
+        <tr>
             <td>站点描述：</td>
             <td>
                 <textarea name="Description" style="width:350px;height:60px;">@(Model.Description)</textarea></td>
@@ -44,11 +51,34 @@
 </form>
 <script>
     (function () {
+        var treeData = @(Html.Raw((ViewBag.Departments as object).ToJson()));
+        var roots = [];
+        treeData.forEach(function(data){
+            roots.push(convertData(data));
+        });
+
+        function convertData(data){
+            var node = {};
+            node.id = data.ID;
+            node.text = data.Name;
+            if(data.children.length >0){
+                node.children = [];
+                data.children.forEach(function(c){
+                    node.children.push(convertData(c));
+                });
+            }
+            return node;
+        }
+
+        $("#client-deparment-select").combotree({
+            data:roots
+        });
+
         $("#client-form-btn-save").click(function () {
             $("#client-form").form("submit", {
                 success: function (data) {
+                    data = $.parseJSON(data);
                     if (data.result) {
-                        console.log(data);
                         $.closeWindow();
                         $("#client-list").datagrid("reload");
                     }

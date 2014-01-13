@@ -43,5 +43,8 @@ namespace LoowooTech.Passport.Model
 
         [Column("DELETED")]
         public short Deleted { get; set; }
+
+        [Column("DEPARTMENT_ID")]
+        public int DepartmentId { get; set; }
     }
 }

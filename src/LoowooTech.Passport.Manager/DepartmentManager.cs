@@ -12,9 +12,9 @@ namespace LoowooTech.Passport.Manager
         private DepartmentDao dao = new DepartmentDao();
 
 
-        public List<Department> GetList(int clientId)
+        public List<Department> GetList()
         {
-            return dao.GetList(clientId);
+            return dao.GetList();
         }
 
         private List<Department> GetChildren(List<Department> list, Department parent)
@@ -28,11 +28,11 @@ namespace LoowooTech.Passport.Manager
             return children;
         }
 
-        public List<Department> GetTree(int clientId)
+        public List<Department> GetTree(int parentId = 0)
         {
-            var list = GetList(clientId);
+            var list = GetList();
 
-            var roots = list.Where(e => e.ParentID == 0).ToList();
+            var roots = list.Where(e => e.ParentID == parentId).ToList();
 
             foreach (var root in roots)
             {

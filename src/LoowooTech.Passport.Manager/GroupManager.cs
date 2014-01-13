@@ -10,23 +10,9 @@ namespace LoowooTech.Passport.Manager
     public class GroupManager : ManagerBase
     {
         private static readonly GroupDao Dao = new GroupDao();
-
-        public IEnumerable<Group> GetGroups(int accountId)
+        public List<Group> GetGroups(int accountId=0)
         {
-            if (accountId == 0)
-            {
-                return new List<Group>();
-            }
             return Dao.GetGroups(accountId);
-        }
-
-        public PagingResult<Group> GetGroups(GroupFilter filter, int page, int pageSize)
-        {
-            var paging = new Paging(page, pageSize);
-
-            var list = Dao.GetGroups(filter, paging);
-
-            return new PagingResult<Group>(paging, list);
         }
 
         public IEnumerable<string> GetAllRightNames(int accountId)

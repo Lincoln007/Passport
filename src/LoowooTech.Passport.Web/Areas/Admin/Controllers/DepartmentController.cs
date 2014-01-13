@@ -11,15 +11,12 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
     {
         public ActionResult List()
         {
-            ViewBag.Clients = Core.ClientManager.GetList();
             return View();
         }
 
-        public ActionResult GetList(int clientId = 0)
+        public ActionResult GetList()
         {
-            if (clientId == 0) return null;
-
-            var data = Core.DepartmentManager.GetTree(clientId);
+            var data = Core.DepartmentManager.GetTree();
             return JsonContent(data);
         }
 

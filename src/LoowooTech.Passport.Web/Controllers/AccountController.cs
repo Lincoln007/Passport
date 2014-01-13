@@ -30,11 +30,6 @@ namespace LoowooTech.Passport.Web.Controllers
             {
                 throw new ArgumentException("用户名或密码有误！");
             }
-            var client = Core.ClientManager.GetModel(clientId);
-            if (client == null)
-            {
-                throw new ArgumentException("Client_Id参数错误");
-            }
 
             HttpContext.UserLogin(user);
 
@@ -45,6 +40,11 @@ namespace LoowooTech.Passport.Web.Controllers
             }
             else
             {
+                var client = Core.ClientManager.GetModel(clientId);
+                if (client == null)
+                {
+                    throw new ArgumentException("Client_Id参数错误");
+                }
                 var authorizeCode = Core.AuthManager.GenerateCode(client, user.AccountId);
                 if (!returnUrl.Contains("?"))
                 {

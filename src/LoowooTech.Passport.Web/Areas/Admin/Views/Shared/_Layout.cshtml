@@ -34,8 +34,8 @@
             $(id).window(options).window("open").window("center").window("refresh", options.url);
         };
 
-        $.closeWindow = function () {
-            var id = options.id || "#main-window";
+        $.closeWindow = function (id) {
+            id = id || "#main-window";
             $(id).window("close");
         };
     </script>
