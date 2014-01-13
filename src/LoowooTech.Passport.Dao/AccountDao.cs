@@ -121,16 +121,18 @@ namespace LoowooTech.Passport.Dao
                     throw new ArgumentException("参数错误，没找到这个帐号");
                 }
 
-                if (!string.IsNullOrEmpty(account.Password))
-                {
-                    account.Password = Account.GetEncyptPassword(entity.Password, entity.CreateTime);
-                }
-                else
+                if (string.IsNullOrEmpty(account.Password))
                 {
                     account.Password = entity.Password;
                 }
-                
+
                 db.Entry(entity).CurrentValues.SetValues(account);
+
+                if (!string.IsNullOrEmpty(account.Password))
+                {
+                    entity.Password = Account.GetEncyptPassword(entity.Password, entity.CreateTime);
+
+                }
 
                 db.SaveChanges();
             }

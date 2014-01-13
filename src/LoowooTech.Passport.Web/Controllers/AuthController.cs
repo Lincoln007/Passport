@@ -13,7 +13,6 @@ namespace LoowooTech.Passport.Web.Controllers
         [UserAuthorize]
         public ActionResult Authroize([ClientBinder]Client client, string redirect_url)
         {
-
             var uri = new Uri(redirect_url);
             if (!client.Hosts.Contains(uri.Host))
             {
@@ -21,7 +20,14 @@ namespace LoowooTech.Passport.Web.Controllers
             }
 
             var code = Core.AuthManager.GenerateCode(client, CurrentUser.AccountId);
-
+            if (redirect_url.Contains("?"))
+            {
+                redirect_url += "&code=" + code;
+            }
+            else
+            {
+                redirect_url += "?code=" + code;
+            }
             return Redirect(redirect_url);
 
         }

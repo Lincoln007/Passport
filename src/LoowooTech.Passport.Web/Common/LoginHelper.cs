@@ -24,6 +24,7 @@ namespace LoowooTech.Passport.Web
         public static void UserLogout(this HttpContextBase context)
         {
             var cookie = context.Request.Cookies.Get(CookieName);
+            if (cookie == null) return;
             cookie.Value = null;
             cookie.Expires = DateTime.Now.AddYears(-1);
             context.Response.SetCookie(cookie);
