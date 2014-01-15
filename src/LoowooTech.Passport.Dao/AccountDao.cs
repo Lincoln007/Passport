@@ -47,6 +47,10 @@ namespace LoowooTech.Passport.Dao
             using (var db = GetDataContext())
             {
                 var entity = db.Account.Where(a => a.Username.ToLower() == username.ToLower()).FirstOrDefault();
+                if (entity == null)
+                {
+                    return null;
+                }
                 if (!string.IsNullOrEmpty(password))
                 {
                     if (entity.Password != Account.GetEncyptPassword(password, entity.CreateTime))
