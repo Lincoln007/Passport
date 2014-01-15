@@ -39,8 +39,9 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Account account)
+        public ActionResult Edit(Account account,string[] groups)
         {
+            account.Groups = string.Join(",", groups);
             Core.AccountManager.Save(account);
             return JsonSuccess();
         }

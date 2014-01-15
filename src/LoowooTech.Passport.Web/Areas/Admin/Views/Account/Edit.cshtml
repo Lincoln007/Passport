@@ -1,6 +1,10 @@
 ﻿@using LoowooTech.Common
 @using LoowooTech.Passport.Model
-
+@{
+    List<Group> groups = ViewBag.Groups;
+    var selectedGroups = Model.Groups == null ? new int[] { } : (Model.Groups as string).Split(',').Select(e => int.Parse(e)).ToArray();
+    var groupData = groups.Select(e => new { e.GroupId, e.Name, selected = selectedGroups.Contains(e.GroupId) });
+}
 <form id="account-form" action="/admin/account/edit" method="post">
     <input type="hidden" name="AccountId" value="@Model.AccountId" />
     <table>
@@ -14,8 +18,8 @@
             <td>系统角色：</td>
             <td>
                 <select name="Role" class="easyui-combobox" panelheight="auto" editable="false" style="width: 200px;">
-                     <option value="@((short)Role.User)" @(Model.Role == (short)Role.User?" selected=\"selected\"":"")>普通用户</option>
-                   <option value="@((short)Role.Administrator)" @(Model.Role == (short)Role.Administrator?" selected=\"selected\"":"")>系统管理员</option>
+                    <option value="@((short)Role.User)" @(Model.Role == (short)Role.User ? " selected=\"selected\"" : "")>普通用户</option>
+                    <option value="@((short)Role.Administrator)" @(Model.Role == (short)Role.Administrator ? " selected=\"selected\"" : "")>系统管理员</option>
                 </select>
             </td>
         </tr>
@@ -34,7 +38,7 @@
         <tr>
             <td>所属权限组：</td>
             <td>
-                <input id="account-group-select" type="text" name="Groups" value="@(Model.Groups)"  class="easyui-combobox" value="@Model.Groups" style="width:300px;"/>
+                <input id="account-group-select" type="text" name="Groups" class="easyui-combobox" style="width: 300px;" />
             </td>
         </tr>
         <tr>
@@ -98,8 +102,8 @@
             multiple: true,
             panelHeight: "auto",
             editable:false,
-            data:@(Html.Raw((ViewBag.Groups as object).ToJson()))
-        });
+            data:@(Html.Raw(groupData.ToJson()))
+            });
 
         $("#account-form-btn-save").click(function () {
             $("#account-form").form("submit", {
