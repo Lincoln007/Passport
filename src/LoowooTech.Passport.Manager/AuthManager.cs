@@ -27,6 +27,17 @@ namespace LoowooTech.Passport.Manager
             return code;
         }
 
+        public string GetAppendedCodeReturnUrl(Client client,int accountId, string returnUrl)
+        {
+            var code = GenerateCode(client, accountId);
+            if (!returnUrl.Contains("?"))
+            {
+                returnUrl += "?";
+            }
+            returnUrl += "&code=" + code;
+            return returnUrl;
+        }
+
         public AuthorizeCode GetAuthorizeCode(string code)
         {
             if (!_codes.ContainsKey(code)) return null;

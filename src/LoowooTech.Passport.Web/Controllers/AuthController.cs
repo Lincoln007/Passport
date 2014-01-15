@@ -19,16 +19,9 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new HttpException(403, "redirect_uri_mismatch");
             }
 
-            var code = Core.AuthManager.GenerateCode(client, CurrentUser.AccountId);
-            if (redirect_url.Contains("?"))
-            {
-                redirect_url += "&code=" + code;
-            }
-            else
-            {
-                redirect_url += "?code=" + code;
-            }
-            return Redirect(redirect_url);
+            var returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, CurrentUser.AccountId, redirect_url);
+
+            return Redirect(returnUrl);
 
         }
 

@@ -15,6 +15,12 @@ namespace LoowooTech.Passport.Web.Controllers
         public ActionResult Login(string return_url = "/", string client_id = null, string css = null)
         {
             var client = Core.ClientManager.GetModel(client_id);
+            var user = HttpContext.GetCurrentUser();
+            if (user.IsAuthenticated)
+            {
+                ViewBag.ReturnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user.AccountId, return_url);
+                return View("LoginResult");
+            }
             ViewBag.ClientId = client_id;
             ViewBag.CssUrl = css;
             ViewBag.ReturnUrl = HttpUtility.UrlEncode(return_url);
@@ -45,12 +51,7 @@ namespace LoowooTech.Passport.Web.Controllers
                 {
                     throw new ArgumentException("Client_Id参数错误");
                 }
-                var authorizeCode = Core.AuthManager.GenerateCode(client, user.AccountId);
-                if (!returnUrl.Contains("?"))
-                {
-                    returnUrl += "?";
-                }
-                returnUrl += "&code=" + authorizeCode;
+                returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user.AccountId, returnUrl);
             }
             ViewBag.ReturnUrl = returnUrl;
 
