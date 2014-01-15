@@ -48,10 +48,12 @@ namespace LoowooTech.Passport.Web.Controllers
             }
 
             var account = Core.AccountManager.GetAccount(accessToken.AccountId);
+            var department = Core.DepartmentManager.GetModel(account.DepartmentId);
             var allRights = Core.GroupManager.GetAllRightLevels(account.AccountId, account.AgentId);
             return Json(new
             {
-                user = Core.AccountManager.GetAccount(accessToken.AccountId),
+                user = account,
+                department = department == null ? null : department.Name,
                 rights = allRights,
                 access_token = accessToken.Token,
             }, JsonRequestBehavior.AllowGet);
