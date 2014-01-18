@@ -1,9 +1,13 @@
 ﻿@model Exception
 @{
-    ViewBag.Title = "Error";
+    Exception ex = Model;
+    while(ex.InnerException!=null){
+        ex = ex.InnerException;
+    }
+    ViewBag.Title = ex.Message;
 }
 
-<h2>@Model.Message</h2>
+<h2>@ex.Message</h2>
 <div>
-    @Html.Raw(Model.StackTrace.Replace("\n", "<br />"))
+    @Html.Raw(ex.StackTrace.Replace("\n", "<br />"))
 </div>

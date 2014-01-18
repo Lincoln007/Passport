@@ -23,7 +23,7 @@ namespace LoowooTech.Passport.Model
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("ID")]
+        [Column("ID", TypeName = "INT")]
         public int AccountId { get; set; }
 
         [Column("USERNAME")]
@@ -49,7 +49,7 @@ namespace LoowooTech.Passport.Model
 
         public static string GetEncyptPassword(string password, DateTime createTime)
         {
-            return (password + createTime.ToString()).SHA1().MD5();
+            return (password + createTime.ToString("yyyy-MM-ddHH:mm:ss")).SHA1().MD5();
         }
 
         [NotMapped]

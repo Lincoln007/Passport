@@ -20,7 +20,7 @@ namespace LoowooTech.Passport.Model
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("ID")]
+        [Column("ID", TypeName = "INT")]
         public int ID { get; set; }
 
         [Column("NAME")]

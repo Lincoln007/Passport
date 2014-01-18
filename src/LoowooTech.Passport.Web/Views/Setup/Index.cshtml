@@ -1,0 +1,21 @@
+﻿@using LoowooTech.Passport.Model
+@using LoowooTech.Passport.Dao
+@{
+    using (var db = new DBDataContext())
+    {
+        var entity = db.Account.FirstOrDefault(e => e.Username == "admin"); ;
+        if (entity != null)
+        {
+            db.Account.Remove(entity);
+            db.SaveChanges();
+        }
+        entity = new Account();
+        entity.Username = "admin";
+        entity.Role = (int)Role.Administrator;
+        entity.Password = Account.GetEncyptPassword("admin", entity.CreateTime);
+        db.Account.Add(entity);
+        db.SaveChanges();
+    }
+
+
+}

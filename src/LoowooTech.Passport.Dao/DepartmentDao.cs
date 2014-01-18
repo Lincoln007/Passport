@@ -20,7 +20,13 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                db.Department.Add(entity);
+                var insert = new Department { 
+                    CreateTime = entity.CreateTime,
+                    Deleted = 0,
+                    Name = entity.Name,
+                    ParentID = entity.ParentID
+                };
+                db.Department.Add(insert);
                 db.SaveChanges();
             }
         }
