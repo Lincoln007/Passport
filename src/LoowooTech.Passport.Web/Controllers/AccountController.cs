@@ -15,12 +15,19 @@ namespace LoowooTech.Passport.Web.Controllers
         public ActionResult Login(string return_url = "/", string client_id = null, string css = null)
         {
             var client = Core.ClientManager.GetModel(client_id);
-            var user = HttpContext.GetCurrentUser();
-            if (user.IsAuthenticated)
-            {
-                ViewBag.ReturnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user.AccountId, return_url);
-                return View("LoginResult");
-            }
+            //var user = HttpContext.GetCurrentUser();
+            //if (user.IsAuthenticated)
+            //{
+            //    if (client == null)
+            //    {
+            //        ViewBag.ReturnUrl = "/admin";
+            //    }
+            //    else
+            //    {
+            //        ViewBag.ReturnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user.AccountId, return_url);
+            //    }
+            //    return View("LoginResult");
+            //}
             ViewBag.ClientId = client_id;
             ViewBag.CssUrl = css;
             ViewBag.ReturnUrl = HttpUtility.UrlEncode(return_url);

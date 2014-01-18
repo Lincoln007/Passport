@@ -33,6 +33,8 @@ namespace LoowooTech.Passport.Test
             }
         }
 
+
+
         /// <summary>
         ///A test for Create
         ///</summary>
@@ -41,10 +43,10 @@ namespace LoowooTech.Passport.Test
         {
             Account account = new Account
             {
-                Username = "maddemon",
-                Password = "123",
+                Username = "admin",
+                Password = "admin",
                 Role = (short)Role.Administrator,
-                TrueName = "jim",
+                TrueName = "Admin",
             };
             target.Create(account);
 
