@@ -1,3 +1,12 @@
 ﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<script>
+    (function () {
+
+        $(document).ajaxError(function (xhr) {
+            var data = $.parseJSON(xhr.responseText);
+            $.messager.alert("错误", data.message);
+        });
+    })();
+</script>

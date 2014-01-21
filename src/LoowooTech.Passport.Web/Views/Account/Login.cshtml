@@ -1,14 +1,24 @@
-﻿@if (ViewBag.CssUrl != null)
-{ 
-    <link rel="styleshee"" type="text/css" href="@(ViewBag.CssUrl)">
+﻿@{
+    Layout = "~/views/shared/_layout.cshtml";
+    if (ViewBag.CssUrl != null)
+    { 
+    <link rel="stylesheet" type="text/css" href="@(ViewBag.CssUrl)">
+    }
 }
-    
 <h2>用户登录</h2>
 <div class="login_form">
-    <form action="/account/loginresult?clientId=@(ViewBag.ClientId)&returnUrl=@(ViewBag.ReturnUrl)" method="post">
-        <p><label>用户名</label><input type="text" name="username" /></p>
-        <p><label>代理人(选填)</label><input type="text" name="agentUsername" /></p>
-        <p><label>密码</label><input type="password" name="password" /></p>
-        <p><input type="submit" value="登录" /></p>
+    <form id="loginForm" action="/account/loginresult?clientId=@(ViewBag.ClientId)&returnUrl=@(ViewBag.ReturnUrl)&target=@(Request["target"])" method="post">
+        <p>
+            <label>用户名</label><input type="text" name="username" />
+        </p>
+        <p>
+            <label>代理人(选填)</label><input type="text" name="agentUsername" />
+        </p>
+        <p>
+            <label>密码</label><input type="password" name="password" />
+        </p>
+        <p>
+            <input type="submit" value="登录" />
+        </p>
     </form>
 </div>

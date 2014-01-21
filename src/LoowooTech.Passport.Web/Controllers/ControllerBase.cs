@@ -29,15 +29,8 @@ namespace LoowooTech.Passport.Web.Controllers
             }
 
             filterContext.ExceptionHandled = true;
-            if (filterContext.HttpContext.IsAjaxRequest())
-            {
-                filterContext.Result = Json(new { result = false, message = filterContext.Exception.Message });
-            }
-            else
-            {
-                filterContext.Result = View("Error", filterContext.Exception);
-            }
-            base.OnException(filterContext);
+            filterContext.HttpContext.Response.StatusCode = 500;
+            filterContext.Result = Json(new { result = false, message = filterContext.Exception.Message }, JsonRequestBehavior.AllowGet);
         }
     }
 }

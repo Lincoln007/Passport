@@ -1,6 +1,19 @@
-﻿@{
-    Layout = null;
+﻿<script type="text/javascript">
+    @{
+        Exception exception = ViewBag.Error;
+        var target = string.IsNullOrEmpty(Request["target"]) ? "top" : Request["target"];
+        Layout = null;
+        if (exception != null)
+        {
+        <text>
+    alert("@(exception.Message)");
+    </text>
+        }
+        else
+        {
+        <text>
+    window.@(target).location.href = "@(Html.Raw(ViewBag.ReturnUrl))";
+    </text>
+        }
 }
-<script type="text/javascript">
-    window.top.location.href="@(Html.Raw(ViewBag.ReturnUrl))";
 </script>
