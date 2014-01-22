@@ -134,7 +134,6 @@
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Common\WebUtility.cs" />
-    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Mvc\AccessTokenBinderAttribute.cs" />

@@ -72,6 +72,19 @@ namespace LoowooTech.Passport.Manager
             return account;
         }
 
+        public Account GetAccountAllInfo(int accountId, int agentId = 0)
+        {
+            var account = GetAccount(accountId);
+            var department = Core.DepartmentManager.GetModel(account.DepartmentId);
+            account.Department = department == null ? null : department.Name;
+            account.Rights = Core.GroupManager.GetAccountRightNames(accountId).ToArray();
+            if (account.AgentId > 0)
+            {
+                account.Agent = GetAccountAllInfo(agentId);
+            }
+            return account;
+        }
+
         public void Save(Account account)
         {
             if (string.IsNullOrEmpty(account.Username))

@@ -15,51 +15,52 @@ namespace LoowooTech.Passport.Manager
             return Dao.GetGroups(accountId);
         }
 
-        public IEnumerable<string> GetAllRightNames(int accountId)
+        public IEnumerable<string> GetAccountRightNames(int accountId)
         {
             return GetGroups(accountId).SelectMany(e => e.Rights).Select(e => e.Name);
         }
-        public Dictionary<string, RightLevel> GetAllRightLevels(int accountId, int agentId)
-        {
 
-            var selfRights = GetAllRightNames(accountId).ToDictionary(r => r, r => RightLevel.SelfRight);
+        //public Dictionary<string, RightLevel> GetAllRightLevels(int accountId, int agentId)
+        //{
 
-            if (agentId > 0)
-            {
-                var agentRights = GetAllRightNames(agentId).ToDictionary(r => r, r => RightLevel.SelfRight);
+        //    var selfRights = GetAllRightNames(accountId).ToDictionary(r => r, r => RightLevel.SelfRight);
 
-                //把代理权限也赋予本人，但标明为代理权限。
-                foreach (var kv in agentRights)
-                {
-                    if (selfRights.ContainsKey(kv.Key))
-                    {
-                        selfRights[kv.Key] = kv.Value;
-                    }
-                    else
-                    {
-                        selfRights.Add(kv.Key, kv.Value);
-                    }
-                }
-            }
+        //    if (agentId > 0)
+        //    {
+        //        var agentRights = GetAllRightNames(agentId).ToDictionary(r => r, r => RightLevel.SelfRight);
 
-            return selfRights;
-        }
+        //        //把代理权限也赋予本人，但标明为代理权限。
+        //        foreach (var kv in agentRights)
+        //        {
+        //            if (selfRights.ContainsKey(kv.Key))
+        //            {
+        //                selfRights[kv.Key] = kv.Value;
+        //            }
+        //            else
+        //            {
+        //                selfRights.Add(kv.Key, kv.Value);
+        //            }
+        //        }
+        //    }
 
-        public Dictionary<string, RightLevel> CheckRights(IEnumerable<string> rightNames, int accountId, int agentId)
-        {
-            var result = rightNames.ToDictionary(r => r, r => RightLevel.NoRight);
-            var allRights = GetAllRightLevels(accountId, agentId);
+        //    return selfRights;
+        //}
 
-            foreach (var name in rightNames)
-            {
-                if (allRights.ContainsKey(name))
-                {
-                    result[name] = allRights[name];
-                }
-            }
+        //public Dictionary<string, RightLevel> CheckRights(IEnumerable<string> rightNames, int accountId, int agentId)
+        //{
+        //    var result = rightNames.ToDictionary(r => r, r => RightLevel.NoRight);
+        //    var allRights = GetAllRightLevels(accountId, agentId);
 
-            return result;
-        }
+        //    foreach (var name in rightNames)
+        //    {
+        //        if (allRights.ContainsKey(name))
+        //        {
+        //            result[name] = allRights[name];
+        //        }
+        //    }
+
+        //    return result;
+        //}
 
         public void Delete(int groupId)
         {

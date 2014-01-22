@@ -42,16 +42,11 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new HttpException(401, "invalid arguments");
             }
 
-            var account = Core.AccountManager.GetAccount(accessToken.AccountId, accessToken.AgentId);
-
-            var departments = Core.DepartmentManager.GetAccountDepartments(account);
-            var allRights = Core.GroupManager.GetAllRightLevels(account.AccountId, account.AgentId);
+            var account = Core.AccountManager.GetAccountAllInfo(accessToken.AccountId, accessToken.AgentId);
             return Json(new
             {
                 user = account,
-                agentUsername = account.Agent == null ? null : account.Agent.Username,
-                departments = departments == null ? null : string.Join(",", departments.Select(e => e.Name)),
-                rights = allRights,
+                agent = account.Agent,
                 access_token = accessToken.Token,
             }, JsonRequestBehavior.AllowGet);
         }

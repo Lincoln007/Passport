@@ -38,6 +38,12 @@ namespace LoowooTech.Passport.Model
         [Column("DEPARTMENT_ID")]
         public int DepartmentId { get; set; }
 
+        [NotMapped]
+        public string Department { get; set; }
+
+        [NotMapped]
+        public string[] Rights { get; set; }
+
         public bool HasGroup(int groupId)
         {
             if (string.IsNullOrEmpty(Groups))

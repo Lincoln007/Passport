@@ -71,19 +71,19 @@ namespace LoowooTech.Passport.Manager
             }
         }
 
-        public IEnumerable<Department> GetAccountDepartments(Account account)
-        {
-            if (account.DepartmentId > 0)
-            {
-                yield return GetModel(account.DepartmentId);
-            }
-            if (account.AgentId > 0)
-            {
-                if (account.Agent.DepartmentId > 0)
-                {
-                    yield return GetModel(account.DepartmentId);
-                }
-            }
-        }
+        //public IEnumerable<Department> GetAccountDepartments(Account account)
+        //{
+        //    if (account.DepartmentId > 0)
+        //    {
+        //        yield return GetModel(account.DepartmentId);
+        //    }
+        //    if (account.AgentId > 0)
+        //    {
+        //        if (account.Agent.DepartmentId > 0)
+        //        {
+        //            yield return GetModel(account.DepartmentId);
+        //        }
+        //    }
+        //}
     }
 }
