@@ -12,24 +12,24 @@ namespace LoowooTech.Passport.Manager
 {
     public class AuthManager : ManagerBase
     {
-        private static ConcurrentDictionary<string, AuthorizeCode> _codes = new ConcurrentDictionary<string, AuthorizeCode>();
-        private static readonly AuthDao Dao = new AuthDao();
+        private string codeHashId = "authorize_code";
+        private string tokenHashId = "access_token";
 
-        public string GenerateCode(Client client, int accountId)
+        public string GenerateCode(Client client, Account account)
         {
             var code = DateTime.Now.Ticks.ToString().MD5();
-            _codes.TryAdd(code, new AuthorizeCode
+            Cache.HSet(codeHashId, code, new AuthorizeCode
             {
                 ClientId = client.ClientId,
-                AccountId = accountId,
-                CreateTime = DateTime.Now,
+                AccountId = account.AccountId,
+                AgentId = account.AgentId
             });
             return code;
         }
 
-        public string GetAppendedCodeReturnUrl(Client client,int accountId, string returnUrl)
+        public string GetAppendedCodeReturnUrl(Client client, Account account, string returnUrl)
         {
-            var code = GenerateCode(client, accountId);
+            var code = GenerateCode(client, account);
             if (!returnUrl.Contains("?"))
             {
                 returnUrl += "?";
@@ -40,21 +40,36 @@ namespace LoowooTech.Passport.Manager
 
         public AuthorizeCode GetAuthorizeCode(string code)
         {
-            if (!_codes.ContainsKey(code)) return null;
-
-            var authCode = _codes[code];
+            var authCode = Cache.HGet<AuthorizeCode>(codeHashId, code);
+            if (authCode == null) return null;
 
             var expired = (DateTime.Now - authCode.CreateTime).TotalMinutes > 10;
             if (expired) return null;
-
-            _codes.TryRemove(code, out authCode);
+            Cache.HRemove(codeHashId, code);
 
             return authCode;
         }
 
+        private string GetAccessTokenCacheKey(AuthorizeCode code)
+        {
+            return code.AccountId.ToString() + "_" + code.AgentId.ToString();
+        }
+
         public AccessToken GetAccessToken(AuthorizeCode code)
         {
-            return Dao.GetAccessToken(code.ClientId, code.AccountId);
+            var key = GetAccessTokenCacheKey(code);
+            var accessToken = Cache.HGet<AccessToken>(tokenHashId, key);
+            if (accessToken == null)
+            {
+                accessToken = new AccessToken
+                {
+                    AccountId = code.AccountId,
+                    AgentId = code.AgentId,
+                    Token = AccessToken.GenerateToken(code)
+                };
+                Cache.HSet(tokenHashId, key, accessToken);
+            }
+            return accessToken;
         }
     }
 }

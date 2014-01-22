@@ -58,7 +58,6 @@
     <Compile Include="QueryableExtensions.cs" />
     <Compile Include="GroupDao.cs" />
     <Compile Include="AccountDao.cs" />
-    <Compile Include="AuthDao.cs" />
     <Compile Include="ClientDao.cs" />
     <Compile Include="DaoBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

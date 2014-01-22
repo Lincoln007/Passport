@@ -28,19 +28,20 @@ namespace LoowooTech.Passport.Dao
         }
 
         public DbSet<Account> Account { get; set; }
+        public DbSet<AccountAgent> AccountAgent { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<GroupRight> GroupRight { get; set; }
-        public DbSet<AccessToken> AccessToken { get; set; }
         public DbSet<Client> Client { get; set; }
         public DbSet<OperateLog> OperateLog { get; set; }
         public DbSet<Department> Department { get; set; }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>().ToTable(MappingHelper.GetTableName<Account>());
+            modelBuilder.Entity<AccountAgent>().ToTable(MappingHelper.GetTableName<AccountAgent>());
             modelBuilder.Entity<Group>().ToTable(MappingHelper.GetTableName<Group>());
             modelBuilder.Entity<GroupRight>().ToTable(MappingHelper.GetTableName<GroupRight>());
-            modelBuilder.Entity<AccessToken>().ToTable(MappingHelper.GetTableName<AccessToken>());
             modelBuilder.Entity<Client>().ToTable(MappingHelper.GetTableName<Client>());
             modelBuilder.Entity<OperateLog>().ToTable(MappingHelper.GetTableName<OperateLog>());
             modelBuilder.Entity<Department>().ToTable(MappingHelper.GetTableName<Department>());

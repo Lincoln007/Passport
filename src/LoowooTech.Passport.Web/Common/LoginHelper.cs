@@ -13,7 +13,7 @@ namespace LoowooTech.Passport.Web
 
         public static void UserLogin(this HttpContextBase context, Account account)
         {
-            var ticketName = account.AccountId + "|" + (int)account.Role + "|" + account.AgentId + "|" + account.Username;
+            var ticketName = account.AccountId + "|" + (int)account.Role + "|" + (account.Agent == null ? 0 : account.Agent.AccountId) + "|" + account.Username;
 
             var ticket = new FormsAuthenticationTicket(ticketName, false, 30);
 

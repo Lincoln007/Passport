@@ -60,7 +60,7 @@ namespace LoowooTech.Passport.Web.Controllers
                     ViewBag.Error = new ArgumentException("Client_Id参数错误");
                     return View();
                 }
-                returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user.AccountId, returnUrl);
+                returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user, returnUrl);
             }
 
             ViewBag.ReturnUrl = returnUrl;

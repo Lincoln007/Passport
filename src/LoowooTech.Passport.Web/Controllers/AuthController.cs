@@ -19,7 +19,9 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new HttpException(403, "redirect_uri_mismatch");
             }
 
-            var returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, CurrentUser.AccountId, redirect_url);
+            var account = Core.AccountManager.GetAccount(CurrentUser.AccountId, CurrentUser.AgentId);
+
+            var returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, account, redirect_url);
 
             return Redirect(returnUrl);
 
@@ -40,13 +42,15 @@ namespace LoowooTech.Passport.Web.Controllers
                 throw new HttpException(401, "invalid arguments");
             }
 
-            var account = Core.AccountManager.GetAccount(accessToken.AccountId);
-            var department = Core.DepartmentManager.GetModel(account.DepartmentId);
+            var account = Core.AccountManager.GetAccount(accessToken.AccountId, accessToken.AgentId);
+
+            var departments = Core.DepartmentManager.GetAccountDepartments(account);
             var allRights = Core.GroupManager.GetAllRightLevels(account.AccountId, account.AgentId);
             return Json(new
             {
                 user = account,
-                department = department == null ? null : department.Name,
+                agentUsername = account.Agent == null ? null : account.Agent.Username,
+                departments = departments == null ? null : string.Join(",", departments.Select(e => e.Name)),
                 rights = allRights,
                 access_token = accessToken.Token,
             }, JsonRequestBehavior.AllowGet);

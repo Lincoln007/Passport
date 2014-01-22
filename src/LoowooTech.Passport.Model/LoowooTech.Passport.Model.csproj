@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="AccountAgent.cs" />
     <Compile Include="AuthorizeCode.cs" />
     <Compile Include="AccessToken.cs" />
     <Compile Include="Client.cs" />

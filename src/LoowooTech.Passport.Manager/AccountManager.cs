@@ -39,7 +39,7 @@ namespace LoowooTech.Passport.Manager
             if (!string.IsNullOrEmpty(agentUsername))
             {
                 var agent = Dao.GetAccount(agentUsername);
-                if (agent == null || agent.Deleted == 0)
+                if (agent == null || agent.Deleted == 1)
                 {
                     throw new ArgumentException("代理的用户名不存在！");
                 }
@@ -49,19 +49,27 @@ namespace LoowooTech.Passport.Manager
                     throw new ArgumentException("你没有被授权代理这个用户！");
                 }
 
-                account.AgentId = agent.AccountId;
+                account.Agent = agent;
             }
 
             return account;
         }
 
-        public Account GetAccount(int accountId)
+        public Account GetAccount(int accountId, int agentId = 0)
         {
             if (accountId == 0)
             {
                 return null;
             }
-            return Dao.GetAccount(accountId);
+            var account = Dao.GetAccount(accountId);
+            if (agentId > 0)
+            {
+                if (Dao.HasAgent(accountId, agentId))
+                {
+                    account.Agent = Dao.GetAccount(agentId);
+                }
+            }
+            return account;
         }
 
         public void Save(Account account)
@@ -127,6 +135,17 @@ namespace LoowooTech.Passport.Manager
         public bool HasAgent(int accountId, int agentId)
         {
             return Dao.HasAgent(accountId, agentId);
+        }
+
+        public void UpdateAccountAgents(int accountId, string[] usernames)
+        {
+            var users = Dao.GetAccounts(new AccountFilter { Usernames = usernames });
+            Dao.UpdateAccountAgents(accountId, users.Select(e => e.AccountId).ToArray());
+        }
+
+        public List<Account> GetAgentAccounts(int accountId)
+        {
+            return Dao.GetAccountAgents(accountId);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace LoowooTech.Passport.Test
                 {
                     var client = new ClientDao().GetClient(appClient.ID);
 
-                    var code = Core.Instance.AuthManager.GenerateCode(client, userAccount.AccountId);
+                    var code = Core.Instance.AuthManager.GenerateCode(client, userAccount);
 
                     Assert.AreNotEqual(null, code);
 

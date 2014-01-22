@@ -8,19 +8,21 @@ namespace LoowooTech.Passport.Dao
 {
     public class AccountDao : DaoBase
     {
-        public IEnumerable<Account> GetAccounts(AccountFilter filter, Paging page = null)
+        public List<Account> GetAccounts(AccountFilter filter, Paging page = null)
         {
             using (var db = GetDataContext())
             {
                 var query = db.Account.AsQueryable();
                 if (filter.Deleted.HasValue)
                 {
-                    query = query.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
+                    var deletedValue = (short)(filter.Deleted.Value ? 1 : 0);
+                    query = query.Where(e => e.Deleted == deletedValue);
                 }
 
                 if (filter.Enabled.HasValue)
                 {
-                    query = query.Where(e => e.Status == (short)(filter.Enabled.Value ? Status.Enabled : Status.Disabled));
+                    var enabledValue = (short)(filter.Enabled.Value ? Status.Enabled : Status.Disabled);
+                    query = query.Where(e => e.Status == enabledValue);
                 }
 
                 if (!string.IsNullOrEmpty(filter.SearchKey))
@@ -36,6 +38,14 @@ namespace LoowooTech.Passport.Dao
                 if (filter.EndTime.HasValue)
                 {
                     query = query.Where(e => e.CreateTime <= filter.EndTime.Value);
+                }
+                if (filter.Usernames != null)
+                {
+                    query = query.Where(e => filter.Usernames.Contains(e.Username));
+                }
+                if (filter.AccountIds != null)
+                {
+                    query = query.Where(e => filter.AccountIds.Contains(e.AccountId));
                 }
 
                 return query.OrderByDescending(e => e.AccountId).SetPage(page).ToList();
@@ -74,7 +84,7 @@ namespace LoowooTech.Passport.Dao
         {
             using (var db = GetDataContext())
             {
-                return db.Account.Any(a => a.AccountId == accountId && a.AgentId == agentId);
+                return db.AccountAgent.Any(e => e.AccountId == agentId && e.AgentId == accountId);
             }
         }
         public void Create(Account account)
@@ -140,6 +150,34 @@ namespace LoowooTech.Passport.Dao
             }
         }
 
+        public void UpdateAccountAgents(int accountId, int[] agentIds)
+        {
+            using (var db = GetDataContext())
+            {
+                var olds = db.AccountAgent.Where(e => e.AccountId == accountId);
+                foreach (var item in olds)
+                {
+                    db.AccountAgent.Remove(item);
+                }
+                foreach (var newId in agentIds)
+                {
+                    db.AccountAgent.Add(new AccountAgent
+                    {
+                        AccountId = accountId,
+                        AgentId = newId
+                    });
+                }
+                db.SaveChanges();
+            }
+        }
 
+        public List<Account> GetAccountAgents(int accountId)
+        {
+            using (var db = GetDataContext())
+            {
+                var accountIds = db.AccountAgent.Where(e => e.AccountId == accountId).Select(e => e.AgentId).ToArray();
+                return GetAccounts(new AccountFilter { AccountIds = accountIds });
+            }
+        }
     }
 }

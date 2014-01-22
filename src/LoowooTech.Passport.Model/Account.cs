@@ -53,7 +53,10 @@ namespace LoowooTech.Passport.Model
         }
 
         [NotMapped]
-        public int AgentId { get; set; }
+        public Account Agent { get; set; }
+
+        [NotMapped]
+        public int AgentId { get { return Agent == null ? 0 : Agent.AccountId; } }
 
         [Column("CREATE_TIME")]
         public DateTime CreateTime { get; set; }

@@ -35,11 +35,12 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             var model = Core.AccountManager.GetAccount(id) ?? new Account();
             ViewBag.Departments = Core.DepartmentManager.GetTree();
             ViewBag.Groups = Core.GroupManager.GetGroups(0);
+            ViewBag.AgentUsernames = Core.AccountManager.GetAgentAccounts(id).Select(e => e.Username);
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(Account account,string[] groups)
+        public ActionResult Edit(Account account, string[] groups, string agentUsernames)
         {
             if (groups != null)
             {
@@ -50,6 +51,11 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
                 account.Groups = null;
             }
             Core.AccountManager.Save(account);
+            if (!string.IsNullOrEmpty(agentUsernames))
+            {
+                var usernames = agentUsernames.Replace("\r", "").Split('\n');
+                Core.AccountManager.UpdateAccountAgents(account.AccountId, usernames);
+            }
             return JsonSuccess();
         }
 
