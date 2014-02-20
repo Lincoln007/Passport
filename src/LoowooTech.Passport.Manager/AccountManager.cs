@@ -78,7 +78,7 @@ namespace LoowooTech.Passport.Manager
             var department = Core.DepartmentManager.GetModel(account.DepartmentId);
             account.Department = department == null ? null : department.Name;
             account.Rights = Core.GroupManager.GetAccountRightNames(accountId).ToArray();
-            if (account.AgentId > 0)
+            if (agentId > 0)
             {
                 account.Agent = GetAccountAllInfo(agentId);
             }

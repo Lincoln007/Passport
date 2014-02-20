@@ -10,6 +10,12 @@ namespace LoowooTech.Passport.Web.Controllers
     [UserRole]
     public class AccountController : ControllerBase
     {
+        [UserRole(Role = Role.User)]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         [UserRole(Role = Role.Everyone)]
         [HttpGet]
         public ActionResult Login(string return_url = "/", string client_id = null, string css = null)
@@ -57,10 +63,12 @@ namespace LoowooTech.Passport.Web.Controllers
                 var client = Core.ClientManager.GetModel(clientId);
                 if (client == null)
                 {
-                    ViewBag.Error = new ArgumentException("Client_Id参数错误");
-                    return View();
+                    throw new ArgumentException("未知的client_id！");
                 }
-                returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user, returnUrl);
+                else
+                {
+                    returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user, returnUrl);
+                }
             }
 
             ViewBag.ReturnUrl = returnUrl;

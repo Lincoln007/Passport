@@ -134,6 +134,7 @@
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Common\WebUtility.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Mvc\AccessTokenBinderAttribute.cs" />
@@ -247,6 +248,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\passport.pubxml" />
     <Content Include="Views\Setup\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

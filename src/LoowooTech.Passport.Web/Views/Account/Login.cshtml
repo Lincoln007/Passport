@@ -4,21 +4,37 @@
     { 
     <link rel="stylesheet" type="text/css" href="@(ViewBag.CssUrl)">
     }
+    else
+    {
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.js"></script>
+    <style>
+        body { padding-top: 40px; padding-bottom: 40px; background-color: #eee; }
+
+        .form-login { max-width: 330px; padding: 15px; margin: 0 auto; }
+            .form-login .form-control { position: relative; height: auto; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 10px; font-size: 16px; }
+                .form-login .form-control:focus { z-index: 2;}
+    </style>
+    }
 }
-<h2>用户登录</h2>
-<div class="login_form">
-    <form id="loginForm" action="/account/loginresult?clientId=@(ViewBag.ClientId)&returnUrl=@(ViewBag.ReturnUrl)&target=@(Request["target"])" method="post">
-        <p>
-            <label>用户名</label><input type="text" name="username" />
-        </p>
-        <p>
-            <label>代理人(选填)</label><input type="text" name="agentUsername" />
-        </p>
-        <p>
-            <label>密码</label><input type="password" name="password" />
-        </p>
-        <p>
-            <input type="submit" value="登录" />
-        </p>
+<div class="container">
+    <form id="loginForm" class="form-login" action="/account/loginresult?clientId=@(ViewBag.ClientId)&returnUrl=@(ViewBag.ReturnUrl)&target=@(Request["target"])" method="post">
+        <h2 class="form-login-heading">通行证登录</h2>
+        <div class="login_form form-default">
+            <p>
+                <label>用户名：</label><input type="text" name="username" class="form-control" placeholder="用户名" />
+            </p>
+            <p>
+                <label>代理人：</label><input type="text" name="agentUsername" class="form-control" placeholder="代理人用户名(可不填)" />
+            </p>
+            <p>
+                <label>密码：</label><input type="password" name="password" class="form-control" placeholder="密码" />
+            </p>
+            <p>
+                <input type="submit" class="btn btn-lg btn-primary btn-block" value="登录" />
+            </p>
+        </div>
     </form>
 </div>
