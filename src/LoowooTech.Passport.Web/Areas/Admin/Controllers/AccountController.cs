@@ -35,7 +35,7 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             var model = Core.AccountManager.GetAccount(id) ?? new Account();
             ViewBag.Departments = Core.DepartmentManager.GetTree();
             ViewBag.Groups = Core.GroupManager.GetGroups(0);
-            ViewBag.AgentUsernames = Core.AccountManager.GetAgentAccounts(id).Select(e => e.Username);
+            ViewBag.AgentUsernames = Core.AccountManager.GetAccountAgents(id).Select(e => e.Username);
             return View(model);
         }
 

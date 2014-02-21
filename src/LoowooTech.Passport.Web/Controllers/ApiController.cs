@@ -19,14 +19,31 @@ namespace LoowooTech.Passport.Web.Controllers
             filterContext.ExceptionHandled = true;
             filterContext.Result = Json(new { result = false, message = filterContext.Exception.Message });
         }
-        
-        public JsonResult UpdatePassword([AccessTokenBinder]AccessToken token, string oldPassword, string newPassword)
+
+        private ActionResult JsonSuccess()
+        {
+            return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdatePassword([AccessTokenBinder]AccessToken token, string oldPassword, string newPassword)
         {
             var account = Core.AccountManager.GetAccount(token.AccountId);
             account = Core.AccountManager.GetAccount(account.Username, oldPassword);
             account.Password = newPassword;
             Core.AccountManager.Save(account);
-            return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+            return JsonSuccess();
+        }
+
+        public ActionResult GetAgents([AccessTokenBinder]AccessToken token)
+        {
+            var agents = Core.AccountManager.GetAccountAgents(token.AccountId);
+            return Json(agents);
+        }
+
+        public ActionResult SetAgents([AccessTokenBinder]AccessToken token, string[] usernames)
+        {
+            Core.AccountManager.UpdateAccountAgents(token.AccountId, usernames);
+            return JsonSuccess();
         }
     }
 }

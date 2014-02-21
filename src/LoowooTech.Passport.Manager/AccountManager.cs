@@ -156,9 +156,10 @@ namespace LoowooTech.Passport.Manager
             Dao.UpdateAccountAgents(accountId, users.Select(e => e.AccountId).ToArray());
         }
 
-        public List<Account> GetAgentAccounts(int accountId)
+        public List<Account> GetAccountAgents(int accountId)
         {
             return Dao.GetAccountAgents(accountId);
         }
+
     }
 }
