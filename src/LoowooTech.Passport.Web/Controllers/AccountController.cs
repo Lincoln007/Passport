@@ -44,35 +44,40 @@ namespace LoowooTech.Passport.Web.Controllers
         [HttpPost]
         public ActionResult LoginResult(string clientId, string username, string password, string agentUsername, string returnUrl = "/")
         {
-            var user = Core.AccountManager.GetAccount(username, password, agentUsername);
-            if (user == null)
+            try
             {
-                ViewBag.Error = new ArgumentException("用户名或密码有误！");
-                return View();
-            }
-
-            HttpContext.UserLogin(user);
-
-
-            if ((Role)user.Role == Role.Administrator && returnUrl == "/")
-            {
-                returnUrl = "/admin";
-            }
-            else
-            {
-                var client = Core.ClientManager.GetModel(clientId);
-                if (client == null)
+                var user = Core.AccountManager.GetAccount(username, password, agentUsername);
+                if (user == null)
                 {
-                    throw new ArgumentException("未知的client_id！");
+                    throw new ArgumentException("用户名或密码有误！");
+                }
+
+                HttpContext.UserLogin(user);
+
+
+                if ((Role)user.Role == Role.Administrator && returnUrl == "/")
+                {
+                    returnUrl = "/admin";
                 }
                 else
                 {
-                    returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user, returnUrl);
+                    var client = Core.ClientManager.GetModel(clientId);
+                    if (client == null)
+                    {
+                        throw new ArgumentException("未知的client_id！");
+                    }
+                    else
+                    {
+                        returnUrl = Core.AuthManager.GetAppendedCodeReturnUrl(client, user, returnUrl);
+                    }
                 }
+
+                ViewBag.ReturnUrl = returnUrl;
             }
-
-            ViewBag.ReturnUrl = returnUrl;
-
+            catch (Exception ex)
+            {
+                ViewBag.Exception = ex;
+            }
             return View();
         }
 

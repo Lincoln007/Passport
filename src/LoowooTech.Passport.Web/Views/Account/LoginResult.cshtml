@@ -1,12 +1,13 @@
 ﻿<script type="text/javascript">
     @{
-        Exception exception = ViewBag.Error;
+        Exception exception = ViewBag.Exception;
         var target = string.IsNullOrEmpty(Request["target"]) ? "top" : Request["target"];
         Layout = null;
         if (exception != null)
         {
         <text>
     alert("@(exception.Message)");
+    history.go(-1);
     </text>
         }
         else
