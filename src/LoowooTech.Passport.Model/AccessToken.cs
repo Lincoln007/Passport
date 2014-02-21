@@ -36,7 +36,8 @@ namespace LoowooTech.Passport.Model
                     Token = accessToken,
                     ClientId = vals[0],
                     AccountId = int.Parse(vals[1]),
-                    CreateTime = DateTime.Parse(vals[2])
+                    AgentId = int.Parse(vals[2]),
+                    CreateTime = DateTime.Parse(vals[3])
                 };
             }
             catch
