@@ -20,14 +20,14 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             return JsonContent(data);
         }
 
-        [HttpGet]
-        public ActionResult Edit(int id = 0, int clientId = 0)
-        {
-            var model = Core.DepartmentManager.GetModel(id) ?? new Department();
-            ViewBag.Tree = Core.DepartmentManager.GetTree(clientId);
-            ViewBag.Clients = Core.ClientManager.GetList();
-            return View(model);
-        }
+        //[HttpGet]
+        //public ActionResult Edit(int id = 0, int clientId = 0)
+        //{
+        //    var model = Core.DepartmentManager.GetModel(id) ?? new Department();
+        //    ViewBag.Tree = Core.DepartmentManager.GetTree(clientId);
+        //    ViewBag.Clients = Core.ClientManager.GetList();
+        //    return View(model);
+        //}
 
         [HttpPost]
         public ActionResult Edit(Department model)

@@ -12,7 +12,6 @@
         </tr>
     </thead>
 </table>
-<script src="/static/scripts/jquery.etreegrid.js"></script>
 <script>
     (function () {
         var dg = $("#department-list");
@@ -25,7 +24,6 @@
             saveUrl: '/admin/department/edit',
             updateUrl: '/admin/department/edit',
             deleteUrl: '/admin/department/delete',
-            reloadGrid: reloadGrid,
             onRemove: reloadGrid
         });
 
@@ -39,16 +37,16 @@
 
         $("#department-list-toolbar a").click(function () {
             var name = $(this).attr("href");
+            var selectedRow = dg.datagrid("getSelected") || {};
             switch (name) {
                 case "#add":
-                    var selectedRow = dg.datagrid("getSelected") || {};
                     dg.etreegrid("addRow", { ParentID: selectedRow.ID || 0 });
                     return;
                 case "#edit":
-                    dg.etreegrid("editRow", row);
+                    dg.etreegrid("editRow", selectedRow);
                     break;
                 case "#remove":
-                    dg.etreegrid("removeRow");
+                    dg.etreegrid("removeRow", selectedRow);
                     break;
                 case "#reload":
                     reloadGrid();

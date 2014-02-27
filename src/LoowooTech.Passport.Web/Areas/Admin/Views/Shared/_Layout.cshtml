@@ -39,6 +39,12 @@
             id = id || "#main-window";
             $(id).window("close");
         };
+        $(document).ajaxError(function (event, jqxhr, settings, exception) {
+            if (jqxhr.responseText) {
+                var result = $.parseJSON(jqxhr.responseText);
+                $.messager.alert("错误", result.message);
+            }
+        });
     </script>
 </body>
 </html>

@@ -58,7 +58,7 @@ namespace LoowooTech.Passport.Manager
         {
             if (model == null)
             {
-                throw new ArgumentException("department is null");
+                throw new ArgumentException("department.Name is null");
             }
 
             if (model.ID > 0)
