@@ -10,11 +10,6 @@ namespace LoowooTech.Passport.Web.Controllers
     [UserRole]
     public class AccountController : ControllerBase
     {
-        [UserRole(Role = Role.User)]
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [UserRole(Role = Role.Everyone)]
         [HttpGet]

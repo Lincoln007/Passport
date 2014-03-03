@@ -7,12 +7,18 @@
     @Html.Raw(Page.Static)
 </head>
 <body class="easyui-layout">
-    <div id="main-window" class="easyui-window" closed="true" modal="true" minimizable="false" maximizable="false" collapsible="false"></div>
-    <div region="north" style="height: 60px; background-color: #333">
-        <h1 style="color: #fff;">用户管理中心</h1>
-        <a href="/account/logout">退出</a>
+    <div id="main-window" class="easyui-window" closed="true" modal="true" minimizable="false"
+        maximizable="false" collapsible="false"></div>
+    <div region="north" class="header">
+        <div class="logo">Passport <span style="font-size:12px;">Management Center</span></div>
+        <div class="topbar">
+            <ul>
+                <li><a href="/account/logout">退出</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div region="west" style="width: 200px" title="功能菜单">
+    <div region="west" title="功能菜单" class="sidebar">
         @Html.Partial("_navigation")
     </div>
     <div region="center">

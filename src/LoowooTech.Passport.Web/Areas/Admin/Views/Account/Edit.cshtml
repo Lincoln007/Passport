@@ -85,7 +85,7 @@
     (function () {
         var treeData = @(Html.Raw((ViewBag.Departments as object).ToJson()));
         var roots = [];
-        treeData.forEach(function(data){
+        $.each(treeData,function(i,data){
             roots.push(convertData(data));
         });
 
@@ -95,7 +95,7 @@
             node.text = data.Name;
             if(data.children.length >0){
                 node.children = [];
-                data.children.forEach(function(c){
+                $.each(data.children,function(i,c){
                     node.children.push(convertData(c));
                 });
             }
@@ -120,7 +120,6 @@
                 success: function (data) {
                     data = $.parseJSON(data);
                     if (data.result) {
-                        console.log(data);
                         $.closeWindow();
                         $("#account-list").datagrid("reload");
                     }

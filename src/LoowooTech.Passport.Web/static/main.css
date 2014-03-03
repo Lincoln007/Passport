@@ -1,1 +1,20 @@
-﻿body,h1, h2, h3, ul, li, form, p { padding: 0px; margin: 0px; }
+﻿body, h1, h2, h3, ul, li, form, p { padding: 0px; margin: 0px; }
+li { list-style:none;}
+.header { background-color: #369; color: #aaa; height: 60px; overflow: hidden; background: linear-gradient(to left,#258 0,#369 100%); }
+
+    .header .logo { float: left; line-height: 50px; padding: 5px; color: #fff; font-size:30px; font-family:Verdana, Geneva, 'DejaVu Sans', sans-serif }
+
+    .header .topbar {float:right; height: 30px; margin-top: 30px; font-size: 12px; }
+
+        .header .topbar li { display: block; float: right; height: 25px; font-size: 12px; list-style: none; }
+
+            .header .topbar li a { padding: 2px 5px 2px 5px; display: inline-block; text-decoration: none; color: #eee; }
+
+                .header .topbar li a:hover { color: #fff; text-decoration: underline; }
+
+a:link { text-decoration:none; }
+a:hover { text-decoration:none; }
+
+.sidebar { width: 200px; }
+    .sidebar li { line-height:25px; text-indent:25px; border-bottom:solid 1px #eee; }
+        .sidebar li:hover { background-color:#bcdcff; }
