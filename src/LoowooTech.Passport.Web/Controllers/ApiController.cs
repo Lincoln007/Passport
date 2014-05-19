@@ -25,11 +25,11 @@ namespace LoowooTech.Passport.Web.Controllers
             return Json(new { result = true }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetAccounts(string realName)
-        {
-            var list = Core.AccountManager.GetAccounts(new AccountFilter { SearchKey = realName }, 1, int.MaxValue);
-            return Json(list);
-        }
+        //public ActionResult GetAccounts(string realName)
+        //{
+        //    var list = Core.AccountManager.GetAccounts(new AccountFilter { SearchKey = realName }, 1, int.MaxValue);
+        //    return Json(list);
+        //}
 
         public ActionResult UpdatePassword([AccessTokenBinder]AccessToken token, string oldPassword, string newPassword)
         {

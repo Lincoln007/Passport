@@ -34,6 +34,10 @@ namespace LoowooTech.Passport.Dao
         public DbSet<Client> Client { get; set; }
         public DbSet<OperateLog> OperateLog { get; set; }
         public DbSet<Department> Department { get; set; }
+        public DbSet<Rank> Rank { get; set; }
+
+        public DbSet<VAccount> VAccount { get; set; }
+
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -45,6 +49,9 @@ namespace LoowooTech.Passport.Dao
             modelBuilder.Entity<Client>().ToTable(MappingHelper.GetTableName<Client>());
             modelBuilder.Entity<OperateLog>().ToTable(MappingHelper.GetTableName<OperateLog>());
             modelBuilder.Entity<Department>().ToTable(MappingHelper.GetTableName<Department>());
+            modelBuilder.Entity<Rank>().ToTable(MappingHelper.GetTableName<Rank>());
+
+            modelBuilder.Entity<VAccount>().ToTable(MappingHelper.GetTableName<VAccount>());
         }
     }
 }

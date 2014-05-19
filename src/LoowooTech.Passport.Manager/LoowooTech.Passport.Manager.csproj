@@ -59,6 +59,7 @@
     <Compile Include="ManagerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManager.cs" />
+    <Compile Include="RankManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">

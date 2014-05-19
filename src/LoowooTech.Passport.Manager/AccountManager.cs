@@ -12,16 +12,27 @@ namespace LoowooTech.Passport.Manager
     {
         private static readonly AccountDao Dao = new AccountDao();
 
-        public PagingResult<Account> GetAccounts(AccountFilter filter, int page = 1, int pageSize = 20)
+        public PagingResult<VAccount> GetVAccounts(AccountFilter filter, int page = 1, int pageSize = 20)
         {
             var paging = new Paging
             {
                 PageSize = pageSize,
                 CurrentPage = page,
             };
-            var data = Dao.GetAccounts(filter, paging);
-            return new PagingResult<Account>(paging, data);
+            var data = Dao.GetVAccounts(filter, paging);
+            return new PagingResult<VAccount>(paging, data);
         }
+
+        //public PagingResult<Account> GetAccounts(AccountFilter filter, int page = 1, int pageSize = 20)
+        //{
+        //    var paging = new Paging
+        //    {
+        //        PageSize = pageSize,
+        //        CurrentPage = page,
+        //    };
+        //    var data = Dao.GetAccounts(filter, paging);
+        //    return new PagingResult<Account>(paging, data);
+        //}
 
         public Account GetAccount(string username, string password, string agentUsername = null)
         {
@@ -76,7 +87,9 @@ namespace LoowooTech.Passport.Manager
         {
             var account = GetAccount(accountId);
             var department = Core.DepartmentManager.GetModel(account.DepartmentId);
+            var rank = Core.RankManager.GetModel(account.RankId);
             account.Department = department == null ? null : department.Name;
+            account.Rank = rank == null ? null : rank.Name;
             account.Rights = Core.GroupManager.GetAccountRightNames(accountId).ToArray();
             if (agentId > 0)
             {

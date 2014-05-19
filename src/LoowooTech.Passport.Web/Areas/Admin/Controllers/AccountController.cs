@@ -17,7 +17,7 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
 
         public ActionResult GetList(string searchkey, bool? deleted, bool? enabled, DateTime? beginTime, DateTime? endTime, int page = 1, int rows = 20)
         {
-            var list = Core.AccountManager.GetAccounts(new AccountFilter
+            var list = Core.AccountManager.GetVAccounts(new AccountFilter
             {
                 Deleted = deleted,
                 Enabled = enabled,
@@ -36,6 +36,7 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
             ViewBag.Departments = Core.DepartmentManager.GetTree();
             ViewBag.Groups = Core.GroupManager.GetGroups(0);
             ViewBag.AgentUsernames = Core.AccountManager.GetAccountAgents(id).Select(e => e.Username);
+            ViewBag.Ranks = Core.RankManager.GetList();
             return View(model);
         }
 

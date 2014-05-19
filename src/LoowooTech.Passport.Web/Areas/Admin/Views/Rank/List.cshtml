@@ -1,0 +1,50 @@
+﻿<div id="rank-list-toolbar">
+    <a href="#add" class="easyui-linkbutton" iconcls="icon-add">添加</a>
+    <a href="#save" class="easyui-linkbutton" iconcls="icon-save">保存</a>
+    <a href="#edit" class="easyui-linkbutton" iconcls="icon-edit">修改</a>
+    <a href="#remove" class="easyui-linkbutton" iconcls="icon-add">删除</a>
+    <a href="#reload" class="easyui-linkbutton" iconcls="icon-reload">刷新</a>
+</div>
+<table id="rank-list" toolbar="#rank-list-toolbar" 
+    border="false" singleselect="true" rownumbers="true" fit="true">
+    <thead>
+        <tr>
+            <th field="ID" hidden="true"></th>
+            <th field="Name" width="150" data-options="editor:{type:'validatebox',options:{required:true}}">职级名称</th>
+        </tr>
+    </thead>
+</table>
+<script>
+    $(function () {
+        var dg = $("#rank-list");
+        dg.edatagrid({
+            idField:'ID',
+            url:'/admin/rank/getlist',
+            updateUrl: '/admin/rank/update',
+            destroyUrl: '/admin/rank/delete'
+        });
+
+
+        $("#rank-list-toolbar a").click(function () {
+            var name = $(this).attr("href");
+            switch (name) {
+                case "#add":
+                    dg.edatagrid("addRow");
+                    break;
+                case "#save":
+                    dg.edatagrid("saveRow");
+                    break;
+                case "#edit":
+                    dg.edatagrid("editRow");
+                    break;
+                case "#remove":
+                    dg.edatagrid("destroyRow");
+                    break;
+                case "#reload":
+                    dg.datagrid("reload");
+                    break;
+            }
+        });
+
+    });
+</script>

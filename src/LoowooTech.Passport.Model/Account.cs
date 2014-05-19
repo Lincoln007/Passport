@@ -38,8 +38,14 @@ namespace LoowooTech.Passport.Model
         [Column("DEPARTMENT_ID")]
         public int DepartmentId { get; set; }
 
+        [Column("RANK_ID")]
+        public int RankId { get; set; }
+
         [NotMapped]
         public string Department { get; set; }
+
+        [NotMapped]
+        public string Rank { get; set; }
 
         [NotMapped]
         public string[] Rights { get; set; }

@@ -105,6 +105,7 @@
     <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RankController.cs" />
     <Compile Include="Common\WebUtility.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="static\scripts\jquery.edatagrid.js" />
     <Content Include="static\scripts\jquery.etreegrid.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -221,6 +223,7 @@
     <Content Include="Areas\Admin\Views\Department\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Rank\List.cshtml" />
     <None Include="Properties\PublishProfiles\passport.pubxml" />
     <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />

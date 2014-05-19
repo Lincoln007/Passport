@@ -61,5 +61,9 @@ namespace LoowooTech.Passport.Manager
             }
         }
 
+        public RankManager RankManager
+        {
+            get { return new RankManager(); }
+        }
     }
 }

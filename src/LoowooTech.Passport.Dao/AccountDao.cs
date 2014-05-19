@@ -8,6 +8,49 @@ namespace LoowooTech.Passport.Dao
 {
     public class AccountDao : DaoBase
     {
+        public List<VAccount> GetVAccounts(AccountFilter filter, Paging page = null)
+        {
+            using (var db = GetDataContext())
+            {
+                var query = db.VAccount.AsQueryable();
+                if (filter.Deleted.HasValue)
+                {
+                    var deletedValue = (short)(filter.Deleted.Value ? 1 : 0);
+                    query = query.Where(e => e.Deleted == deletedValue);
+                }
+
+                if (filter.Enabled.HasValue)
+                {
+                    var enabledValue = (short)(filter.Enabled.Value ? Status.Enabled : Status.Disabled);
+                    query = query.Where(e => e.Status == enabledValue);
+                }
+
+                if (!string.IsNullOrEmpty(filter.SearchKey))
+                {
+                    query = query.Where(e => e.TrueName.Contains(filter.SearchKey) || e.Username.Contains(filter.SearchKey));
+                }
+
+                if (filter.BeginTime.HasValue)
+                {
+                    query = query.Where(e => e.CreateTime > filter.BeginTime.Value);
+                }
+
+                if (filter.EndTime.HasValue)
+                {
+                    query = query.Where(e => e.CreateTime <= filter.EndTime.Value);
+                }
+                if (filter.Usernames != null)
+                {
+                    query = query.Where(e => filter.Usernames.Contains(e.Username));
+                }
+                if (filter.AccountIds != null)
+                {
+                    query = query.Where(e => filter.AccountIds.Contains(e.AccountId));
+                }
+                return query.OrderByDescending(e => e.AccountId).SetPage(page).ToList();
+            }
+        }
+
         public List<Account> GetAccounts(AccountFilter filter, Paging page = null)
         {
             using (var db = GetDataContext())

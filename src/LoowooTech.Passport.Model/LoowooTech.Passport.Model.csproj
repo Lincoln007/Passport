@@ -63,9 +63,10 @@
     <Compile Include="Query\AccountFilter.cs" />
     <Compile Include="Query\GroupFilter.cs" />
     <Compile Include="Query\SelectFilter.cs" />
-    <Compile Include="RightInfo.cs" />
+    <Compile Include="Rank.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Status.cs" />
+    <Compile Include="VAccount.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LoowooTech.Common\LoowooTech.Common.csproj">

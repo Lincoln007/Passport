@@ -5,6 +5,7 @@
     var selectedGroups = Model.Groups == null ? new int[] { } : (Model.Groups as string).Split(',').Select(e => int.Parse(e)).ToArray();
     var groupData = groups.Select(e => new { e.GroupId, e.Name, selected = selectedGroups.Contains(e.GroupId) });
     var agentUsernames = string.Join("\n",ViewBag.AgentUsernames);
+    List<Rank> ranks = ViewBag.Ranks;
 }
 <form id="account-form" action="/admin/account/edit" method="post">
     <input type="hidden" name="AccountId" value="@Model.AccountId" />
@@ -31,19 +32,30 @@
             </td>
         </tr>
         <tr>
-            <td>所属机构：</td>
+            <td>部门科室：</td>
             <td>
                 <input type="text" id="account-deparment-select" name="DepartmentId" value="@(Model.DepartmentId)" class="easyui-combotree" panelheight="auto" editable="false" style="width: 200px;" /></td>
             </td>
         </tr>
         <tr>
-            <td>所属权限组：</td>
+            <td>职级：</td>
+            <td>
+                <select  class="easyui-combobox" pannelheight="auto" editable="false" name="RankId" >
+                    <option value="0">选择</option>
+                    @foreach (var rank in ranks) { 
+                    <option value="@(rank.ID)" @(Model.RankID == rank.ID?"selected=selected":"")>@(rank.Name)</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>权限：</td>
             <td>
                 <input id="account-group-select" type="text" name="Groups" class="easyui-combobox" style="width: 300px;" />
             </td>
         </tr>
         <tr>
-            <td>指定代理人：</td>
+            <td>代理人：</td>
             <td>
                 <textarea name="agentUsernames" style="width: 300px;" rows="6">@(agentUsernames)</textarea><br />
                 填写代理人用户名,每行一个
