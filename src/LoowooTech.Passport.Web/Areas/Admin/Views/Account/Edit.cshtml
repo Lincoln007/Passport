@@ -43,7 +43,7 @@
                 <select  class="easyui-combobox" pannelheight="auto" editable="false" name="RankId" >
                     <option value="0">选择</option>
                     @foreach (var rank in ranks) { 
-                    <option value="@(rank.ID)" @(Model.RankID == rank.ID?"selected=selected":"")>@(rank.Name)</option>
+                    <option value="@(rank.ID)" @(Model.RankId == rank.ID?"selected=selected":"")>@(rank.Name)</option>
                     }
                 </select>
             </td>
