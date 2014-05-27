@@ -47,6 +47,7 @@ namespace LoowooTech.Passport.Dao
                 {
                     query = query.Where(e => filter.AccountIds.Contains(e.AccountId));
                 }
+
                 return query.OrderByDescending(e => e.AccountId).SetPage(page).ToList();
             }
         }

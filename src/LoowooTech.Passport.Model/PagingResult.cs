@@ -16,7 +16,7 @@ namespace LoowooTech.Passport.Model
             {
                 limit = int.MaxValue;
             }
-            CurrentPage = (int)(start / limit) + start % limit == 0 ? 0 : 1;
+            CurrentPage = 1;
             PageSize = limit;
 
         }

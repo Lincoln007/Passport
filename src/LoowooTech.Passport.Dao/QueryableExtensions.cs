@@ -16,7 +16,12 @@ namespace LoowooTech.Passport.Dao
             {
                 page.RecordCount = query.Count();
             }
-            return query.Skip(page.PageSize * (page.CurrentPage - 1)).Take(page.PageSize);
+            if (page.PageSize > page.RecordCount)
+            {
+                page.PageSize = page.RecordCount;
+            }
+            var skip = page.PageSize * (page.CurrentPage - 1);
+            return query.Skip(skip).Take(page.PageSize);
         }
     }
 }
