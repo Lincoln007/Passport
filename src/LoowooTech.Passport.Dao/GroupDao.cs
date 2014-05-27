@@ -14,69 +14,27 @@ namespace LoowooTech.Passport.Dao
 
         private List<GroupRight> GetAllRights()
         {
-            var list = Cache.Get<List<GroupRight>>(_rightKey);
-            if (list == null)
+            using (var db = GetDataContext())
             {
-                using (var db = GetDataContext())
-                {
-                    list = db.GroupRight.ToList();
-                }
-                Cache.Set(_rightKey, list);
+                return db.GroupRight.ToList();
             }
-            return list;
         }
 
         private List<Group> GetAllGroups()
         {
-            var list = Cache.Get<List<Group>>(_groupKey);
-            if (list == null)
+            using (var db = GetDataContext())
             {
-                using (var db = GetDataContext())
+                return db.Group.Where(e => e.Deleted == 0).ToList().Select(e => new Group
                 {
-                    list = db.Group.Where(e => e.Deleted == 0).ToList().Select(e => new Group
-                    {
-                        CreateTime = e.CreateTime,
-                        Description = e.Description,
-                        Deleted = e.Deleted,
-                        GroupId = e.GroupId,
-                        Name = e.Name,
-                        Rights = GetAllRights().Where(r => r.GroupID == e.GroupId)
-                    }).ToList();
-                }
-                Cache.Set(_groupKey, list);
+                    CreateTime = e.CreateTime,
+                    Description = e.Description,
+                    Deleted = e.Deleted,
+                    GroupId = e.GroupId,
+                    Name = e.Name,
+                    Rights = GetAllRights().Where(r => r.GroupID == e.GroupId)
+                }).ToList();
             }
-            return list;
         }
-
-        private void RemoveCache()
-        {
-            Cache.Remove(_rightKey);
-            Cache.Remove(_groupKey);
-        }
-
-        //public List<Group> GetGroups(GroupFilter filter, Paging page = null)
-        //{
-        //    IQueryable<Group> list = null;
-        //    if (filter == null)
-        //    {
-        //        return GetAllGroups();
-        //    }
-
-        //    if (filter.AccountId.HasValue)
-        //    {
-        //        list = GetGroups(filter.AccountId.Value).AsQueryable();
-        //    }
-        //    else
-        //    {
-        //        list = GetAllGroups().AsQueryable();
-        //    }
-
-        //    if (filter.Deleted.HasValue)
-        //    {
-        //        list = list.Where(e => e.Deleted == (short)(filter.Deleted.Value ? 1 : 0));
-        //    }
-        //    return list.OrderByDescending(e => e.GroupId).SetPage(page).ToList();
-        //}
 
         public List<Group> GetGroups(int accountId)
         {
@@ -106,7 +64,6 @@ namespace LoowooTech.Passport.Dao
                 db.SaveChanges();
                 AddRights(group);
             }
-            RemoveCache();
         }
 
         private void AddRights(Group group)
@@ -121,7 +78,6 @@ namespace LoowooTech.Passport.Dao
                 }
                 db.SaveChanges();
             }
-            RemoveCache();
         }
 
         private void RemoveRigths(int groupId)
@@ -134,7 +90,6 @@ namespace LoowooTech.Passport.Dao
                 }
                 db.SaveChanges();
             }
-            RemoveCache();
         }
 
         public void Update(Group group)
@@ -151,8 +106,6 @@ namespace LoowooTech.Passport.Dao
                 db.SaveChanges();
                 AddRights(group);
             }
-            RemoveCache();
-
         }
 
         public void Delete(int groupId)
@@ -170,20 +123,11 @@ namespace LoowooTech.Passport.Dao
 
                 RemoveRigths(groupId);
             }
-            RemoveCache();
         }
 
         public Group GetGroup(int groupId)
         {
             return GetAllGroups().FirstOrDefault(e => e.GroupId == groupId);
         }
-
-        //public List<GroupRight> GetGroupRights(int groupId)
-        //{
-        //    using (var db = GetDataContext())
-        //    {
-        //        return db.GroupRight.Where(e => e.GroupID == groupId).ToList();
-        //    }
-        //}
     }
 }

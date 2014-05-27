@@ -37,5 +37,6 @@ namespace LoowooTech.Passport.Model
 
         [Column("DELETED")]
         public short Deleted { get; set; }
+
     }
 }

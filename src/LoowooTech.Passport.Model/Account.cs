@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoowooTech.Passport.Model
 {
-
     [Table("ACCOUNT")]
     public class Account
     {

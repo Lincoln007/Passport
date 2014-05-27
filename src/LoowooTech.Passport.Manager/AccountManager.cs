@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using LoowooTech.Common;
 using LoowooTech.Passport.Dao;
 using LoowooTech.Passport.Model;
 
@@ -123,8 +124,33 @@ namespace LoowooTech.Passport.Manager
                 }
                 Dao.Create(account);
             }
+
+            UpdateCache(account);
         }
 
+        private void UpdateCache(Account account)
+        {
+            var department = Core.DepartmentManager.GetModel(account.DepartmentId);
+            var rank = Core.RankManager.GetModel(account.RankId);
+            var vAccount = new VAccount
+            {
+                AccountId = account.AccountId,
+                CreateTime = account.CreateTime,
+                Username = account.Username,
+                Deleted = account.Deleted,
+                Department = department == null ? null : department.Name,
+                Rank = rank == null ? null : rank.Name,
+                TrueName = account.TrueName,
+                Status = account.Status
+            };
+            UpdateCache(vAccount);
+        }
+
+        public void UpdateCache(VAccount account)
+        {
+            Cache.HSet("account_id", account.AccountId.ToString(), account);
+            Cache.HSet("account_name", account.TrueName + "_" + account.Department + "_" + account.Rank, account);
+        }
 
         public void Delete(int accountId)
         {
@@ -173,6 +199,7 @@ namespace LoowooTech.Passport.Manager
         {
             return Dao.GetAccountAgents(accountId);
         }
+
 
     }
 }

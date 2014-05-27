@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Common", "LoowooTech.Common\LoowooTech.Common.csproj", "{9824DEB3-7BF9-41ED-B254-78EC4814A068}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.Passport.Service", "LoowooTech.Passport.Service\LoowooTech.Passport.Service.csproj", "{8D7130A4-9741-4BC9-8960-2673F7885B88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9824DEB3-7BF9-41ED-B254-78EC4814A068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7130A4-9741-4BC9-8960-2673F7885B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7130A4-9741-4BC9-8960-2673F7885B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7130A4-9741-4BC9-8960-2673F7885B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7130A4-9741-4BC9-8960-2673F7885B88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

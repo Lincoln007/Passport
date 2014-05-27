@@ -19,7 +19,8 @@
         var dg = $("#rank-list");
         dg.edatagrid({
             idField:'ID',
-            url:'/admin/rank/getlist',
+            url: '/admin/rank/getlist',
+            saveUrl:'/admin/rank/update',
             updateUrl: '/admin/rank/update',
             destroyUrl: '/admin/rank/delete'
         });
