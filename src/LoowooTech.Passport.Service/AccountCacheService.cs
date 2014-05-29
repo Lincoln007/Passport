@@ -39,10 +39,10 @@ namespace LoowooTech.Passport.Service
             foreach (var account in result.List)
             {
                 var key = account.TrueName + "_" + account.Department + "_" + account.Rank;
+                Console.WriteLine(key);
                 manager.UpdateCache(account);
                 Cache.HSet("account_name", key, account);
                 Cache.HSet("account_id", account.AccountId.ToString(), account);
-                Console.WriteLine(key);
             }
             Console.WriteLine("========================================================");
         }

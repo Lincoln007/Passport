@@ -128,6 +128,18 @@ namespace LoowooTech.Passport.Manager
             UpdateCache(account);
         }
 
+        public void CreateCache()
+        {
+            var result = GetVAccounts(new AccountFilter { }, 1, int.MaxValue);
+            foreach (var account in result.List)
+            {
+                var key = account.TrueName + "_" + account.Department + "_" + account.Rank;
+                UpdateCache(account);
+                Cache.HSet("account_name", key, account);
+                Cache.HSet("account_id", account.AccountId.ToString(), account);
+            }
+        }
+
         private void UpdateCache(Account account)
         {
             var department = Core.DepartmentManager.GetModel(account.DepartmentId);

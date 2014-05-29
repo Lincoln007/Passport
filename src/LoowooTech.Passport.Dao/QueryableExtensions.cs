@@ -8,7 +8,7 @@ namespace LoowooTech.Passport.Dao
 {
     public static class QueryableExtensions
     {
-        public static IQueryable<T> SetPage<T>(this IOrderedQueryable<T> query, Paging page)
+        public static IQueryable<T> SetPage<T>(this IQueryable<T> query, Paging page)
         {
             if (page == null) return query;
 
