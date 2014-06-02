@@ -32,6 +32,10 @@ namespace LoowooTech.Passport.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Department model)
         {
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                throw new ArgumentNullException("部门名称没有填写！");
+            }
             Core.DepartmentManager.Save(model);
             return JsonSuccess(model);
         }

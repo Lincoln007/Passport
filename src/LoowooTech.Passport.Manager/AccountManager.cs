@@ -164,6 +164,13 @@ namespace LoowooTech.Passport.Manager
             Cache.HSet("account_name", account.TrueName + "_" + account.Department + "_" + account.Rank, account);
         }
 
+        public void RefreshCache()
+        {
+            Cache.Remove("account_name");
+            Cache.Remove("account_id");
+            CreateCache();
+        }
+
         public void Delete(int accountId)
         {
             Dao.Delete(accountId);

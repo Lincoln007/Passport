@@ -39,7 +39,7 @@
                             json = eval("(" + json + ")");
                             $(target).treegrid("remove", opts.editId);
                             var data = json.data;
-                            console.log(data);
+                            //console.log(data);
                             $(target).treegrid("append", { parent: data[opts.parentIdField], data: [data] });
                         } else {
                             //refresh
@@ -64,6 +64,7 @@
                 if (opts.onCancelEdit) opts.onCancelEdit.call(target, row);
             },
             onBeforeLoad: function (row, param) {
+                opts.editId = undefined;
                 if (opts.onBeforeLoad.call(target, row, param) == false) {
                     return false;
                 };
@@ -196,7 +197,7 @@
                     var newRecord = {};
                     newRecord[opts.idField] = 0;
                     newRecord[opts.parentIdField] = parentId;
-                    console.log(newRecord)
+                    //console.log(newRecord)
                     dg.treegrid("append", { parent: parentId, data: [newRecord] });
                     if (parentId > 0) {
                         var children = dg.treegrid("getChildren");

@@ -52,6 +52,7 @@ namespace LoowooTech.Passport.Manager
             if (id == 0) return;
 
             dao.Delete(id);
+            Core.AccountManager.RefreshCache();
         }
 
         public void Save(Department model)
@@ -69,6 +70,7 @@ namespace LoowooTech.Passport.Manager
             {
                 dao.Add(model);
             }
+            Core.AccountManager.RefreshCache();
         }
 
         //public IEnumerable<Department> GetAccountDepartments(Account account)
