@@ -10,8 +10,16 @@ namespace LoowooTech.Passport.Service
     {
         static void Main(string[] args)
         {
-            new AccountCacheService().Start();
-            Console.Read();
+            var service = new AccountCacheService();
+            service.Start();
+            while (true)
+            {
+                var cmd = Console.ReadLine();
+                if (cmd == "refresh")
+                {
+                    service.Refresh();
+                }
+            }
         }
     }
 }

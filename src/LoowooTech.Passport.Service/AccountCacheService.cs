@@ -12,39 +12,51 @@ namespace LoowooTech.Passport.Service
 {
     public class AccountCacheService
     {
+        public AccountCacheService()
+        {
+            _interval = int.Parse(AppSettings.Current["interval"]);
+        }
+
         private Thread _worker = null;
+
+        private int _interval = 1;
 
         public void Start()
         {
             _worker = new Thread(() =>
             {
-                try
+                while (true)
                 {
-                    DoWork();
+                    try
+                    {
+                        DoWork();
+                    }
+                    catch
+                    {
+                    }
+                    Thread.Sleep(1000 * 60 * _interval);
                 }
-                catch
-                {
-                }
-                Thread.Sleep(1000 * 60 * 5);
             });
             _worker.Start();
         }
 
+        public void Refresh()
+        {
+            DoWork();
+        }
+
         private void DoWork()
         {
-            Console.WriteLine("开始刷新缓存\t" + DateTime.Now.ToString());
-            Console.WriteLine("========================================================");
             var manager = new AccountManager();
             var result = manager.GetVAccounts(new AccountFilter { }, 1, int.MaxValue);
             foreach (var account in result.List)
             {
                 var key = account.TrueName + "_" + account.Department + "_" + account.Rank;
-                Console.WriteLine(key);
                 manager.UpdateCache(account);
                 Cache.HSet("account_name", key, account);
                 Cache.HSet("account_id", account.AccountId.ToString(), account);
             }
-            Console.WriteLine("========================================================");
+            Console.WriteLine("[刷新缓存]\t" + DateTime.Now.ToString() + "\t" + result.List.Count());
         }
     }
 }
