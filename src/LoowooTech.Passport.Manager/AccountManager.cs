@@ -161,7 +161,8 @@ namespace LoowooTech.Passport.Manager
         public void UpdateCache(VAccount account)
         {
             Cache.HSet("account_id", account.AccountId.ToString(), account);
-            Cache.HSet("account_name", account.TrueName + "_" + account.Department + "_" + account.Rank, account);
+            Cache.HSet("account_display_name", account.TrueName + "_" + account.Department, account);
+            Cache.HSet("account_name", account.TrueName, account);
         }
 
         public void RefreshCache()

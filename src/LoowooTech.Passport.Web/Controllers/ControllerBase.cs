@@ -29,7 +29,7 @@ namespace LoowooTech.Passport.Web.Controllers
             }
 
             filterContext.ExceptionHandled = true;
-            filterContext.HttpContext.Response.StatusCode = 500;
+            //filterContext.HttpContext.Response.StatusCode = 500;
             var ex = GetException(filterContext.Exception);
             filterContext.Result = Json(new
             {

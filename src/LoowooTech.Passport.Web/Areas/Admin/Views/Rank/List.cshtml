@@ -5,7 +5,7 @@
     <a href="#remove" class="easyui-linkbutton" iconcls="icon-add">删除</a>
     <a href="#reload" class="easyui-linkbutton" iconcls="icon-reload">刷新</a>
 </div>
-<table id="rank-list" toolbar="#rank-list-toolbar" 
+<table id="rank-list" toolbar="#rank-list-toolbar"
     border="false" singleselect="true" rownumbers="true" fit="true">
     <thead>
         <tr>
@@ -16,11 +16,12 @@
 </table>
 <script>
     $(function () {
+
         var dg = $("#rank-list");
         dg.edatagrid({
-            idField:'ID',
-            url: '/admin/rank/getlist',
-            saveUrl:'/admin/rank/update',
+            idField: 'ID',
+            url: '/admin/rank/getlist?_=' + Math.random(),
+            saveUrl: '/admin/rank/update',
             updateUrl: '/admin/rank/update',
             destroyUrl: '/admin/rank/delete'
         });
