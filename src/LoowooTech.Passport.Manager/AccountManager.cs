@@ -108,8 +108,8 @@ namespace LoowooTech.Passport.Manager
 
             if (account.AccountId > 0)
             {
-                var tmp = Dao.GetAccount(account.Username);
-                if (tmp.AccountId != account.AccountId)
+                var tmp = Dao.GetAccount(account.AccountId);
+                if (tmp != null && tmp.AccountId != account.AccountId)
                 {
                     throw new ArgumentException("用户名已被使用！");
                 }
@@ -133,10 +133,7 @@ namespace LoowooTech.Passport.Manager
             var result = GetVAccounts(new AccountFilter { }, 1, int.MaxValue);
             foreach (var account in result.List)
             {
-                var key = account.TrueName + "_" + account.Department + "_" + account.Rank;
                 UpdateCache(account);
-                Cache.HSet("account_name", key, account);
-                Cache.HSet("account_id", account.AccountId.ToString(), account);
             }
         }
 
@@ -161,13 +158,14 @@ namespace LoowooTech.Passport.Manager
         public void UpdateCache(VAccount account)
         {
             Cache.HSet("account_id", account.AccountId.ToString(), account);
-            Cache.HSet("account_display_name", account.TrueName + "_" + account.Department, account);
+            Cache.HSet("account_display_name", account.Department + "_" + account.Rank + "_" + account.TrueName, account);
             Cache.HSet("account_name", account.TrueName, account);
         }
 
         public void RefreshCache()
         {
             Cache.Remove("account_name");
+            Cache.Remove("account_display_name");
             Cache.Remove("account_id");
             CreateCache();
         }

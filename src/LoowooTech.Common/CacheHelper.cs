@@ -11,7 +11,7 @@ namespace LoowooTech.Common
     {
         private static RedisClient GetRedisClient()
         {
-            return new RedisClient();
+            return new RedisClient(AppSettings.Current["Cache_Host"]);
         }
 
         private static byte[] GetHashKey(string key)
