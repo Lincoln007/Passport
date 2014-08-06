@@ -219,5 +219,10 @@ namespace LoowooTech.Passport.Manager
         }
 
 
+
+        public List<VAccount> Search(Account temp)
+        {
+            return Dao.Search(temp);
+        }
     }
 }

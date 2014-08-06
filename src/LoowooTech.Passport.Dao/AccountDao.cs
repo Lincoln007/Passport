@@ -223,5 +223,29 @@ namespace LoowooTech.Passport.Dao
                 return GetAccounts(new AccountFilter { AccountIds = accountIds });
             }
         }
+
+        public List<VAccount> Search(Account temp)
+        {
+            using (var db = GetDataContext())
+            {
+                var query = db.VAccount.AsQueryable();
+                if (!string.IsNullOrEmpty(temp.Department))
+                {
+                    query = query.Where(e => e.Department == temp.Department);
+                }
+
+                if (!string.IsNullOrEmpty(temp.Rank))
+                {
+                    query = query.Where(e => e.Rank == temp.Rank);
+                }
+
+                if (!string.IsNullOrEmpty(temp.TrueName))
+                {
+                    query = query.Where(e => e.TrueName == temp.TrueName);
+                }
+
+                return query.ToList();
+            }
+        }
     }
 }

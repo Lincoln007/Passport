@@ -51,5 +51,52 @@ namespace LoowooTech.Passport.Web.Controllers
             Core.AccountManager.UpdateAccountAgents(token.AccountId, usernames);
             return JsonSuccess();
         }
+
+        public ActionResult GetAccountsByIds([AccessTokenBinder]AccessToken token, string accountIds)
+        {
+            var ids = accountIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(id=>int.Parse(id)).ToArray();
+            var result = Core.AccountManager.GetVAccounts(new AccountFilter { AccountIds = ids }, 1, int.MaxValue);
+
+            return Json(result.List.Select(e => new
+            {
+                e.TrueName,
+                e.Department,
+                e.Rank,
+                e.AccountId,
+                e.Username
+            }), JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult GetAccountsByDisplayNames([AccessTokenBinder]AccessToken token, string displayNames)
+        {
+            var result = new List<VAccount>();
+            var names = displayNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var displayName in names)
+            {
+                var nameDescs = displayName.Split('_');
+                var temp = new Account();
+                temp.Department = nameDescs[0];
+                if (nameDescs.Length > 1)
+                {
+                    temp.Rank = nameDescs[1];
+                }
+                if (nameDescs.Length > 2)
+                {
+                    temp.TrueName = nameDescs[2];
+                }
+
+                result.AddRange(Core.AccountManager.Search(temp));
+            }
+
+            return Json(result.Select(e => new
+            {
+                e.TrueName,
+                e.Department,
+                e.Rank,
+                e.AccountId,
+                e.Username
+            }), JsonRequestBehavior.AllowGet);
+        }
     }
 }
